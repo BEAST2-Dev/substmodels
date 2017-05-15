@@ -34,6 +34,6 @@ To use one of the standard models, import a nucleotide alignment in BEAUti, and 
 model pannel. Under the "substitution models" drop down box, you will find the models, just pick
 the one you want to use.
 
-![Package Manager](https://raw.githubusercontent.com/rbouckaert/substmodels/master/doc/useSSM.png)
+![BEAUti Site Model Panel](https://raw.githubusercontent.com/rbouckaert/substmodels/master/doc/useSSM.png)
 
 

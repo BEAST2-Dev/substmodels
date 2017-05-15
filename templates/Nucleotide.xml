@@ -56,7 +56,6 @@
             <connect srcID="Standard_F81.s:$(n)" targetID="tracelog" inputName="log" if="inlikelihood(Standard_F81.s:$(n))"/>
         </subtemplate>
 
-
 <!-- K80 = model: 010010 equal frequencies-->
 
         <subtemplate id="Standard_K80" class="substmodels.nucleotide.JC" mainid="Standard_K80.s:$(n)"
@@ -64,11 +63,13 @@
 	        	 substmodels.nucleotide.K80.rates,
     	    	 substmodels.nucleotide.K80.eigenSystem">
             <![CDATA[
-        <plugin spec="substmodels.nucleotide.K80" id="Standard_K80.s:$(n)">
+        <substModel spec="substmodels.nucleotide.K80" id="Standard_K80.s:$(n)">
             <parameter id="K80rates.s:$(n)" name="rates" value=" 1.0 1.0" lower="0.0" estimate="true"/>
-        </plugin>
+        </substModel>
 
-        <plugin id="K80RateDeltaExchanger.s:$(n)" spec="DeltaExchangeOperator" delta="0.1" weight="0.1" parameter="@K80rates.s:$(n)" weightvector=" 4 2"/>
+        <operator id="K80RateDeltaExchanger.s:$(n)" spec="DeltaExchangeOperator" delta="0.1" weight="0.1" parameter="@K80rates.s:$(n)">
+			<weightvector value=" 4 2" estimate="false" spec="parameter.IntegerParameter"/>
+        </operator>
 
 ]]>
 
@@ -89,15 +90,17 @@
 	        	 substmodels.nucleotide.HKY.rates,
     	    	 substmodels.nucleotide.HKY.eigenSystem">
             <![CDATA[
-        <plugin spec="substmodels.nucleotide.HKY" id="Standard_HKY.s:$(n)">
+        <substModel spec="substmodels.nucleotide.HKY" id="Standard_HKY.s:$(n)">
             <parameter id="HKYrates.s:$(n)" name="rates" value=" 1.0 1.0" lower="0.0" estimate="true"/>
             <frequencies id="HKYFreqs.s:$(n)" spec="Frequencies">
                 <frequencies id="HKYfreqParameter.s:$(n)" spec="parameter.RealParameter" dimension="4" value="0.25" lower="0" upper="1"/>
             </frequencies>
-        </plugin>
+        </substModel>
 
-        <plugin id="HKYRateDeltaExchanger.s:$(n)" spec="DeltaExchangeOperator" delta="0.1" weight="0.1" parameter="@HKYrates.s:$(n)" weightvector=" 4 2"/>
-        <plugin id="HKYFrequenciesExchanger.s:$(n)" spec="DeltaExchangeOperator" delta="0.01" weight="0.1" parameter="@HKYfreqParameter.s:$(n)"/>
+        <operator id="HKYRateDeltaExchanger.s:$(n)" spec="DeltaExchangeOperator" delta="0.1" weight="0.1" parameter="@HKYrates.s:$(n)">
+			<weightvector value=" 4 2" estimate="false" spec="parameter.IntegerParameter"/>
+        </operator>
+        <operator id="HKYFrequenciesExchanger.s:$(n)" spec="DeltaExchangeOperator" delta="0.01" weight="0.1" parameter="@HKYfreqParameter.s:$(n)"/>
 
 ]]>
 
@@ -124,11 +127,13 @@
 	        	 substmodels.nucleotide.TrNef.rates,
     	    	 substmodels.nucleotide.TrNef.eigenSystem">
             <![CDATA[
-        <plugin spec="substmodels.nucleotide.TrNef" id="Standard_TrNef.s:$(n)">
+        <substModel spec="substmodels.nucleotide.TrNef" id="Standard_TrNef.s:$(n)">
             <parameter id="TrNefrates.s:$(n)" name="rates" value=" 1.0 1.0 1.0" lower="0.0" estimate="true"/>
-        </plugin>
+        </substModel>
 
-        <plugin id="TrNefRateDeltaExchanger.s:$(n)" spec="DeltaExchangeOperator" delta="0.1" weight="0.1" parameter="@TrNefrates.s:$(n)" weightvector=" 4 1 1"/>
+        <operator id="TrNefRateDeltaExchanger.s:$(n)" spec="DeltaExchangeOperator" delta="0.1" weight="0.1" parameter="@TrNefrates.s:$(n)">
+			<weightvector value=" 4 1 1" estimate="false" spec="parameter.IntegerParameter"/>
+        </operator>
 
 ]]>
 
@@ -149,15 +154,17 @@
 	        	 substmodels.nucleotide.TrN.rates,
     	    	 substmodels.nucleotide.TrN.eigenSystem">
             <![CDATA[
-        <plugin spec="substmodels.nucleotide.TrN" id="Standard_TrN.s:$(n)">
+        <substModel spec="substmodels.nucleotide.TrN" id="Standard_TrN.s:$(n)">
             <parameter id="TrNrates.s:$(n)" name="rates" value=" 1.0 1.0 1.0" lower="0.0" estimate="true"/>
             <frequencies id="TrNFreqs.s:$(n)" spec="Frequencies">
                 <frequencies id="TrNfreqParameter.s:$(n)" spec="parameter.RealParameter" dimension="4" value="0.25" lower="0" upper="1"/>
             </frequencies>
-        </plugin>
+        </substModel>
 
-        <plugin id="TrNRateDeltaExchanger.s:$(n)" spec="DeltaExchangeOperator" delta="0.1" weight="0.1" parameter="@TrNrates.s:$(n)" weightvector=" 4 1 1"/>
-        <plugin id="TrNFrequenciesExchanger.s:$(n)" spec="DeltaExchangeOperator" delta="0.01" weight="0.1" parameter="@TrNfreqParameter.s:$(n)"/>
+        <operator id="TrNRateDeltaExchanger.s:$(n)" spec="DeltaExchangeOperator" delta="0.1" weight="0.1" parameter="@TrNrates.s:$(n)">
+			<weightvector value=" 4 1 1" estimate="false" spec="parameter.IntegerParameter"/>
+        </operator>
+        <operator id="TrNFrequenciesExchanger.s:$(n)" spec="DeltaExchangeOperator" delta="0.01" weight="0.1" parameter="@TrNfreqParameter.s:$(n)"/>
 
 ]]>
 
@@ -184,11 +191,13 @@
 	        	 substmodels.nucleotide.TPM1.rates,
     	    	 substmodels.nucleotide.TPM1.eigenSystem">
             <![CDATA[
-        <plugin spec="substmodels.nucleotide.TPM1" id="Standard_TPM1.s:$(n)">
+        <substModel spec="substmodels.nucleotide.TPM1" id="Standard_TPM1.s:$(n)">
             <parameter id="TPM1rates.s:$(n)" name="rates" value=" 1.0 1.0 1.0" lower="0.0" estimate="true"/>
-        </plugin>
+        </substModel>
 
-        <plugin id="TPM1RateDeltaExchanger.s:$(n)" spec="DeltaExchangeOperator" delta="0.1" weight="0.1" parameter="@TPM1rates.s:$(n)" weightvector=" 2 2 2"/>
+        <operator id="TPM1RateDeltaExchanger.s:$(n)" spec="DeltaExchangeOperator" delta="0.1" weight="0.1" parameter="@TPM1rates.s:$(n)">
+			<weightvector value=" 2 2 2" estimate="false" spec="parameter.IntegerParameter"/>
+        </operator>
 
 ]]>
 
@@ -209,15 +218,17 @@
 	        	 substmodels.nucleotide.TPM1uf.rates,
     	    	 substmodels.nucleotide.TPM1uf.eigenSystem">
             <![CDATA[
-        <plugin spec="substmodels.nucleotide.TPM1uf" id="Standard_TPM1uf.s:$(n)">
+        <substModel spec="substmodels.nucleotide.TPM1uf" id="Standard_TPM1uf.s:$(n)">
             <parameter id="TPM1ufrates.s:$(n)" name="rates" value=" 1.0 1.0 1.0" lower="0.0" estimate="true"/>
             <frequencies id="TPM1ufFreqs.s:$(n)" spec="Frequencies">
                 <frequencies id="TPM1uffreqParameter.s:$(n)" spec="parameter.RealParameter" dimension="4" value="0.25" lower="0" upper="1"/>
             </frequencies>
-        </plugin>
+        </substModel>
 
-        <plugin id="TPM1ufRateDeltaExchanger.s:$(n)" spec="DeltaExchangeOperator" delta="0.1" weight="0.1" parameter="@TPM1ufrates.s:$(n)" weightvector=" 2 2 2"/>
-        <plugin id="TPM1ufFrequenciesExchanger.s:$(n)" spec="DeltaExchangeOperator" delta="0.01" weight="0.1" parameter="@TPM1uffreqParameter.s:$(n)"/>
+        <operator id="TPM1ufRateDeltaExchanger.s:$(n)" spec="DeltaExchangeOperator" delta="0.1" weight="0.1" parameter="@TPM1ufrates.s:$(n)">
+			<weightvector value=" 2 2 2" estimate="false" spec="parameter.IntegerParameter"/>
+        </operator>
+        <operator id="TPM1ufFrequenciesExchanger.s:$(n)" spec="DeltaExchangeOperator" delta="0.01" weight="0.1" parameter="@TPM1uffreqParameter.s:$(n)"/>
 
 ]]>
 
@@ -244,11 +255,13 @@
 	        	 substmodels.nucleotide.TPM2.rates,
     	    	 substmodels.nucleotide.TPM2.eigenSystem">
             <![CDATA[
-        <plugin spec="substmodels.nucleotide.TPM2" id="Standard_TPM2.s:$(n)">
+        <substModel spec="substmodels.nucleotide.TPM2" id="Standard_TPM2.s:$(n)">
             <parameter id="TPM2rates.s:$(n)" name="rates" value=" 1.0 1.0 1.0" lower="0.0" estimate="true"/>
-        </plugin>
+        </substModel>
 
-        <plugin id="TPM2RateDeltaExchanger.s:$(n)" spec="DeltaExchangeOperator" delta="0.1" weight="0.1" parameter="@TPM2rates.s:$(n)" weightvector=" 2 2 2"/>
+        <operator id="TPM2RateDeltaExchanger.s:$(n)" spec="DeltaExchangeOperator" delta="0.1" weight="0.1" parameter="@TPM2rates.s:$(n)">
+			<weightvector value=" 2 2 2" estimate="false" spec="parameter.IntegerParameter"/>
+        </operator>
 
 ]]>
 
@@ -269,15 +282,17 @@
 	        	 substmodels.nucleotide.TPM2uf.rates,
     	    	 substmodels.nucleotide.TPM2uf.eigenSystem">
             <![CDATA[
-        <plugin spec="substmodels.nucleotide.TPM2uf" id="Standard_TPM2uf.s:$(n)">
+        <substModel spec="substmodels.nucleotide.TPM2uf" id="Standard_TPM2uf.s:$(n)">
             <parameter id="TPM2ufrates.s:$(n)" name="rates" value=" 1.0 1.0 1.0" lower="0.0" estimate="true"/>
             <frequencies id="TPM2ufFreqs.s:$(n)" spec="Frequencies">
                 <frequencies id="TPM2uffreqParameter.s:$(n)" spec="parameter.RealParameter" dimension="4" value="0.25" lower="0" upper="1"/>
             </frequencies>
-        </plugin>
+        </substModel>
 
-        <plugin id="TPM2ufRateDeltaExchanger.s:$(n)" spec="DeltaExchangeOperator" delta="0.1" weight="0.1" parameter="@TPM2ufrates.s:$(n)" weightvector=" 2 2 2"/>
-        <plugin id="TPM2ufFrequenciesExchanger.s:$(n)" spec="DeltaExchangeOperator" delta="0.01" weight="0.1" parameter="@TPM2uffreqParameter.s:$(n)"/>
+        <operator id="TPM2ufRateDeltaExchanger.s:$(n)" spec="DeltaExchangeOperator" delta="0.1" weight="0.1" parameter="@TPM2ufrates.s:$(n)">
+			<weightvector value=" 2 2 2" estimate="false" spec="parameter.IntegerParameter"/>
+        </operator>
+        <operator id="TPM2ufFrequenciesExchanger.s:$(n)" spec="DeltaExchangeOperator" delta="0.01" weight="0.1" parameter="@TPM2uffreqParameter.s:$(n)"/>
 
 ]]>
 
@@ -304,11 +319,13 @@
 	        	 substmodels.nucleotide.TPM3.rates,
     	    	 substmodels.nucleotide.TPM3.eigenSystem">
             <![CDATA[
-        <plugin spec="substmodels.nucleotide.TPM3" id="Standard_TPM3.s:$(n)">
+        <substModel spec="substmodels.nucleotide.TPM3" id="Standard_TPM3.s:$(n)">
             <parameter id="TPM3rates.s:$(n)" name="rates" value=" 1.0 1.0 1.0" lower="0.0" estimate="true"/>
-        </plugin>
+        </substModel>
 
-        <plugin id="TPM3RateDeltaExchanger.s:$(n)" spec="DeltaExchangeOperator" delta="0.1" weight="0.1" parameter="@TPM3rates.s:$(n)" weightvector=" 2 2 2"/>
+        <operator id="TPM3RateDeltaExchanger.s:$(n)" spec="DeltaExchangeOperator" delta="0.1" weight="0.1" parameter="@TPM3rates.s:$(n)">
+			<weightvector value=" 2 2 2" estimate="false" spec="parameter.IntegerParameter"/>
+        </operator>
 
 ]]>
 
@@ -329,15 +346,17 @@
 	        	 substmodels.nucleotide.TPM3uf.rates,
     	    	 substmodels.nucleotide.TPM3uf.eigenSystem">
             <![CDATA[
-        <plugin spec="substmodels.nucleotide.TPM3uf" id="Standard_TPM3uf.s:$(n)">
+        <substModel spec="substmodels.nucleotide.TPM3uf" id="Standard_TPM3uf.s:$(n)">
             <parameter id="TPM3ufrates.s:$(n)" name="rates" value=" 1.0 1.0 1.0" lower="0.0" estimate="true"/>
             <frequencies id="TPM3ufFreqs.s:$(n)" spec="Frequencies">
                 <frequencies id="TPM3uffreqParameter.s:$(n)" spec="parameter.RealParameter" dimension="4" value="0.25" lower="0" upper="1"/>
             </frequencies>
-        </plugin>
+        </substModel>
 
-        <plugin id="TPM3ufRateDeltaExchanger.s:$(n)" spec="DeltaExchangeOperator" delta="0.1" weight="0.1" parameter="@TPM3ufrates.s:$(n)" weightvector=" 2 2 2"/>
-        <plugin id="TPM3ufFrequenciesExchanger.s:$(n)" spec="DeltaExchangeOperator" delta="0.01" weight="0.1" parameter="@TPM3uffreqParameter.s:$(n)"/>
+        <operator id="TPM3ufRateDeltaExchanger.s:$(n)" spec="DeltaExchangeOperator" delta="0.1" weight="0.1" parameter="@TPM3ufrates.s:$(n)">
+			<weightvector value=" 2 2 2" estimate="false" spec="parameter.IntegerParameter"/>
+        </operator>
+        <operator id="TPM3ufFrequenciesExchanger.s:$(n)" spec="DeltaExchangeOperator" delta="0.01" weight="0.1" parameter="@TPM3uffreqParameter.s:$(n)"/>
 
 ]]>
 
@@ -364,11 +383,13 @@
 	        	 substmodels.nucleotide.TIM1.rates,
     	    	 substmodels.nucleotide.TIM1.eigenSystem">
             <![CDATA[
-        <plugin spec="substmodels.nucleotide.TIM1" id="Standard_TIM1.s:$(n)">
+        <substModel spec="substmodels.nucleotide.TIM1" id="Standard_TIM1.s:$(n)">
             <parameter id="TIM1rates.s:$(n)" name="rates" value=" 1.0 1.0 1.0 1.0" lower="0.0" estimate="true"/>
-        </plugin>
+        </substModel>
 
-        <plugin id="TIM1RateDeltaExchanger.s:$(n)" spec="DeltaExchangeOperator" delta="0.1" weight="0.1" parameter="@TIM1rates.s:$(n)" weightvector=" 2 1 2 1"/>
+        <operator id="TIM1RateDeltaExchanger.s:$(n)" spec="DeltaExchangeOperator" delta="0.1" weight="0.1" parameter="@TIM1rates.s:$(n)">
+			<weightvector value=" 2 1 2 1" estimate="false" spec="parameter.IntegerParameter"/>
+        </operator>
 
 ]]>
 
@@ -389,15 +410,17 @@
 	        	 substmodels.nucleotide.TIM1uf.rates,
     	    	 substmodels.nucleotide.TIM1uf.eigenSystem">
             <![CDATA[
-        <plugin spec="substmodels.nucleotide.TIM1uf" id="Standard_TIM1uf.s:$(n)">
+        <substModel spec="substmodels.nucleotide.TIM1uf" id="Standard_TIM1uf.s:$(n)">
             <parameter id="TIM1ufrates.s:$(n)" name="rates" value=" 1.0 1.0 1.0 1.0" lower="0.0" estimate="true"/>
             <frequencies id="TIM1ufFreqs.s:$(n)" spec="Frequencies">
                 <frequencies id="TIM1uffreqParameter.s:$(n)" spec="parameter.RealParameter" dimension="4" value="0.25" lower="0" upper="1"/>
             </frequencies>
-        </plugin>
+        </substModel>
 
-        <plugin id="TIM1ufRateDeltaExchanger.s:$(n)" spec="DeltaExchangeOperator" delta="0.1" weight="0.1" parameter="@TIM1ufrates.s:$(n)" weightvector=" 2 1 2 1"/>
-        <plugin id="TIM1ufFrequenciesExchanger.s:$(n)" spec="DeltaExchangeOperator" delta="0.01" weight="0.1" parameter="@TIM1uffreqParameter.s:$(n)"/>
+        <operator id="TIM1ufRateDeltaExchanger.s:$(n)" spec="DeltaExchangeOperator" delta="0.1" weight="0.1" parameter="@TIM1ufrates.s:$(n)">
+			<weightvector value=" 2 1 2 1" estimate="false" spec="parameter.IntegerParameter"/>
+        </operator>
+        <operator id="TIM1ufFrequenciesExchanger.s:$(n)" spec="DeltaExchangeOperator" delta="0.01" weight="0.1" parameter="@TIM1uffreqParameter.s:$(n)"/>
 
 ]]>
 
@@ -424,11 +447,13 @@
 	        	 substmodels.nucleotide.TIM2.rates,
     	    	 substmodels.nucleotide.TIM2.eigenSystem">
             <![CDATA[
-        <plugin spec="substmodels.nucleotide.TIM2" id="Standard_TIM2.s:$(n)">
+        <substModel spec="substmodels.nucleotide.TIM2" id="Standard_TIM2.s:$(n)">
             <parameter id="TIM2rates.s:$(n)" name="rates" value=" 1.0 1.0 1.0 1.0" lower="0.0" estimate="true"/>
-        </plugin>
+        </substModel>
 
-        <plugin id="TIM2RateDeltaExchanger.s:$(n)" spec="DeltaExchangeOperator" delta="0.1" weight="0.1" parameter="@TIM2rates.s:$(n)" weightvector=" 2 1 2 1"/>
+        <operator id="TIM2RateDeltaExchanger.s:$(n)" spec="DeltaExchangeOperator" delta="0.1" weight="0.1" parameter="@TIM2rates.s:$(n)">
+			<weightvector value=" 2 1 2 1" estimate="false" spec="parameter.IntegerParameter"/>
+        </operator>
 
 ]]>
 
@@ -449,15 +474,17 @@
 	        	 substmodels.nucleotide.TIM2uf.rates,
     	    	 substmodels.nucleotide.TIM2uf.eigenSystem">
             <![CDATA[
-        <plugin spec="substmodels.nucleotide.TIM2uf" id="Standard_TIM2uf.s:$(n)">
+        <substModel spec="substmodels.nucleotide.TIM2uf" id="Standard_TIM2uf.s:$(n)">
             <parameter id="TIM2ufrates.s:$(n)" name="rates" value=" 1.0 1.0 1.0 1.0" lower="0.0" estimate="true"/>
             <frequencies id="TIM2ufFreqs.s:$(n)" spec="Frequencies">
                 <frequencies id="TIM2uffreqParameter.s:$(n)" spec="parameter.RealParameter" dimension="4" value="0.25" lower="0" upper="1"/>
             </frequencies>
-        </plugin>
+        </substModel>
 
-        <plugin id="TIM2ufRateDeltaExchanger.s:$(n)" spec="DeltaExchangeOperator" delta="0.1" weight="0.1" parameter="@TIM2ufrates.s:$(n)" weightvector=" 2 1 2 1"/>
-        <plugin id="TIM2ufFrequenciesExchanger.s:$(n)" spec="DeltaExchangeOperator" delta="0.01" weight="0.1" parameter="@TIM2uffreqParameter.s:$(n)"/>
+        <operator id="TIM2ufRateDeltaExchanger.s:$(n)" spec="DeltaExchangeOperator" delta="0.1" weight="0.1" parameter="@TIM2ufrates.s:$(n)">
+			<weightvector value=" 2 1 2 1" estimate="false" spec="parameter.IntegerParameter"/>
+        </operator>
+        <operator id="TIM2ufFrequenciesExchanger.s:$(n)" spec="DeltaExchangeOperator" delta="0.01" weight="0.1" parameter="@TIM2uffreqParameter.s:$(n)"/>
 
 ]]>
 
@@ -484,11 +511,13 @@
 	        	 substmodels.nucleotide.TIM3.rates,
     	    	 substmodels.nucleotide.TIM3.eigenSystem">
             <![CDATA[
-        <plugin spec="substmodels.nucleotide.TIM3" id="Standard_TIM3.s:$(n)">
+        <substModel spec="substmodels.nucleotide.TIM3" id="Standard_TIM3.s:$(n)">
             <parameter id="TIM3rates.s:$(n)" name="rates" value=" 1.0 1.0 1.0 1.0" lower="0.0" estimate="true"/>
-        </plugin>
+        </substModel>
 
-        <plugin id="TIM3RateDeltaExchanger.s:$(n)" spec="DeltaExchangeOperator" delta="0.1" weight="0.1" parameter="@TIM3rates.s:$(n)" weightvector=" 2 1 2 1"/>
+        <operator id="TIM3RateDeltaExchanger.s:$(n)" spec="DeltaExchangeOperator" delta="0.1" weight="0.1" parameter="@TIM3rates.s:$(n)">
+			<weightvector value=" 2 1 2 1" estimate="false" spec="parameter.IntegerParameter"/>
+        </operator>
 
 ]]>
 
@@ -509,15 +538,17 @@
 	        	 substmodels.nucleotide.TIM3uf.rates,
     	    	 substmodels.nucleotide.TIM3uf.eigenSystem">
             <![CDATA[
-        <plugin spec="substmodels.nucleotide.TIM3uf" id="Standard_TIM3uf.s:$(n)">
+        <substModel spec="substmodels.nucleotide.TIM3uf" id="Standard_TIM3uf.s:$(n)">
             <parameter id="TIM3ufrates.s:$(n)" name="rates" value=" 1.0 1.0 1.0 1.0" lower="0.0" estimate="true"/>
             <frequencies id="TIM3ufFreqs.s:$(n)" spec="Frequencies">
                 <frequencies id="TIM3uffreqParameter.s:$(n)" spec="parameter.RealParameter" dimension="4" value="0.25" lower="0" upper="1"/>
             </frequencies>
-        </plugin>
+        </substModel>
 
-        <plugin id="TIM3ufRateDeltaExchanger.s:$(n)" spec="DeltaExchangeOperator" delta="0.1" weight="0.1" parameter="@TIM3ufrates.s:$(n)" weightvector=" 2 1 2 1"/>
-        <plugin id="TIM3ufFrequenciesExchanger.s:$(n)" spec="DeltaExchangeOperator" delta="0.01" weight="0.1" parameter="@TIM3uffreqParameter.s:$(n)"/>
+        <operator id="TIM3ufRateDeltaExchanger.s:$(n)" spec="DeltaExchangeOperator" delta="0.1" weight="0.1" parameter="@TIM3ufrates.s:$(n)">
+			<weightvector value=" 2 1 2 1" estimate="false" spec="parameter.IntegerParameter"/>
+        </operator>
+        <operator id="TIM3ufFrequenciesExchanger.s:$(n)" spec="DeltaExchangeOperator" delta="0.01" weight="0.1" parameter="@TIM3uffreqParameter.s:$(n)"/>
 
 ]]>
 
@@ -544,11 +575,13 @@
 	        	 substmodels.nucleotide.TVMef.rates,
     	    	 substmodels.nucleotide.TVMef.eigenSystem">
             <![CDATA[
-        <plugin spec="substmodels.nucleotide.TVMef" id="Standard_TVMef.s:$(n)">
+        <substModel spec="substmodels.nucleotide.TVMef" id="Standard_TVMef.s:$(n)">
             <parameter id="TVMefrates.s:$(n)" name="rates" value=" 1.0 1.0 1.0 1.0 1.0" lower="0.0" estimate="true"/>
-        </plugin>
+        </substModel>
 
-        <plugin id="TVMefRateDeltaExchanger.s:$(n)" spec="DeltaExchangeOperator" delta="0.1" weight="0.1" parameter="@TVMefrates.s:$(n)" weightvector=" 1 2 1 1 1"/>
+        <operator id="TVMefRateDeltaExchanger.s:$(n)" spec="DeltaExchangeOperator" delta="0.1" weight="0.1" parameter="@TVMefrates.s:$(n)">
+			<weightvector value=" 1 2 1 1 1" estimate="false" spec="parameter.IntegerParameter"/>
+        </operator>
 
 ]]>
 
@@ -569,15 +602,17 @@
 	        	 substmodels.nucleotide.TVM.rates,
     	    	 substmodels.nucleotide.TVM.eigenSystem">
             <![CDATA[
-        <plugin spec="substmodels.nucleotide.TVM" id="Standard_TVM.s:$(n)">
+        <substModel spec="substmodels.nucleotide.TVM" id="Standard_TVM.s:$(n)">
             <parameter id="TVMrates.s:$(n)" name="rates" value=" 1.0 1.0 1.0 1.0 1.0" lower="0.0" estimate="true"/>
             <frequencies id="TVMFreqs.s:$(n)" spec="Frequencies">
                 <frequencies id="TVMfreqParameter.s:$(n)" spec="parameter.RealParameter" dimension="4" value="0.25" lower="0" upper="1"/>
             </frequencies>
-        </plugin>
+        </substModel>
 
-        <plugin id="TVMRateDeltaExchanger.s:$(n)" spec="DeltaExchangeOperator" delta="0.1" weight="0.1" parameter="@TVMrates.s:$(n)" weightvector=" 1 2 1 1 1"/>
-        <plugin id="TVMFrequenciesExchanger.s:$(n)" spec="DeltaExchangeOperator" delta="0.01" weight="0.1" parameter="@TVMfreqParameter.s:$(n)"/>
+        <operator id="TVMRateDeltaExchanger.s:$(n)" spec="DeltaExchangeOperator" delta="0.1" weight="0.1" parameter="@TVMrates.s:$(n)">
+			<weightvector value=" 1 2 1 1 1" estimate="false" spec="parameter.IntegerParameter"/>
+        </operator>
+        <operator id="TVMFrequenciesExchanger.s:$(n)" spec="DeltaExchangeOperator" delta="0.01" weight="0.1" parameter="@TVMfreqParameter.s:$(n)"/>
 
 ]]>
 
@@ -604,11 +639,13 @@
 	        	 substmodels.nucleotide.SYM.rates,
     	    	 substmodels.nucleotide.SYM.eigenSystem">
             <![CDATA[
-        <plugin spec="substmodels.nucleotide.SYM" id="Standard_SYM.s:$(n)">
+        <substModel spec="substmodels.nucleotide.SYM" id="Standard_SYM.s:$(n)">
             <parameter id="SYMrates.s:$(n)" name="rates" value=" 1.0 1.0 1.0 1.0 1.0 1.0" lower="0.0" estimate="true"/>
-        </plugin>
+        </substModel>
 
-        <plugin id="SYMRateDeltaExchanger.s:$(n)" spec="DeltaExchangeOperator" delta="0.1" weight="0.1" parameter="@SYMrates.s:$(n)" weightvector=" 1 1 1 1 1 1"/>
+        <operator id="SYMRateDeltaExchanger.s:$(n)" spec="DeltaExchangeOperator" delta="0.1" weight="0.1" parameter="@SYMrates.s:$(n)">
+			<weightvector value=" 1 1 1 1 1 1" estimate="false" spec="parameter.IntegerParameter"/>
+        </operator>
 
 ]]>
 
@@ -629,15 +666,17 @@
 	        	 substmodels.nucleotide.GTR.rates,
     	    	 substmodels.nucleotide.GTR.eigenSystem">
             <![CDATA[
-        <plugin spec="substmodels.nucleotide.GTR" id="Standard_GTR.s:$(n)">
+        <substModel spec="substmodels.nucleotide.GTR" id="Standard_GTR.s:$(n)">
             <parameter id="GTRrates.s:$(n)" name="rates" value=" 1.0 1.0 1.0 1.0 1.0 1.0" lower="0.0" estimate="true"/>
             <frequencies id="GTRFreqs.s:$(n)" spec="Frequencies">
                 <frequencies id="GTRfreqParameter.s:$(n)" spec="parameter.RealParameter" dimension="4" value="0.25" lower="0" upper="1"/>
             </frequencies>
-        </plugin>
+        </substModel>
 
-        <plugin id="GTRRateDeltaExchanger.s:$(n)" spec="DeltaExchangeOperator" delta="0.1" weight="0.1" parameter="@GTRrates.s:$(n)" weightvector=" 1 1 1 1 1 1"/>
-        <plugin id="GTRFrequenciesExchanger.s:$(n)" spec="DeltaExchangeOperator" delta="0.01" weight="0.1" parameter="@GTRfreqParameter.s:$(n)"/>
+        <operator id="GTRRateDeltaExchanger.s:$(n)" spec="DeltaExchangeOperator" delta="0.1" weight="0.1" parameter="@GTRrates.s:$(n)">
+			<weightvector value=" 1 1 1 1 1 1" estimate="false" spec="parameter.IntegerParameter"/>
+        </operator>
+        <operator id="GTRFrequenciesExchanger.s:$(n)" spec="DeltaExchangeOperator" delta="0.01" weight="0.1" parameter="@GTRfreqParameter.s:$(n)"/>
 
 ]]>
 
@@ -656,7 +695,6 @@
             <connect srcID="GTRfreqParameter.s:$(n)" targetID="tracelog" inputName="log" if="inlikelihood(Standard_GTR.s:$(n))"/>
             <connect srcID="Standard_GTR.s:$(n)" targetID="tracelog" inputName="log" if="inlikelihood(Standard_GTR.s:$(n))"/>
         </subtemplate>
-
     </mergewith>
     
     
