@@ -1,0 +1,575 @@
+<beast version='2.0'
+       namespace='beast.app.beauti:beast.core:beast.evolution.branchratemodel:beast.evolution.speciation:beast.evolution.tree.coalescent:beast.core.util:beast.evolution.nuc:beast.evolution.operators:beast.evolution.sitemodel:beast.evolution.substitutionmodel:beast.evolution.likelihood:beast.evolution:beast.math.distributions'>
+
+       
+       
+       
+    <mergewith point='substModelTemplates'>
+    
+
+    
+
+        <!-- substitution models -->
+
+
+<!-- JC = model: 000000 equal frequencies-->
+
+        <subtemplate id="Standard_JC" class="substmodels.nucleotide.JC" mainid="Standard_JC.s:$(n)">
+            <![CDATA[
+        <plugin spec="substmodels.nucleotide.JC" id="Standard_JC.s:$(n)">
+            <parameter id="JCrates.s:$(n)" name="rates" value=" 1.0" lower="0.0" estimate="false"/>
+        </plugin>
+
+]]>
+        </subtemplate>
+
+<!-- F81 = model: 000000 unequal frequencies-->
+
+        <subtemplate id="Standard_F81" class="substmodels.nucleotide.JC" mainid="Standard_F81.s:$(n)">
+            <![CDATA[
+        <plugin spec="substmodels.nucleotide.F81" id="Standard_F81.s:$(n)">
+            <parameter id="F81rates.s:$(n)" name="rates" value=" 1.0" lower="0.0" estimate="false"/>
+            <frequencies id="F81Freqs.s:$(n)" spec="Frequencies">
+                <frequencies id="F81freqParameter.s:$(n)" spec="parameter.RealParameter" dimension="4" value="0.25" lower="0" upper="1"/>
+            </frequencies>
+        </plugin>
+
+        <plugin id="F81FrequenciesExchanger.s:$(n)" spec="DeltaExchangeOperator" delta="0.01" weight="0.1" parameter="@F81freqParameter.s:$(n)"/>
+
+]]>
+
+            <connect srcID="F81freqParameter.s:$(n)" targetID="state" inputName="stateNode" if="inlikelihood(Standard_F81.s:$(n))"/>
+
+            <connect srcID="F81FrequenciesExchanger.s:$(n)" targetID="mcmc" inputName="operator"
+                     if="inlikelihood(Standard_F81.s:$(n))">
+                Exchange values of frequencies of partition s:$(n)
+            </connect>
+
+            <connect srcID="F81freqParameter.s:$(n)" targetID="tracelog" inputName="log" if="inlikelihood(Standard_F81.s:$(n))"/>
+        </subtemplate>
+
+<!-- K80 = model: 010010 equal frequencies-->
+
+        <subtemplate id="Standard_K80" class="substmodels.nucleotide.JC" mainid="Standard_K80.s:$(n)">
+            <![CDATA[
+        <plugin spec="substmodels.nucleotide.K80" id="Standard_K80.s:$(n)">
+            <parameter id="K80rates.s:$(n)" name="rates" value=" 1.0 1.0" lower="0.0" estimate="true"/>
+        </plugin>
+
+        <plugin id="K80RateDeltaExchanger.s:$(n)" spec="DeltaExchangeOperator" delta="0.1" weight="0.1" parameter="@K80rates.s:$(n)" weightvector=" 4 2"/>
+
+]]>
+
+            <connect srcID="K80rates.s:$(n)" targetID="state" inputName="stateNode" if="inlikelihood(Standard_K80.s:$(n))"/>
+
+            <connect srcID="K80RateDeltaExchanger.s:$(n)" targetID="mcmc" inputName="operator"
+                     if="inlikelihood(Standard_K80.s:$(n))">Delta exchange rates parameter for K80 model at partition s:$(n)
+            </connect>
+
+            <connect srcID="Standard_K80rates.s:$(n)" targetID="tracelog" inputName="log" if="inlikelihood(K80.s:$(n))"/>
+        </subtemplate>
+
+<!-- HKY = model: 010010 unequal frequencies-->
+
+        <subtemplate id="Standard_HKY" class="substmodels.nucleotide.JC" mainid="Standard_HKY.s:$(n)">
+            <![CDATA[
+        <plugin spec="substmodels.nucleotide.HKY" id="Standard_HKY.s:$(n)">
+            <parameter id="HKYrates.s:$(n)" name="rates" value=" 1.0 1.0" lower="0.0" estimate="true"/>
+            <frequencies id="HKYFreqs.s:$(n)" spec="Frequencies">
+                <frequencies id="HKYfreqParameter.s:$(n)" spec="parameter.RealParameter" dimension="4" value="0.25" lower="0" upper="1"/>
+            </frequencies>
+        </plugin>
+
+        <plugin id="HKYRateDeltaExchanger.s:$(n)" spec="DeltaExchangeOperator" delta="0.1" weight="0.1" parameter="@HKYrates.s:$(n)" weightvector=" 4 2"/>
+        <plugin id="HKYFrequenciesExchanger.s:$(n)" spec="DeltaExchangeOperator" delta="0.01" weight="0.1" parameter="@HKYfreqParameter.s:$(n)"/>
+
+]]>
+
+            <connect srcID="HKYrates.s:$(n)" targetID="state" inputName="stateNode" if="inlikelihood(Standard_HKY.s:$(n))"/>
+            <connect srcID="HKYfreqParameter.s:$(n)" targetID="state" inputName="stateNode" if="inlikelihood(Standard_HKY.s:$(n))"/>
+
+            <connect srcID="HKYRateDeltaExchanger.s:$(n)" targetID="mcmc" inputName="operator"
+                     if="inlikelihood(Standard_HKY.s:$(n))">Delta exchange rates parameter for HKY model at partition s:$(n)
+            </connect>
+            <connect srcID="HKYFrequenciesExchanger.s:$(n)" targetID="mcmc" inputName="operator"
+                     if="inlikelihood(Standard_HKY.s:$(n))">
+                Exchange values of frequencies of partition s:$(n)
+            </connect>
+
+            <connect srcID="HKYrates.s:$(n)" targetID="tracelog" inputName="log" if="inlikelihood(Standard_HKY.s:$(n))"/>
+            <connect srcID="HKYfreqParameter.s:$(n)" targetID="tracelog" inputName="log" if="inlikelihood(Standard_HKY.s:$(n))"/>
+        </subtemplate>
+
+<!-- TrNef = model: 010020 equal frequencies-->
+
+        <subtemplate id="Standard_TrNef" class="substmodels.nucleotide.JC" mainid="Standard_TrNef.s:$(n)">
+            <![CDATA[
+        <plugin spec="substmodels.nucleotide.TrNef" id="Standard_TrNef.s:$(n)">
+            <parameter id="TrNefrates.s:$(n)" name="rates" value=" 1.0 1.0 1.0" lower="0.0" estimate="true"/>
+        </plugin>
+
+        <plugin id="TrNefRateDeltaExchanger.s:$(n)" spec="DeltaExchangeOperator" delta="0.1" weight="0.1" parameter="@TrNefrates.s:$(n)" weightvector=" 4 1 1"/>
+
+]]>
+
+            <connect srcID="TrNefrates.s:$(n)" targetID="state" inputName="stateNode" if="inlikelihood(Standard_TrNef.s:$(n))"/>
+
+            <connect srcID="TrNefRateDeltaExchanger.s:$(n)" targetID="mcmc" inputName="operator"
+                     if="inlikelihood(Standard_TrNef.s:$(n))">Delta exchange rates parameter for TrNef model at partition s:$(n)
+            </connect>
+
+            <connect srcID="Standard_TrNefrates.s:$(n)" targetID="tracelog" inputName="log" if="inlikelihood(TrNef.s:$(n))"/>
+        </subtemplate>
+
+<!-- TrN = model: 010020 unequal frequencies-->
+
+        <subtemplate id="Standard_TrN" class="substmodels.nucleotide.JC" mainid="Standard_TrN.s:$(n)">
+            <![CDATA[
+        <plugin spec="substmodels.nucleotide.TrN" id="Standard_TrN.s:$(n)">
+            <parameter id="TrNrates.s:$(n)" name="rates" value=" 1.0 1.0 1.0" lower="0.0" estimate="true"/>
+            <frequencies id="TrNFreqs.s:$(n)" spec="Frequencies">
+                <frequencies id="TrNfreqParameter.s:$(n)" spec="parameter.RealParameter" dimension="4" value="0.25" lower="0" upper="1"/>
+            </frequencies>
+        </plugin>
+
+        <plugin id="TrNRateDeltaExchanger.s:$(n)" spec="DeltaExchangeOperator" delta="0.1" weight="0.1" parameter="@TrNrates.s:$(n)" weightvector=" 4 1 1"/>
+        <plugin id="TrNFrequenciesExchanger.s:$(n)" spec="DeltaExchangeOperator" delta="0.01" weight="0.1" parameter="@TrNfreqParameter.s:$(n)"/>
+
+]]>
+
+            <connect srcID="TrNrates.s:$(n)" targetID="state" inputName="stateNode" if="inlikelihood(Standard_TrN.s:$(n))"/>
+            <connect srcID="TrNfreqParameter.s:$(n)" targetID="state" inputName="stateNode" if="inlikelihood(Standard_TrN.s:$(n))"/>
+
+            <connect srcID="TrNRateDeltaExchanger.s:$(n)" targetID="mcmc" inputName="operator"
+                     if="inlikelihood(Standard_TrN.s:$(n))">Delta exchange rates parameter for TrN model at partition s:$(n)
+            </connect>
+            <connect srcID="TrNFrequenciesExchanger.s:$(n)" targetID="mcmc" inputName="operator"
+                     if="inlikelihood(Standard_TrN.s:$(n))">
+                Exchange values of frequencies of partition s:$(n)
+            </connect>
+
+            <connect srcID="TrNrates.s:$(n)" targetID="tracelog" inputName="log" if="inlikelihood(Standard_TrN.s:$(n))"/>
+            <connect srcID="TrNfreqParameter.s:$(n)" targetID="tracelog" inputName="log" if="inlikelihood(Standard_TrN.s:$(n))"/>
+        </subtemplate>
+
+<!-- TPM1 = model: 012210 equal frequencies-->
+
+        <subtemplate id="Standard_TPM1" class="substmodels.nucleotide.JC" mainid="Standard_TPM1.s:$(n)">
+            <![CDATA[
+        <plugin spec="substmodels.nucleotide.TPM1" id="Standard_TPM1.s:$(n)">
+            <parameter id="TPM1rates.s:$(n)" name="rates" value=" 1.0 1.0 1.0" lower="0.0" estimate="true"/>
+        </plugin>
+
+        <plugin id="TPM1RateDeltaExchanger.s:$(n)" spec="DeltaExchangeOperator" delta="0.1" weight="0.1" parameter="@TPM1rates.s:$(n)" weightvector=" 2 2 2"/>
+
+]]>
+
+            <connect srcID="TPM1rates.s:$(n)" targetID="state" inputName="stateNode" if="inlikelihood(Standard_TPM1.s:$(n))"/>
+
+            <connect srcID="TPM1RateDeltaExchanger.s:$(n)" targetID="mcmc" inputName="operator"
+                     if="inlikelihood(Standard_TPM1.s:$(n))">Delta exchange rates parameter for TPM1 model at partition s:$(n)
+            </connect>
+
+            <connect srcID="Standard_TPM1rates.s:$(n)" targetID="tracelog" inputName="log" if="inlikelihood(TPM1.s:$(n))"/>
+        </subtemplate>
+
+<!-- TPM1uf = model: 012210 unequal frequencies-->
+
+        <subtemplate id="Standard_TPM1uf" class="substmodels.nucleotide.JC" mainid="Standard_TPM1uf.s:$(n)">
+            <![CDATA[
+        <plugin spec="substmodels.nucleotide.TPM1uf" id="Standard_TPM1uf.s:$(n)">
+            <parameter id="TPM1ufrates.s:$(n)" name="rates" value=" 1.0 1.0 1.0" lower="0.0" estimate="true"/>
+            <frequencies id="TPM1ufFreqs.s:$(n)" spec="Frequencies">
+                <frequencies id="TPM1uffreqParameter.s:$(n)" spec="parameter.RealParameter" dimension="4" value="0.25" lower="0" upper="1"/>
+            </frequencies>
+        </plugin>
+
+        <plugin id="TPM1ufRateDeltaExchanger.s:$(n)" spec="DeltaExchangeOperator" delta="0.1" weight="0.1" parameter="@TPM1ufrates.s:$(n)" weightvector=" 2 2 2"/>
+        <plugin id="TPM1ufFrequenciesExchanger.s:$(n)" spec="DeltaExchangeOperator" delta="0.01" weight="0.1" parameter="@TPM1uffreqParameter.s:$(n)"/>
+
+]]>
+
+            <connect srcID="TPM1ufrates.s:$(n)" targetID="state" inputName="stateNode" if="inlikelihood(Standard_TPM1uf.s:$(n))"/>
+            <connect srcID="TPM1uffreqParameter.s:$(n)" targetID="state" inputName="stateNode" if="inlikelihood(Standard_TPM1uf.s:$(n))"/>
+
+            <connect srcID="TPM1ufRateDeltaExchanger.s:$(n)" targetID="mcmc" inputName="operator"
+                     if="inlikelihood(Standard_TPM1uf.s:$(n))">Delta exchange rates parameter for TPM1uf model at partition s:$(n)
+            </connect>
+            <connect srcID="TPM1ufFrequenciesExchanger.s:$(n)" targetID="mcmc" inputName="operator"
+                     if="inlikelihood(Standard_TPM1uf.s:$(n))">
+                Exchange values of frequencies of partition s:$(n)
+            </connect>
+
+            <connect srcID="TPM1ufrates.s:$(n)" targetID="tracelog" inputName="log" if="inlikelihood(Standard_TPM1uf.s:$(n))"/>
+            <connect srcID="TPM1uffreqParameter.s:$(n)" targetID="tracelog" inputName="log" if="inlikelihood(Standard_TPM1uf.s:$(n))"/>
+        </subtemplate>
+
+<!-- TPM2 = model: 010212 equal frequencies-->
+
+        <subtemplate id="Standard_TPM2" class="substmodels.nucleotide.JC" mainid="Standard_TPM2.s:$(n)">
+            <![CDATA[
+        <plugin spec="substmodels.nucleotide.TPM2" id="Standard_TPM2.s:$(n)">
+            <parameter id="TPM2rates.s:$(n)" name="rates" value=" 1.0 1.0 1.0" lower="0.0" estimate="true"/>
+        </plugin>
+
+        <plugin id="TPM2RateDeltaExchanger.s:$(n)" spec="DeltaExchangeOperator" delta="0.1" weight="0.1" parameter="@TPM2rates.s:$(n)" weightvector=" 2 2 2"/>
+
+]]>
+
+            <connect srcID="TPM2rates.s:$(n)" targetID="state" inputName="stateNode" if="inlikelihood(Standard_TPM2.s:$(n))"/>
+
+            <connect srcID="TPM2RateDeltaExchanger.s:$(n)" targetID="mcmc" inputName="operator"
+                     if="inlikelihood(Standard_TPM2.s:$(n))">Delta exchange rates parameter for TPM2 model at partition s:$(n)
+            </connect>
+
+            <connect srcID="Standard_TPM2rates.s:$(n)" targetID="tracelog" inputName="log" if="inlikelihood(TPM2.s:$(n))"/>
+        </subtemplate>
+
+<!-- TPM2uf = model: 010212 unequal frequencies-->
+
+        <subtemplate id="Standard_TPM2uf" class="substmodels.nucleotide.JC" mainid="Standard_TPM2uf.s:$(n)">
+            <![CDATA[
+        <plugin spec="substmodels.nucleotide.TPM2uf" id="Standard_TPM2uf.s:$(n)">
+            <parameter id="TPM2ufrates.s:$(n)" name="rates" value=" 1.0 1.0 1.0" lower="0.0" estimate="true"/>
+            <frequencies id="TPM2ufFreqs.s:$(n)" spec="Frequencies">
+                <frequencies id="TPM2uffreqParameter.s:$(n)" spec="parameter.RealParameter" dimension="4" value="0.25" lower="0" upper="1"/>
+            </frequencies>
+        </plugin>
+
+        <plugin id="TPM2ufRateDeltaExchanger.s:$(n)" spec="DeltaExchangeOperator" delta="0.1" weight="0.1" parameter="@TPM2ufrates.s:$(n)" weightvector=" 2 2 2"/>
+        <plugin id="TPM2ufFrequenciesExchanger.s:$(n)" spec="DeltaExchangeOperator" delta="0.01" weight="0.1" parameter="@TPM2uffreqParameter.s:$(n)"/>
+
+]]>
+
+            <connect srcID="TPM2ufrates.s:$(n)" targetID="state" inputName="stateNode" if="inlikelihood(Standard_TPM2uf.s:$(n))"/>
+            <connect srcID="TPM2uffreqParameter.s:$(n)" targetID="state" inputName="stateNode" if="inlikelihood(Standard_TPM2uf.s:$(n))"/>
+
+            <connect srcID="TPM2ufRateDeltaExchanger.s:$(n)" targetID="mcmc" inputName="operator"
+                     if="inlikelihood(Standard_TPM2uf.s:$(n))">Delta exchange rates parameter for TPM2uf model at partition s:$(n)
+            </connect>
+            <connect srcID="TPM2ufFrequenciesExchanger.s:$(n)" targetID="mcmc" inputName="operator"
+                     if="inlikelihood(Standard_TPM2uf.s:$(n))">
+                Exchange values of frequencies of partition s:$(n)
+            </connect>
+
+            <connect srcID="TPM2ufrates.s:$(n)" targetID="tracelog" inputName="log" if="inlikelihood(Standard_TPM2uf.s:$(n))"/>
+            <connect srcID="TPM2uffreqParameter.s:$(n)" targetID="tracelog" inputName="log" if="inlikelihood(Standard_TPM2uf.s:$(n))"/>
+        </subtemplate>
+
+<!-- TPM3 = model: 012012 equal frequencies-->
+
+        <subtemplate id="Standard_TPM3" class="substmodels.nucleotide.JC" mainid="Standard_TPM3.s:$(n)">
+            <![CDATA[
+        <plugin spec="substmodels.nucleotide.TPM3" id="Standard_TPM3.s:$(n)">
+            <parameter id="TPM3rates.s:$(n)" name="rates" value=" 1.0 1.0 1.0" lower="0.0" estimate="true"/>
+        </plugin>
+
+        <plugin id="TPM3RateDeltaExchanger.s:$(n)" spec="DeltaExchangeOperator" delta="0.1" weight="0.1" parameter="@TPM3rates.s:$(n)" weightvector=" 2 2 2"/>
+
+]]>
+
+            <connect srcID="TPM3rates.s:$(n)" targetID="state" inputName="stateNode" if="inlikelihood(Standard_TPM3.s:$(n))"/>
+
+            <connect srcID="TPM3RateDeltaExchanger.s:$(n)" targetID="mcmc" inputName="operator"
+                     if="inlikelihood(Standard_TPM3.s:$(n))">Delta exchange rates parameter for TPM3 model at partition s:$(n)
+            </connect>
+
+            <connect srcID="Standard_TPM3rates.s:$(n)" targetID="tracelog" inputName="log" if="inlikelihood(TPM3.s:$(n))"/>
+        </subtemplate>
+
+<!-- TPM3uf = model: 012012 unequal frequencies-->
+
+        <subtemplate id="Standard_TPM3uf" class="substmodels.nucleotide.JC" mainid="Standard_TPM3uf.s:$(n)">
+            <![CDATA[
+        <plugin spec="substmodels.nucleotide.TPM3uf" id="Standard_TPM3uf.s:$(n)">
+            <parameter id="TPM3ufrates.s:$(n)" name="rates" value=" 1.0 1.0 1.0" lower="0.0" estimate="true"/>
+            <frequencies id="TPM3ufFreqs.s:$(n)" spec="Frequencies">
+                <frequencies id="TPM3uffreqParameter.s:$(n)" spec="parameter.RealParameter" dimension="4" value="0.25" lower="0" upper="1"/>
+            </frequencies>
+        </plugin>
+
+        <plugin id="TPM3ufRateDeltaExchanger.s:$(n)" spec="DeltaExchangeOperator" delta="0.1" weight="0.1" parameter="@TPM3ufrates.s:$(n)" weightvector=" 2 2 2"/>
+        <plugin id="TPM3ufFrequenciesExchanger.s:$(n)" spec="DeltaExchangeOperator" delta="0.01" weight="0.1" parameter="@TPM3uffreqParameter.s:$(n)"/>
+
+]]>
+
+            <connect srcID="TPM3ufrates.s:$(n)" targetID="state" inputName="stateNode" if="inlikelihood(Standard_TPM3uf.s:$(n))"/>
+            <connect srcID="TPM3uffreqParameter.s:$(n)" targetID="state" inputName="stateNode" if="inlikelihood(Standard_TPM3uf.s:$(n))"/>
+
+            <connect srcID="TPM3ufRateDeltaExchanger.s:$(n)" targetID="mcmc" inputName="operator"
+                     if="inlikelihood(Standard_TPM3uf.s:$(n))">Delta exchange rates parameter for TPM3uf model at partition s:$(n)
+            </connect>
+            <connect srcID="TPM3ufFrequenciesExchanger.s:$(n)" targetID="mcmc" inputName="operator"
+                     if="inlikelihood(Standard_TPM3uf.s:$(n))">
+                Exchange values of frequencies of partition s:$(n)
+            </connect>
+
+            <connect srcID="TPM3ufrates.s:$(n)" targetID="tracelog" inputName="log" if="inlikelihood(Standard_TPM3uf.s:$(n))"/>
+            <connect srcID="TPM3uffreqParameter.s:$(n)" targetID="tracelog" inputName="log" if="inlikelihood(Standard_TPM3uf.s:$(n))"/>
+        </subtemplate>
+
+<!-- TIM1 = model: 012230 equal frequencies-->
+
+        <subtemplate id="Standard_TIM1" class="substmodels.nucleotide.JC" mainid="Standard_TIM1.s:$(n)">
+            <![CDATA[
+        <plugin spec="substmodels.nucleotide.TIM1" id="Standard_TIM1.s:$(n)">
+            <parameter id="TIM1rates.s:$(n)" name="rates" value=" 1.0 1.0 1.0 1.0" lower="0.0" estimate="true"/>
+        </plugin>
+
+        <plugin id="TIM1RateDeltaExchanger.s:$(n)" spec="DeltaExchangeOperator" delta="0.1" weight="0.1" parameter="@TIM1rates.s:$(n)" weightvector=" 2 1 2 1"/>
+
+]]>
+
+            <connect srcID="TIM1rates.s:$(n)" targetID="state" inputName="stateNode" if="inlikelihood(Standard_TIM1.s:$(n))"/>
+
+            <connect srcID="TIM1RateDeltaExchanger.s:$(n)" targetID="mcmc" inputName="operator"
+                     if="inlikelihood(Standard_TIM1.s:$(n))">Delta exchange rates parameter for TIM1 model at partition s:$(n)
+            </connect>
+
+            <connect srcID="Standard_TIM1rates.s:$(n)" targetID="tracelog" inputName="log" if="inlikelihood(TIM1.s:$(n))"/>
+        </subtemplate>
+
+<!-- TIM1uf = model: 012230 unequal frequencies-->
+
+        <subtemplate id="Standard_TIM1uf" class="substmodels.nucleotide.JC" mainid="Standard_TIM1uf.s:$(n)">
+            <![CDATA[
+        <plugin spec="substmodels.nucleotide.TIM1uf" id="Standard_TIM1uf.s:$(n)">
+            <parameter id="TIM1ufrates.s:$(n)" name="rates" value=" 1.0 1.0 1.0 1.0" lower="0.0" estimate="true"/>
+            <frequencies id="TIM1ufFreqs.s:$(n)" spec="Frequencies">
+                <frequencies id="TIM1uffreqParameter.s:$(n)" spec="parameter.RealParameter" dimension="4" value="0.25" lower="0" upper="1"/>
+            </frequencies>
+        </plugin>
+
+        <plugin id="TIM1ufRateDeltaExchanger.s:$(n)" spec="DeltaExchangeOperator" delta="0.1" weight="0.1" parameter="@TIM1ufrates.s:$(n)" weightvector=" 2 1 2 1"/>
+        <plugin id="TIM1ufFrequenciesExchanger.s:$(n)" spec="DeltaExchangeOperator" delta="0.01" weight="0.1" parameter="@TIM1uffreqParameter.s:$(n)"/>
+
+]]>
+
+            <connect srcID="TIM1ufrates.s:$(n)" targetID="state" inputName="stateNode" if="inlikelihood(Standard_TIM1uf.s:$(n))"/>
+            <connect srcID="TIM1uffreqParameter.s:$(n)" targetID="state" inputName="stateNode" if="inlikelihood(Standard_TIM1uf.s:$(n))"/>
+
+            <connect srcID="TIM1ufRateDeltaExchanger.s:$(n)" targetID="mcmc" inputName="operator"
+                     if="inlikelihood(Standard_TIM1uf.s:$(n))">Delta exchange rates parameter for TIM1uf model at partition s:$(n)
+            </connect>
+            <connect srcID="TIM1ufFrequenciesExchanger.s:$(n)" targetID="mcmc" inputName="operator"
+                     if="inlikelihood(Standard_TIM1uf.s:$(n))">
+                Exchange values of frequencies of partition s:$(n)
+            </connect>
+
+            <connect srcID="TIM1ufrates.s:$(n)" targetID="tracelog" inputName="log" if="inlikelihood(Standard_TIM1uf.s:$(n))"/>
+            <connect srcID="TIM1uffreqParameter.s:$(n)" targetID="tracelog" inputName="log" if="inlikelihood(Standard_TIM1uf.s:$(n))"/>
+        </subtemplate>
+
+<!-- TIM2 = model: 010232 equal frequencies-->
+
+        <subtemplate id="Standard_TIM2" class="substmodels.nucleotide.JC" mainid="Standard_TIM2.s:$(n)">
+            <![CDATA[
+        <plugin spec="substmodels.nucleotide.TIM2" id="Standard_TIM2.s:$(n)">
+            <parameter id="TIM2rates.s:$(n)" name="rates" value=" 1.0 1.0 1.0 1.0" lower="0.0" estimate="true"/>
+        </plugin>
+
+        <plugin id="TIM2RateDeltaExchanger.s:$(n)" spec="DeltaExchangeOperator" delta="0.1" weight="0.1" parameter="@TIM2rates.s:$(n)" weightvector=" 2 1 2 1"/>
+
+]]>
+
+            <connect srcID="TIM2rates.s:$(n)" targetID="state" inputName="stateNode" if="inlikelihood(Standard_TIM2.s:$(n))"/>
+
+            <connect srcID="TIM2RateDeltaExchanger.s:$(n)" targetID="mcmc" inputName="operator"
+                     if="inlikelihood(Standard_TIM2.s:$(n))">Delta exchange rates parameter for TIM2 model at partition s:$(n)
+            </connect>
+
+            <connect srcID="Standard_TIM2rates.s:$(n)" targetID="tracelog" inputName="log" if="inlikelihood(TIM2.s:$(n))"/>
+        </subtemplate>
+
+<!-- TIM2uf = model: 010232 unequal frequencies-->
+
+        <subtemplate id="Standard_TIM2uf" class="substmodels.nucleotide.JC" mainid="Standard_TIM2uf.s:$(n)">
+            <![CDATA[
+        <plugin spec="substmodels.nucleotide.TIM2uf" id="Standard_TIM2uf.s:$(n)">
+            <parameter id="TIM2ufrates.s:$(n)" name="rates" value=" 1.0 1.0 1.0 1.0" lower="0.0" estimate="true"/>
+            <frequencies id="TIM2ufFreqs.s:$(n)" spec="Frequencies">
+                <frequencies id="TIM2uffreqParameter.s:$(n)" spec="parameter.RealParameter" dimension="4" value="0.25" lower="0" upper="1"/>
+            </frequencies>
+        </plugin>
+
+        <plugin id="TIM2ufRateDeltaExchanger.s:$(n)" spec="DeltaExchangeOperator" delta="0.1" weight="0.1" parameter="@TIM2ufrates.s:$(n)" weightvector=" 2 1 2 1"/>
+        <plugin id="TIM2ufFrequenciesExchanger.s:$(n)" spec="DeltaExchangeOperator" delta="0.01" weight="0.1" parameter="@TIM2uffreqParameter.s:$(n)"/>
+
+]]>
+
+            <connect srcID="TIM2ufrates.s:$(n)" targetID="state" inputName="stateNode" if="inlikelihood(Standard_TIM2uf.s:$(n))"/>
+            <connect srcID="TIM2uffreqParameter.s:$(n)" targetID="state" inputName="stateNode" if="inlikelihood(Standard_TIM2uf.s:$(n))"/>
+
+            <connect srcID="TIM2ufRateDeltaExchanger.s:$(n)" targetID="mcmc" inputName="operator"
+                     if="inlikelihood(Standard_TIM2uf.s:$(n))">Delta exchange rates parameter for TIM2uf model at partition s:$(n)
+            </connect>
+            <connect srcID="TIM2ufFrequenciesExchanger.s:$(n)" targetID="mcmc" inputName="operator"
+                     if="inlikelihood(Standard_TIM2uf.s:$(n))">
+                Exchange values of frequencies of partition s:$(n)
+            </connect>
+
+            <connect srcID="TIM2ufrates.s:$(n)" targetID="tracelog" inputName="log" if="inlikelihood(Standard_TIM2uf.s:$(n))"/>
+            <connect srcID="TIM2uffreqParameter.s:$(n)" targetID="tracelog" inputName="log" if="inlikelihood(Standard_TIM2uf.s:$(n))"/>
+        </subtemplate>
+
+<!-- TIM3 = model: 012032 equal frequencies-->
+
+        <subtemplate id="Standard_TIM3" class="substmodels.nucleotide.JC" mainid="Standard_TIM3.s:$(n)">
+            <![CDATA[
+        <plugin spec="substmodels.nucleotide.TIM3" id="Standard_TIM3.s:$(n)">
+            <parameter id="TIM3rates.s:$(n)" name="rates" value=" 1.0 1.0 1.0 1.0" lower="0.0" estimate="true"/>
+        </plugin>
+
+        <plugin id="TIM3RateDeltaExchanger.s:$(n)" spec="DeltaExchangeOperator" delta="0.1" weight="0.1" parameter="@TIM3rates.s:$(n)" weightvector=" 2 1 2 1"/>
+
+]]>
+
+            <connect srcID="TIM3rates.s:$(n)" targetID="state" inputName="stateNode" if="inlikelihood(Standard_TIM3.s:$(n))"/>
+
+            <connect srcID="TIM3RateDeltaExchanger.s:$(n)" targetID="mcmc" inputName="operator"
+                     if="inlikelihood(Standard_TIM3.s:$(n))">Delta exchange rates parameter for TIM3 model at partition s:$(n)
+            </connect>
+
+            <connect srcID="Standard_TIM3rates.s:$(n)" targetID="tracelog" inputName="log" if="inlikelihood(TIM3.s:$(n))"/>
+        </subtemplate>
+
+<!-- TIM3uf = model: 012032 unequal frequencies-->
+
+        <subtemplate id="Standard_TIM3uf" class="substmodels.nucleotide.JC" mainid="Standard_TIM3uf.s:$(n)">
+            <![CDATA[
+        <plugin spec="substmodels.nucleotide.TIM3uf" id="Standard_TIM3uf.s:$(n)">
+            <parameter id="TIM3ufrates.s:$(n)" name="rates" value=" 1.0 1.0 1.0 1.0" lower="0.0" estimate="true"/>
+            <frequencies id="TIM3ufFreqs.s:$(n)" spec="Frequencies">
+                <frequencies id="TIM3uffreqParameter.s:$(n)" spec="parameter.RealParameter" dimension="4" value="0.25" lower="0" upper="1"/>
+            </frequencies>
+        </plugin>
+
+        <plugin id="TIM3ufRateDeltaExchanger.s:$(n)" spec="DeltaExchangeOperator" delta="0.1" weight="0.1" parameter="@TIM3ufrates.s:$(n)" weightvector=" 2 1 2 1"/>
+        <plugin id="TIM3ufFrequenciesExchanger.s:$(n)" spec="DeltaExchangeOperator" delta="0.01" weight="0.1" parameter="@TIM3uffreqParameter.s:$(n)"/>
+
+]]>
+
+            <connect srcID="TIM3ufrates.s:$(n)" targetID="state" inputName="stateNode" if="inlikelihood(Standard_TIM3uf.s:$(n))"/>
+            <connect srcID="TIM3uffreqParameter.s:$(n)" targetID="state" inputName="stateNode" if="inlikelihood(Standard_TIM3uf.s:$(n))"/>
+
+            <connect srcID="TIM3ufRateDeltaExchanger.s:$(n)" targetID="mcmc" inputName="operator"
+                     if="inlikelihood(Standard_TIM3uf.s:$(n))">Delta exchange rates parameter for TIM3uf model at partition s:$(n)
+            </connect>
+            <connect srcID="TIM3ufFrequenciesExchanger.s:$(n)" targetID="mcmc" inputName="operator"
+                     if="inlikelihood(Standard_TIM3uf.s:$(n))">
+                Exchange values of frequencies of partition s:$(n)
+            </connect>
+
+            <connect srcID="TIM3ufrates.s:$(n)" targetID="tracelog" inputName="log" if="inlikelihood(Standard_TIM3uf.s:$(n))"/>
+            <connect srcID="TIM3uffreqParameter.s:$(n)" targetID="tracelog" inputName="log" if="inlikelihood(Standard_TIM3uf.s:$(n))"/>
+        </subtemplate>
+
+<!-- TVMef = model: 012314 equal frequencies-->
+
+        <subtemplate id="Standard_TVMef" class="substmodels.nucleotide.JC" mainid="Standard_TVMef.s:$(n)">
+            <![CDATA[
+        <plugin spec="substmodels.nucleotide.TVMef" id="Standard_TVMef.s:$(n)">
+            <parameter id="TVMefrates.s:$(n)" name="rates" value=" 1.0 1.0 1.0 1.0 1.0" lower="0.0" estimate="true"/>
+        </plugin>
+
+        <plugin id="TVMefRateDeltaExchanger.s:$(n)" spec="DeltaExchangeOperator" delta="0.1" weight="0.1" parameter="@TVMefrates.s:$(n)" weightvector=" 1 2 1 1 1"/>
+
+]]>
+
+            <connect srcID="TVMefrates.s:$(n)" targetID="state" inputName="stateNode" if="inlikelihood(Standard_TVMef.s:$(n))"/>
+
+            <connect srcID="TVMefRateDeltaExchanger.s:$(n)" targetID="mcmc" inputName="operator"
+                     if="inlikelihood(Standard_TVMef.s:$(n))">Delta exchange rates parameter for TVMef model at partition s:$(n)
+            </connect>
+
+            <connect srcID="Standard_TVMefrates.s:$(n)" targetID="tracelog" inputName="log" if="inlikelihood(TVMef.s:$(n))"/>
+        </subtemplate>
+
+<!-- TVM = model: 012314 unequal frequencies-->
+
+        <subtemplate id="Standard_TVM" class="substmodels.nucleotide.JC" mainid="Standard_TVM.s:$(n)">
+            <![CDATA[
+        <plugin spec="substmodels.nucleotide.TVM" id="Standard_TVM.s:$(n)">
+            <parameter id="TVMrates.s:$(n)" name="rates" value=" 1.0 1.0 1.0 1.0 1.0" lower="0.0" estimate="true"/>
+            <frequencies id="TVMFreqs.s:$(n)" spec="Frequencies">
+                <frequencies id="TVMfreqParameter.s:$(n)" spec="parameter.RealParameter" dimension="4" value="0.25" lower="0" upper="1"/>
+            </frequencies>
+        </plugin>
+
+        <plugin id="TVMRateDeltaExchanger.s:$(n)" spec="DeltaExchangeOperator" delta="0.1" weight="0.1" parameter="@TVMrates.s:$(n)" weightvector=" 1 2 1 1 1"/>
+        <plugin id="TVMFrequenciesExchanger.s:$(n)" spec="DeltaExchangeOperator" delta="0.01" weight="0.1" parameter="@TVMfreqParameter.s:$(n)"/>
+
+]]>
+
+            <connect srcID="TVMrates.s:$(n)" targetID="state" inputName="stateNode" if="inlikelihood(Standard_TVM.s:$(n))"/>
+            <connect srcID="TVMfreqParameter.s:$(n)" targetID="state" inputName="stateNode" if="inlikelihood(Standard_TVM.s:$(n))"/>
+
+            <connect srcID="TVMRateDeltaExchanger.s:$(n)" targetID="mcmc" inputName="operator"
+                     if="inlikelihood(Standard_TVM.s:$(n))">Delta exchange rates parameter for TVM model at partition s:$(n)
+            </connect>
+            <connect srcID="TVMFrequenciesExchanger.s:$(n)" targetID="mcmc" inputName="operator"
+                     if="inlikelihood(Standard_TVM.s:$(n))">
+                Exchange values of frequencies of partition s:$(n)
+            </connect>
+
+            <connect srcID="TVMrates.s:$(n)" targetID="tracelog" inputName="log" if="inlikelihood(Standard_TVM.s:$(n))"/>
+            <connect srcID="TVMfreqParameter.s:$(n)" targetID="tracelog" inputName="log" if="inlikelihood(Standard_TVM.s:$(n))"/>
+        </subtemplate>
+
+<!-- SYM = model: 012345 equal frequencies-->
+
+        <subtemplate id="Standard_SYM" class="substmodels.nucleotide.JC" mainid="Standard_SYM.s:$(n)">
+            <![CDATA[
+        <plugin spec="substmodels.nucleotide.SYM" id="Standard_SYM.s:$(n)">
+            <parameter id="SYMrates.s:$(n)" name="rates" value=" 1.0 1.0 1.0 1.0 1.0 1.0" lower="0.0" estimate="true"/>
+        </plugin>
+
+        <plugin id="SYMRateDeltaExchanger.s:$(n)" spec="DeltaExchangeOperator" delta="0.1" weight="0.1" parameter="@SYMrates.s:$(n)" weightvector=" 1 1 1 1 1 1"/>
+
+]]>
+
+            <connect srcID="SYMrates.s:$(n)" targetID="state" inputName="stateNode" if="inlikelihood(Standard_SYM.s:$(n))"/>
+
+            <connect srcID="SYMRateDeltaExchanger.s:$(n)" targetID="mcmc" inputName="operator"
+                     if="inlikelihood(Standard_SYM.s:$(n))">Delta exchange rates parameter for SYM model at partition s:$(n)
+            </connect>
+
+            <connect srcID="Standard_SYMrates.s:$(n)" targetID="tracelog" inputName="log" if="inlikelihood(SYM.s:$(n))"/>
+        </subtemplate>
+
+<!-- GTR = model: 012345 unequal frequencies-->
+
+        <subtemplate id="Standard_GTR" class="substmodels.nucleotide.JC" mainid="Standard_GTR.s:$(n)">
+            <![CDATA[
+        <plugin spec="substmodels.nucleotide.GTR" id="Standard_GTR.s:$(n)">
+            <parameter id="GTRrates.s:$(n)" name="rates" value=" 1.0 1.0 1.0 1.0 1.0 1.0" lower="0.0" estimate="true"/>
+            <frequencies id="GTRFreqs.s:$(n)" spec="Frequencies">
+                <frequencies id="GTRfreqParameter.s:$(n)" spec="parameter.RealParameter" dimension="4" value="0.25" lower="0" upper="1"/>
+            </frequencies>
+        </plugin>
+
+        <plugin id="GTRRateDeltaExchanger.s:$(n)" spec="DeltaExchangeOperator" delta="0.1" weight="0.1" parameter="@GTRrates.s:$(n)" weightvector=" 1 1 1 1 1 1"/>
+        <plugin id="GTRFrequenciesExchanger.s:$(n)" spec="DeltaExchangeOperator" delta="0.01" weight="0.1" parameter="@GTRfreqParameter.s:$(n)"/>
+
+]]>
+
+            <connect srcID="GTRrates.s:$(n)" targetID="state" inputName="stateNode" if="inlikelihood(Standard_GTR.s:$(n))"/>
+            <connect srcID="GTRfreqParameter.s:$(n)" targetID="state" inputName="stateNode" if="inlikelihood(Standard_GTR.s:$(n))"/>
+
+            <connect srcID="GTRRateDeltaExchanger.s:$(n)" targetID="mcmc" inputName="operator"
+                     if="inlikelihood(Standard_GTR.s:$(n))">Delta exchange rates parameter for GTR model at partition s:$(n)
+            </connect>
+            <connect srcID="GTRFrequenciesExchanger.s:$(n)" targetID="mcmc" inputName="operator"
+                     if="inlikelihood(Standard_GTR.s:$(n))">
+                Exchange values of frequencies of partition s:$(n)
+            </connect>
+
+            <connect srcID="GTRrates.s:$(n)" targetID="tracelog" inputName="log" if="inlikelihood(Standard_GTR.s:$(n))"/>
+            <connect srcID="GTRfreqParameter.s:$(n)" targetID="tracelog" inputName="log" if="inlikelihood(Standard_GTR.s:$(n))"/>
+        </subtemplate>
+
+    </mergewith>
+    
+    
+</beast>
+

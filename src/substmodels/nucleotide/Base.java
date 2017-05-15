@@ -35,8 +35,9 @@ public class Base extends GeneralSubstitutionModel {
 
 	public Base(@Param(name="mode", description="model identifier is a 6 digit number describing which parameters are linked. "
 			+ "For instance 010010 = HKY, 012345 = GTR. "
-			+ "Order of digits are for rates AC, AG, AT, CG, CT, GT respectively ") String modelID,
-			@Param(name="equalFreqs", description="") Boolean equalFreqs) {
+			+ "Order of digits are for rates AC, AG, AT, CG, CT, GT respectively ",
+			defaultValue="000000") String modelID,
+			@Param(name="equalFreqs", description="flag indicating equal frequencies should be used. If true, the frequencies input is ignored.", defaultValue="true") Boolean equalFreqs) {
 		frequenciesInput.setRule(Validate.OPTIONAL);
 		this.modelID = modelID;
 		this.equalFreqs = equalFreqs;
@@ -66,15 +67,16 @@ public class Base extends GeneralSubstitutionModel {
         int max = 0;
         for (int i = 0; i < 6; i++) {
         	modelMap[i] = modelID.charAt(i) - '0';
-        	if (modelMap[i] <=0 || modelMap[i] > 5) {
+        	if (modelMap[i] <0 || modelMap[i] > 5) {
             	throw new IllegalArgumentException("modelID must be 6 digits, but got a wrong character at position " + i + ": " + modelID);
         	}
         	max = Math.max(max, modelMap[i]);
         }
+        max++;
         
-        if (ratesInput.get().getDimension() != max * (max - 1)) {
+        if (max > 1 && ratesInput.get().getDimension() != max * (max - 1)) {
             throw new IllegalArgumentException("Dimension of input 'rates' is " + ratesInput.get().getDimension() + " but a " +
-                    "rate matrix of dimension " + max + "x" + (max - 1) + "=" + max * (nrOfStates - 1) + " was " +
+                    "rate matrix of dimension " + max + "x" + (max - 1) + "=" + max * (max - 1) + " was " +
                     "expected");
         }
 
