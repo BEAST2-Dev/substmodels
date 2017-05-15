@@ -14,7 +14,10 @@
 
 <!-- JC = model: 000000 equal frequencies-->
 
-        <subtemplate id="Standard_JC" class="substmodels.nucleotide.JC" mainid="Standard_JC.s:$(n)">
+        <subtemplate id="Standard:JC" class="substmodels.nucleotide.JC" mainid="Standard_JC.s:$(n)"
+        	 suppressInputs="substmodels.nucleotide.JC.frequencies,
+	        	 substmodels.nucleotide.JC.rates,
+    	    	 substmodels.nucleotide.JC.eigenSystem">
             <![CDATA[
         <plugin spec="substmodels.nucleotide.JC" id="Standard_JC.s:$(n)">
             <parameter id="JCrates.s:$(n)" name="rates" value=" 1.0" lower="0.0" estimate="false"/>
@@ -25,7 +28,10 @@
 
 <!-- F81 = model: 000000 unequal frequencies-->
 
-        <subtemplate id="Standard_F81" class="substmodels.nucleotide.JC" mainid="Standard_F81.s:$(n)">
+        <subtemplate id="Standard:F81" class="substmodels.nucleotide.JC" mainid="Standard_F81.s:$(n)"
+        	 suppressInputs="substmodels.nucleotide.F81.frequencies,
+	        	 substmodels.nucleotide.F81.rates,
+    	    	 substmodels.nucleotide.F81.eigenSystem">
             <![CDATA[
         <plugin spec="substmodels.nucleotide.F81" id="Standard_F81.s:$(n)">
             <parameter id="F81rates.s:$(n)" name="rates" value=" 1.0" lower="0.0" estimate="false"/>
@@ -48,9 +54,14 @@
             <connect srcID="F81freqParameter.s:$(n)" targetID="tracelog" inputName="log" if="inlikelihood(Standard_F81.s:$(n))"/>
         </subtemplate>
 
+
+
 <!-- K80 = model: 010010 equal frequencies-->
 
-        <subtemplate id="Standard_K80" class="substmodels.nucleotide.JC" mainid="Standard_K80.s:$(n)">
+        <subtemplate id="Standard:K80" class="substmodels.nucleotide.JC" mainid="Standard_K80.s:$(n)"
+        	 suppressInputs="substmodels.nucleotide.K80.frequencies,
+	        	 substmodels.nucleotide.K80.rates,
+    	    	 substmodels.nucleotide.K80.eigenSystem">
             <![CDATA[
         <plugin spec="substmodels.nucleotide.K80" id="Standard_K80.s:$(n)">
             <parameter id="K80rates.s:$(n)" name="rates" value=" 1.0 1.0" lower="0.0" estimate="true"/>
@@ -71,7 +82,10 @@
 
 <!-- HKY = model: 010010 unequal frequencies-->
 
-        <subtemplate id="Standard_HKY" class="substmodels.nucleotide.JC" mainid="Standard_HKY.s:$(n)">
+        <subtemplate id="Standard:HKY" class="substmodels.nucleotide.JC" mainid="Standard_HKY.s:$(n)"
+        	 suppressInputs="substmodels.nucleotide.HKY.frequencies,
+	        	 substmodels.nucleotide.HKY.rates,
+    	    	 substmodels.nucleotide.HKY.eigenSystem">
             <![CDATA[
         <plugin spec="substmodels.nucleotide.HKY" id="Standard_HKY.s:$(n)">
             <parameter id="HKYrates.s:$(n)" name="rates" value=" 1.0 1.0" lower="0.0" estimate="true"/>
@@ -102,7 +116,10 @@
 
 <!-- TrNef = model: 010020 equal frequencies-->
 
-        <subtemplate id="Standard_TrNef" class="substmodels.nucleotide.JC" mainid="Standard_TrNef.s:$(n)">
+        <subtemplate id="Standard:TrNef" class="substmodels.nucleotide.JC" mainid="Standard_TrNef.s:$(n)"
+        	 suppressInputs="substmodels.nucleotide.TrNef.frequencies,
+	        	 substmodels.nucleotide.TrNef.rates,
+    	    	 substmodels.nucleotide.TrNef.eigenSystem">
             <![CDATA[
         <plugin spec="substmodels.nucleotide.TrNef" id="Standard_TrNef.s:$(n)">
             <parameter id="TrNefrates.s:$(n)" name="rates" value=" 1.0 1.0 1.0" lower="0.0" estimate="true"/>
@@ -123,7 +140,10 @@
 
 <!-- TrN = model: 010020 unequal frequencies-->
 
-        <subtemplate id="Standard_TrN" class="substmodels.nucleotide.JC" mainid="Standard_TrN.s:$(n)">
+        <subtemplate id="Standard:TrN" class="substmodels.nucleotide.JC" mainid="Standard_TrN.s:$(n)"
+        	 suppressInputs="substmodels.nucleotide.TrN.frequencies,
+	        	 substmodels.nucleotide.TrN.rates,
+    	    	 substmodels.nucleotide.TrN.eigenSystem">
             <![CDATA[
         <plugin spec="substmodels.nucleotide.TrN" id="Standard_TrN.s:$(n)">
             <parameter id="TrNrates.s:$(n)" name="rates" value=" 1.0 1.0 1.0" lower="0.0" estimate="true"/>
@@ -154,7 +174,10 @@
 
 <!-- TPM1 = model: 012210 equal frequencies-->
 
-        <subtemplate id="Standard_TPM1" class="substmodels.nucleotide.JC" mainid="Standard_TPM1.s:$(n)">
+        <subtemplate id="Standard:TPM1" class="substmodels.nucleotide.JC" mainid="Standard_TPM1.s:$(n)"
+        	 suppressInputs="substmodels.nucleotide.TPM1.frequencies,
+	        	 substmodels.nucleotide.TPM1.rates,
+    	    	 substmodels.nucleotide.TPM1.eigenSystem">
             <![CDATA[
         <plugin spec="substmodels.nucleotide.TPM1" id="Standard_TPM1.s:$(n)">
             <parameter id="TPM1rates.s:$(n)" name="rates" value=" 1.0 1.0 1.0" lower="0.0" estimate="true"/>
@@ -175,7 +198,10 @@
 
 <!-- TPM1uf = model: 012210 unequal frequencies-->
 
-        <subtemplate id="Standard_TPM1uf" class="substmodels.nucleotide.JC" mainid="Standard_TPM1uf.s:$(n)">
+        <subtemplate id="Standard:TPM1uf" class="substmodels.nucleotide.JC" mainid="Standard_TPM1uf.s:$(n)"
+        	 suppressInputs="substmodels.nucleotide.TPM1uf.frequencies,
+	        	 substmodels.nucleotide.TPM1uf.rates,
+    	    	 substmodels.nucleotide.TPM1uf.eigenSystem">
             <![CDATA[
         <plugin spec="substmodels.nucleotide.TPM1uf" id="Standard_TPM1uf.s:$(n)">
             <parameter id="TPM1ufrates.s:$(n)" name="rates" value=" 1.0 1.0 1.0" lower="0.0" estimate="true"/>
@@ -206,7 +232,10 @@
 
 <!-- TPM2 = model: 010212 equal frequencies-->
 
-        <subtemplate id="Standard_TPM2" class="substmodels.nucleotide.JC" mainid="Standard_TPM2.s:$(n)">
+        <subtemplate id="Standard:TPM2" class="substmodels.nucleotide.JC" mainid="Standard_TPM2.s:$(n)"
+        	 suppressInputs="substmodels.nucleotide.TPM2.frequencies,
+	        	 substmodels.nucleotide.TPM2.rates,
+    	    	 substmodels.nucleotide.TPM2.eigenSystem">
             <![CDATA[
         <plugin spec="substmodels.nucleotide.TPM2" id="Standard_TPM2.s:$(n)">
             <parameter id="TPM2rates.s:$(n)" name="rates" value=" 1.0 1.0 1.0" lower="0.0" estimate="true"/>
@@ -227,7 +256,10 @@
 
 <!-- TPM2uf = model: 010212 unequal frequencies-->
 
-        <subtemplate id="Standard_TPM2uf" class="substmodels.nucleotide.JC" mainid="Standard_TPM2uf.s:$(n)">
+        <subtemplate id="Standard:TPM2uf" class="substmodels.nucleotide.JC" mainid="Standard_TPM2uf.s:$(n)"
+        	 suppressInputs="substmodels.nucleotide.TPM2uf.frequencies,
+	        	 substmodels.nucleotide.TPM2uf.rates,
+    	    	 substmodels.nucleotide.TPM2uf.eigenSystem">
             <![CDATA[
         <plugin spec="substmodels.nucleotide.TPM2uf" id="Standard_TPM2uf.s:$(n)">
             <parameter id="TPM2ufrates.s:$(n)" name="rates" value=" 1.0 1.0 1.0" lower="0.0" estimate="true"/>
@@ -258,7 +290,10 @@
 
 <!-- TPM3 = model: 012012 equal frequencies-->
 
-        <subtemplate id="Standard_TPM3" class="substmodels.nucleotide.JC" mainid="Standard_TPM3.s:$(n)">
+        <subtemplate id="Standard:TPM3" class="substmodels.nucleotide.JC" mainid="Standard_TPM3.s:$(n)"
+        	 suppressInputs="substmodels.nucleotide.TPM3.frequencies,
+	        	 substmodels.nucleotide.TPM3.rates,
+    	    	 substmodels.nucleotide.TPM3.eigenSystem">
             <![CDATA[
         <plugin spec="substmodels.nucleotide.TPM3" id="Standard_TPM3.s:$(n)">
             <parameter id="TPM3rates.s:$(n)" name="rates" value=" 1.0 1.0 1.0" lower="0.0" estimate="true"/>
@@ -279,7 +314,10 @@
 
 <!-- TPM3uf = model: 012012 unequal frequencies-->
 
-        <subtemplate id="Standard_TPM3uf" class="substmodels.nucleotide.JC" mainid="Standard_TPM3uf.s:$(n)">
+        <subtemplate id="Standard:TPM3uf" class="substmodels.nucleotide.JC" mainid="Standard_TPM3uf.s:$(n)"
+        	 suppressInputs="substmodels.nucleotide.TPM3uf.frequencies,
+	        	 substmodels.nucleotide.TPM3uf.rates,
+    	    	 substmodels.nucleotide.TPM3uf.eigenSystem">
             <![CDATA[
         <plugin spec="substmodels.nucleotide.TPM3uf" id="Standard_TPM3uf.s:$(n)">
             <parameter id="TPM3ufrates.s:$(n)" name="rates" value=" 1.0 1.0 1.0" lower="0.0" estimate="true"/>
@@ -310,7 +348,10 @@
 
 <!-- TIM1 = model: 012230 equal frequencies-->
 
-        <subtemplate id="Standard_TIM1" class="substmodels.nucleotide.JC" mainid="Standard_TIM1.s:$(n)">
+        <subtemplate id="Standard:TIM1" class="substmodels.nucleotide.JC" mainid="Standard_TIM1.s:$(n)"
+        	 suppressInputs="substmodels.nucleotide.TIM1.frequencies,
+	        	 substmodels.nucleotide.TIM1.rates,
+    	    	 substmodels.nucleotide.TIM1.eigenSystem">
             <![CDATA[
         <plugin spec="substmodels.nucleotide.TIM1" id="Standard_TIM1.s:$(n)">
             <parameter id="TIM1rates.s:$(n)" name="rates" value=" 1.0 1.0 1.0 1.0" lower="0.0" estimate="true"/>
@@ -331,7 +372,10 @@
 
 <!-- TIM1uf = model: 012230 unequal frequencies-->
 
-        <subtemplate id="Standard_TIM1uf" class="substmodels.nucleotide.JC" mainid="Standard_TIM1uf.s:$(n)">
+        <subtemplate id="Standard:TIM1uf" class="substmodels.nucleotide.JC" mainid="Standard_TIM1uf.s:$(n)"
+        	 suppressInputs="substmodels.nucleotide.TIM1uf.frequencies,
+	        	 substmodels.nucleotide.TIM1uf.rates,
+    	    	 substmodels.nucleotide.TIM1uf.eigenSystem">
             <![CDATA[
         <plugin spec="substmodels.nucleotide.TIM1uf" id="Standard_TIM1uf.s:$(n)">
             <parameter id="TIM1ufrates.s:$(n)" name="rates" value=" 1.0 1.0 1.0 1.0" lower="0.0" estimate="true"/>
@@ -362,7 +406,10 @@
 
 <!-- TIM2 = model: 010232 equal frequencies-->
 
-        <subtemplate id="Standard_TIM2" class="substmodels.nucleotide.JC" mainid="Standard_TIM2.s:$(n)">
+        <subtemplate id="Standard:TIM2" class="substmodels.nucleotide.JC" mainid="Standard_TIM2.s:$(n)"
+        	 suppressInputs="substmodels.nucleotide.TIM2.frequencies,
+	        	 substmodels.nucleotide.TIM2.rates,
+    	    	 substmodels.nucleotide.TIM2.eigenSystem">
             <![CDATA[
         <plugin spec="substmodels.nucleotide.TIM2" id="Standard_TIM2.s:$(n)">
             <parameter id="TIM2rates.s:$(n)" name="rates" value=" 1.0 1.0 1.0 1.0" lower="0.0" estimate="true"/>
@@ -383,7 +430,10 @@
 
 <!-- TIM2uf = model: 010232 unequal frequencies-->
 
-        <subtemplate id="Standard_TIM2uf" class="substmodels.nucleotide.JC" mainid="Standard_TIM2uf.s:$(n)">
+        <subtemplate id="Standard:TIM2uf" class="substmodels.nucleotide.JC" mainid="Standard_TIM2uf.s:$(n)"
+        	 suppressInputs="substmodels.nucleotide.TIM2uf.frequencies,
+	        	 substmodels.nucleotide.TIM2uf.rates,
+    	    	 substmodels.nucleotide.TIM2uf.eigenSystem">
             <![CDATA[
         <plugin spec="substmodels.nucleotide.TIM2uf" id="Standard_TIM2uf.s:$(n)">
             <parameter id="TIM2ufrates.s:$(n)" name="rates" value=" 1.0 1.0 1.0 1.0" lower="0.0" estimate="true"/>
@@ -414,7 +464,10 @@
 
 <!-- TIM3 = model: 012032 equal frequencies-->
 
-        <subtemplate id="Standard_TIM3" class="substmodels.nucleotide.JC" mainid="Standard_TIM3.s:$(n)">
+        <subtemplate id="Standard:TIM3" class="substmodels.nucleotide.JC" mainid="Standard_TIM3.s:$(n)"
+        	 suppressInputs="substmodels.nucleotide.TIM3.frequencies,
+	        	 substmodels.nucleotide.TIM3.rates,
+    	    	 substmodels.nucleotide.TIM3.eigenSystem">
             <![CDATA[
         <plugin spec="substmodels.nucleotide.TIM3" id="Standard_TIM3.s:$(n)">
             <parameter id="TIM3rates.s:$(n)" name="rates" value=" 1.0 1.0 1.0 1.0" lower="0.0" estimate="true"/>
@@ -435,7 +488,10 @@
 
 <!-- TIM3uf = model: 012032 unequal frequencies-->
 
-        <subtemplate id="Standard_TIM3uf" class="substmodels.nucleotide.JC" mainid="Standard_TIM3uf.s:$(n)">
+        <subtemplate id="Standard:TIM3uf" class="substmodels.nucleotide.JC" mainid="Standard_TIM3uf.s:$(n)"
+        	 suppressInputs="substmodels.nucleotide.TIM3uf.frequencies,
+	        	 substmodels.nucleotide.TIM3uf.rates,
+    	    	 substmodels.nucleotide.TIM3uf.eigenSystem">
             <![CDATA[
         <plugin spec="substmodels.nucleotide.TIM3uf" id="Standard_TIM3uf.s:$(n)">
             <parameter id="TIM3ufrates.s:$(n)" name="rates" value=" 1.0 1.0 1.0 1.0" lower="0.0" estimate="true"/>
@@ -466,7 +522,10 @@
 
 <!-- TVMef = model: 012314 equal frequencies-->
 
-        <subtemplate id="Standard_TVMef" class="substmodels.nucleotide.JC" mainid="Standard_TVMef.s:$(n)">
+        <subtemplate id="Standard:TVMef" class="substmodels.nucleotide.JC" mainid="Standard_TVMef.s:$(n)"
+        	 suppressInputs="substmodels.nucleotide.TVMef.frequencies,
+	        	 substmodels.nucleotide.TVMef.rates,
+    	    	 substmodels.nucleotide.TVMef.eigenSystem">
             <![CDATA[
         <plugin spec="substmodels.nucleotide.TVMef" id="Standard_TVMef.s:$(n)">
             <parameter id="TVMefrates.s:$(n)" name="rates" value=" 1.0 1.0 1.0 1.0 1.0" lower="0.0" estimate="true"/>
@@ -487,7 +546,10 @@
 
 <!-- TVM = model: 012314 unequal frequencies-->
 
-        <subtemplate id="Standard_TVM" class="substmodels.nucleotide.JC" mainid="Standard_TVM.s:$(n)">
+        <subtemplate id="Standard:TVM" class="substmodels.nucleotide.JC" mainid="Standard_TVM.s:$(n)"
+        	 suppressInputs="substmodels.nucleotide.TVM.frequencies,
+	        	 substmodels.nucleotide.TVM.rates,
+    	    	 substmodels.nucleotide.TVM.eigenSystem">
             <![CDATA[
         <plugin spec="substmodels.nucleotide.TVM" id="Standard_TVM.s:$(n)">
             <parameter id="TVMrates.s:$(n)" name="rates" value=" 1.0 1.0 1.0 1.0 1.0" lower="0.0" estimate="true"/>
@@ -518,7 +580,10 @@
 
 <!-- SYM = model: 012345 equal frequencies-->
 
-        <subtemplate id="Standard_SYM" class="substmodels.nucleotide.JC" mainid="Standard_SYM.s:$(n)">
+        <subtemplate id="Standard:SYM" class="substmodels.nucleotide.JC" mainid="Standard_SYM.s:$(n)"
+        	 suppressInputs="substmodels.nucleotide.SYM.frequencies,
+	        	 substmodels.nucleotide.SYM.rates,
+    	    	 substmodels.nucleotide.SYM.eigenSystem">
             <![CDATA[
         <plugin spec="substmodels.nucleotide.SYM" id="Standard_SYM.s:$(n)">
             <parameter id="SYMrates.s:$(n)" name="rates" value=" 1.0 1.0 1.0 1.0 1.0 1.0" lower="0.0" estimate="true"/>
@@ -539,7 +604,10 @@
 
 <!-- GTR = model: 012345 unequal frequencies-->
 
-        <subtemplate id="Standard_GTR" class="substmodels.nucleotide.JC" mainid="Standard_GTR.s:$(n)">
+        <subtemplate id="Standard:GTR" class="substmodels.nucleotide.JC" mainid="Standard_GTR.s:$(n)"
+        	 suppressInputs="substmodels.nucleotide.GTR.frequencies,
+	        	 substmodels.nucleotide.GTR.rates,
+    	    	 substmodels.nucleotide.GTR.eigenSystem">
             <![CDATA[
         <plugin spec="substmodels.nucleotide.GTR" id="Standard_GTR.s:$(n)">
             <parameter id="GTRrates.s:$(n)" name="rates" value=" 1.0 1.0 1.0 1.0 1.0 1.0" lower="0.0" estimate="true"/>
