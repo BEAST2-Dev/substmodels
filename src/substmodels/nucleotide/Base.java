@@ -1,10 +1,12 @@
 package substmodels.nucleotide;
 
+import java.io.PrintStream;
 import java.lang.reflect.InvocationTargetException;
 
 import beast.core.Description;
 import beast.core.Function;
 import beast.core.Input.Validate;
+import beast.core.Loggable;
 import beast.core.Param;
 import beast.core.parameter.RealParameter;
 import beast.evolution.datatype.DataType;
@@ -13,7 +15,7 @@ import beast.evolution.substitutionmodel.Frequencies;
 import beast.evolution.substitutionmodel.GeneralSubstitutionModel;
 
 @Description("Reversible nucleotide substitution model parameterised by model number")
-public class Base extends GeneralSubstitutionModel {
+public class Base extends GeneralSubstitutionModel implements Loggable {
 	String modelID;
 	Boolean equalFreqs;
 
@@ -114,5 +116,35 @@ public class Base extends GeneralSubstitutionModel {
 	@Override
 	public boolean canHandleDataType(DataType dataType) {
         return dataType instanceof Nucleotide;
+	}
+
+	@Override
+	public void init(PrintStream out) {
+		String id = getID();
+		if (id == null) {
+			id = "SSM";
+		}
+		out.append("RateAC-" + id + "\t");
+		out.append("RateAG-" + id + "\t");
+		out.append("RateAT-" + id + "\t");
+		out.append("RateCG-" + id + "\t");
+		out.append("RateCT-" + id + "\t");
+		out.append("RateGT-" + id + "\t");		
+	}
+
+	@Override
+	public void log(int sample, PrintStream out) {
+        Function rates = this.ratesInput.get();
+		out.append(rates.getArrayValue(modelMap[0]) + "\t");
+		out.append(rates.getArrayValue(modelMap[1]) + "\t");
+		out.append(rates.getArrayValue(modelMap[2]) + "\t");
+		out.append(rates.getArrayValue(modelMap[3]) + "\t");
+		out.append(rates.getArrayValue(modelMap[4]) + "\t");
+		out.append(rates.getArrayValue(modelMap[5]) + "\t");
+	}
+
+	@Override
+	public void close(PrintStream out) {
+		// nothing to do
 	}
 }
