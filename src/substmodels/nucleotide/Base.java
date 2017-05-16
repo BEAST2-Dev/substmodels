@@ -76,9 +76,9 @@ public class Base extends GeneralSubstitutionModel implements Loggable {
         }
         max++;
         
-        if (max > 1 && ratesInput.get().getDimension() != max * (max - 1)) {
+        if (max > 1 && ratesInput.get().getDimension() != max) {
             throw new IllegalArgumentException("Dimension of input 'rates' is " + ratesInput.get().getDimension() + " but a " +
-                    "rate matrix of dimension " + max + "x" + (max - 1) + "=" + max * (max - 1) + " was " +
+                    "rate matrix of dimension " + max + " was " +
                     "expected");
         }
 
