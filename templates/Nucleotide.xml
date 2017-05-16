@@ -52,8 +52,6 @@
             </connect>
 
             <connect srcID="F81freqParameter.s:$(n)" targetID="tracelog" inputName="log" if="inlikelihood(Standard_F81.s:$(n))"/>
-            <connect srcID="Standard_JC.s:$(n)" targetID="tracelog" inputName="log" if="inlikelihood(Standard_JC.s:$(n))"/>
-            <connect srcID="Standard_F81.s:$(n)" targetID="tracelog" inputName="log" if="inlikelihood(Standard_F81.s:$(n))"/>
         </subtemplate>
 
 <!-- K80 = model: 010010 equal frequencies-->
@@ -79,7 +77,7 @@
                      if="inlikelihood(Standard_K80.s:$(n))">Delta exchange rates parameter for K80 model at partition s:$(n)
             </connect>
 
-            <connect srcID="Standard_K80rates.s:$(n)" targetID="tracelog" inputName="log" if="inlikelihood(Standard_K80.s:$(n))"/>
+            <connect srcID="K80rates.s:$(n)" targetID="tracelog" inputName="log" if="inlikelihood(Standard_K80.s:$(n))"/>
             <connect srcID="Standard_K80.s:$(n)" targetID="tracelog" inputName="log" if="inlikelihood(Standard_K80.s:$(n))"/>
         </subtemplate>
 
@@ -143,7 +141,7 @@
                      if="inlikelihood(Standard_TrNef.s:$(n))">Delta exchange rates parameter for TrNef model at partition s:$(n)
             </connect>
 
-            <connect srcID="Standard_TrNefrates.s:$(n)" targetID="tracelog" inputName="log" if="inlikelihood(Standard_TrNef.s:$(n))"/>
+            <connect srcID="TrNefrates.s:$(n)" targetID="tracelog" inputName="log" if="inlikelihood(Standard_TrNef.s:$(n))"/>
             <connect srcID="Standard_TrNef.s:$(n)" targetID="tracelog" inputName="log" if="inlikelihood(Standard_TrNef.s:$(n))"/>
         </subtemplate>
 
@@ -207,7 +205,7 @@
                      if="inlikelihood(Standard_TPM1.s:$(n))">Delta exchange rates parameter for TPM1 model at partition s:$(n)
             </connect>
 
-            <connect srcID="Standard_TPM1rates.s:$(n)" targetID="tracelog" inputName="log" if="inlikelihood(Standard_TPM1.s:$(n))"/>
+            <connect srcID="TPM1rates.s:$(n)" targetID="tracelog" inputName="log" if="inlikelihood(Standard_TPM1.s:$(n))"/>
             <connect srcID="Standard_TPM1.s:$(n)" targetID="tracelog" inputName="log" if="inlikelihood(Standard_TPM1.s:$(n))"/>
         </subtemplate>
 
@@ -271,7 +269,7 @@
                      if="inlikelihood(Standard_TPM2.s:$(n))">Delta exchange rates parameter for TPM2 model at partition s:$(n)
             </connect>
 
-            <connect srcID="Standard_TPM2rates.s:$(n)" targetID="tracelog" inputName="log" if="inlikelihood(Standard_TPM2.s:$(n))"/>
+            <connect srcID="TPM2rates.s:$(n)" targetID="tracelog" inputName="log" if="inlikelihood(Standard_TPM2.s:$(n))"/>
             <connect srcID="Standard_TPM2.s:$(n)" targetID="tracelog" inputName="log" if="inlikelihood(Standard_TPM2.s:$(n))"/>
         </subtemplate>
 
@@ -335,7 +333,7 @@
                      if="inlikelihood(Standard_TPM3.s:$(n))">Delta exchange rates parameter for TPM3 model at partition s:$(n)
             </connect>
 
-            <connect srcID="Standard_TPM3rates.s:$(n)" targetID="tracelog" inputName="log" if="inlikelihood(Standard_TPM3.s:$(n))"/>
+            <connect srcID="TPM3rates.s:$(n)" targetID="tracelog" inputName="log" if="inlikelihood(Standard_TPM3.s:$(n))"/>
             <connect srcID="Standard_TPM3.s:$(n)" targetID="tracelog" inputName="log" if="inlikelihood(Standard_TPM3.s:$(n))"/>
         </subtemplate>
 
@@ -399,7 +397,7 @@
                      if="inlikelihood(Standard_TIM1.s:$(n))">Delta exchange rates parameter for TIM1 model at partition s:$(n)
             </connect>
 
-            <connect srcID="Standard_TIM1rates.s:$(n)" targetID="tracelog" inputName="log" if="inlikelihood(Standard_TIM1.s:$(n))"/>
+            <connect srcID="TIM1rates.s:$(n)" targetID="tracelog" inputName="log" if="inlikelihood(Standard_TIM1.s:$(n))"/>
             <connect srcID="Standard_TIM1.s:$(n)" targetID="tracelog" inputName="log" if="inlikelihood(Standard_TIM1.s:$(n))"/>
         </subtemplate>
 
@@ -463,7 +461,7 @@
                      if="inlikelihood(Standard_TIM2.s:$(n))">Delta exchange rates parameter for TIM2 model at partition s:$(n)
             </connect>
 
-            <connect srcID="Standard_TIM2rates.s:$(n)" targetID="tracelog" inputName="log" if="inlikelihood(Standard_TIM2.s:$(n))"/>
+            <connect srcID="TIM2rates.s:$(n)" targetID="tracelog" inputName="log" if="inlikelihood(Standard_TIM2.s:$(n))"/>
             <connect srcID="Standard_TIM2.s:$(n)" targetID="tracelog" inputName="log" if="inlikelihood(Standard_TIM2.s:$(n))"/>
         </subtemplate>
 
@@ -527,7 +525,7 @@
                      if="inlikelihood(Standard_TIM3.s:$(n))">Delta exchange rates parameter for TIM3 model at partition s:$(n)
             </connect>
 
-            <connect srcID="Standard_TIM3rates.s:$(n)" targetID="tracelog" inputName="log" if="inlikelihood(Standard_TIM3.s:$(n))"/>
+            <connect srcID="TIM3rates.s:$(n)" targetID="tracelog" inputName="log" if="inlikelihood(Standard_TIM3.s:$(n))"/>
             <connect srcID="Standard_TIM3.s:$(n)" targetID="tracelog" inputName="log" if="inlikelihood(Standard_TIM3.s:$(n))"/>
         </subtemplate>
 
@@ -591,7 +589,7 @@
                      if="inlikelihood(Standard_TVMef.s:$(n))">Delta exchange rates parameter for TVMef model at partition s:$(n)
             </connect>
 
-            <connect srcID="Standard_TVMefrates.s:$(n)" targetID="tracelog" inputName="log" if="inlikelihood(Standard_TVMef.s:$(n))"/>
+            <connect srcID="TVMefrates.s:$(n)" targetID="tracelog" inputName="log" if="inlikelihood(Standard_TVMef.s:$(n))"/>
             <connect srcID="Standard_TVMef.s:$(n)" targetID="tracelog" inputName="log" if="inlikelihood(Standard_TVMef.s:$(n))"/>
         </subtemplate>
 
@@ -655,7 +653,7 @@
                      if="inlikelihood(Standard_SYM.s:$(n))">Delta exchange rates parameter for SYM model at partition s:$(n)
             </connect>
 
-            <connect srcID="Standard_SYMrates.s:$(n)" targetID="tracelog" inputName="log" if="inlikelihood(Standard_SYM.s:$(n))"/>
+            <connect srcID="SYMrates.s:$(n)" targetID="tracelog" inputName="log" if="inlikelihood(Standard_SYM.s:$(n))"/>
             <connect srcID="Standard_SYM.s:$(n)" targetID="tracelog" inputName="log" if="inlikelihood(Standard_SYM.s:$(n))"/>
         </subtemplate>
 
