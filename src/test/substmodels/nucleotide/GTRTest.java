@@ -10,22 +10,9 @@ import substmodels.nucleotide.GTR;
 /**
  * Test GTR matrix exponentiation
  *
- * @author Joseph Heled
- *         Date: 7/11/2007
- *         imported by Walter Xie from BEAST 1
  */
 @Description("Test GTR matrix exponentiation")
 public class GTRTest extends TestCase {
-
-    public interface Instance {
-        Double[] getPi();
-
-        Double [] getRates();
-
-        double getDistance();
-
-        double[] getExpectedResult();
-    }
 
     /*
      * Results obtained by running the following scilab code,
@@ -40,7 +27,7 @@ public class GTRTest extends TestCase {
      * q0 = (xx + diag(-sum(xx,2))) / sum(piQ * sum(xx,2)) ;
      * expm(q0 * d)
      */
-    protected Instance test0 = new Instance() {
+    protected UnequalBaseFrequencies test0 = new UnequalBaseFrequencies() {
         @Override
 		public Double[] getPi() {
             return new Double[]{0.25, 0.25, 0.25, 0.25};
@@ -67,7 +54,7 @@ public class GTRTest extends TestCase {
         }
     };
 
-    protected Instance test1 = new Instance() {
+    protected UnequalBaseFrequencies test1 = new UnequalBaseFrequencies() {
         @Override
 		public Double[] getPi() {
             return new Double[]{0.50, 0.20, 0.2, 0.1};
@@ -94,7 +81,7 @@ public class GTRTest extends TestCase {
         }
     };
 
-    protected Instance test2 = new Instance() {
+    protected UnequalBaseFrequencies test2 = new UnequalBaseFrequencies() {
         @Override
 		public Double[] getPi() {
             return new Double[]{0.20, 0.30, 0.25, 0.25};
@@ -121,7 +108,7 @@ public class GTRTest extends TestCase {
         }
     };
 
-    protected Instance test3 = new Instance() {
+    protected UnequalBaseFrequencies test3 = new UnequalBaseFrequencies() {
         @Override
 		public Double[] getPi() {
             return new Double[]{0.20, 0.30, 0.25, 0.25};
@@ -148,7 +135,7 @@ public class GTRTest extends TestCase {
         }
     };
     
-    protected Instance test4 = new Instance() {
+    protected UnequalBaseFrequencies test4 = new UnequalBaseFrequencies() {
         @Override
 		public Double[] getPi() {
             return new Double[]{0.20, 0.30, 0.25, 0.25};
@@ -174,21 +161,20 @@ public class GTRTest extends TestCase {
             };
         }
     };
-    
-    
-    Instance[] all = {test4, test3, test2, test1, test0};
+
+
+    UnequalBaseFrequencies[] all = {test4, test3, test2, test1, test0};
 
     public void testGTR() throws Exception {
-        for (Instance test : all) {
+        for (UnequalBaseFrequencies test : all) {
 
             RealParameter f = new RealParameter(test.getPi());
-
             Frequencies freqs = new Frequencies();
             freqs.initByName("frequencies", f);
 
             GTR gtr = new GTR();
-            RealParameter rates = new RealParameter(test.getRates());
-            gtr.initByName("rates", rates, "frequencies", freqs);
+            RealParameter gtrRates = new RealParameter(test.getRates());
+            gtr.initByName("rates", gtrRates, "frequencies", freqs);
 
             double distance = test.getDistance();
 

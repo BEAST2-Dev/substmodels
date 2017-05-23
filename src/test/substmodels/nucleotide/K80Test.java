@@ -8,16 +8,8 @@ import substmodels.nucleotide.K80;
 /**
  * Test K80 matrix exponentiation
  */
-@Description("Test HKY matrix exponentiation")
+@Description("Test K80 matrix exponentiation")
 public class K80Test extends TestCase {
-
-    public interface Instance {
-        Double [] getRates();
-
-        double getDistance();
-
-        double[] getExpectedResult();
-    }
 
     /*
      * Results obtained by running the following scilab code,
@@ -32,12 +24,12 @@ public class K80Test extends TestCase {
      * q0 = (xx + diag(-sum(xx,2))) / sum(piQ * sum(xx,2)) ;
      * expm(q0 * d)
      */
-    protected Instance test0 = new Instance() {
+    protected EqualBaseFrequencies test0 = new EqualBaseFrequencies() {
         // public Double[] getPi() { return new Double[]{0.25, 0.25, 0.25, 0.25}; }
 
         @Override
         public Double [] getRates() {
-            return new Double[] {0.5, 1.0};
+            return new Double[] {1.0, 2.0};
         }
 
         @Override
@@ -57,10 +49,10 @@ public class K80Test extends TestCase {
     };
 
 
-    Instance[] all = {test0};
+    EqualBaseFrequencies[] all = {test0};
 
     public void testK80() throws Exception {
-        for (Instance test : all) {
+        for (EqualBaseFrequencies test : all) {
 
             K80 k80 = new K80();
             RealParameter rates = new RealParameter(test.getRates());

@@ -16,16 +16,6 @@ import substmodels.nucleotide.HKY;
 @Description("Test HKY matrix exponentiation")
 public class HKYTest extends TestCase {
 
-    public interface Instance {
-        Double[] getPi();
-
-        Double [] getRates();
-
-        double getDistance();
-
-        double[] getExpectedResult();
-    }
-
     /*
      * Results obtained by running the following scilab code,
      *
@@ -39,7 +29,7 @@ public class HKYTest extends TestCase {
      * q0 = (xx + diag(-sum(xx,2))) / sum(piQ * sum(xx,2)) ;
      * expm(q0 * d)
      */
-    protected Instance test1 = new Instance() {
+    protected UnequalBaseFrequencies test1 = new UnequalBaseFrequencies() {
         @Override
 		public Double[] getPi() {
             return new Double[]{0.50, 0.20, 0.2, 0.1};
@@ -66,7 +56,7 @@ public class HKYTest extends TestCase {
         }
     };
 
-    protected Instance test2 = new Instance() {
+    protected UnequalBaseFrequencies test2 = new UnequalBaseFrequencies() {
         @Override
 		public Double[] getPi() {
             return new Double[]{0.20, 0.30, 0.25, 0.25};
@@ -93,10 +83,10 @@ public class HKYTest extends TestCase {
         }
     };
 
-    Instance[] all = {test1, test2};
+    UnequalBaseFrequencies[] all = {test1, test2};
 
     public void testHKY() throws Exception {
-        for (Instance test : all) {
+        for (UnequalBaseFrequencies test : all) {
 
             RealParameter f = new RealParameter(test.getPi());
 
