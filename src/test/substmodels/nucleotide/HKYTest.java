@@ -1,10 +1,10 @@
-package test.beast.evolution.substmodel;
+package test.substmodels.nucleotide;
 
 import beast.core.Description;
 import beast.core.parameter.RealParameter;
 import beast.evolution.substitutionmodel.Frequencies;
-import beast.evolution.substitutionmodel.HKY;
 import junit.framework.TestCase;
+import substmodels.nucleotide.HKY;
 
 /**
  * Test HKY matrix exponentiation
@@ -19,7 +19,7 @@ public class HKYTest extends TestCase {
     public interface Instance {
         Double[] getPi();
 
-        Double getKappa();
+        Double [] getRates();
 
         double getDistance();
 
@@ -39,33 +39,6 @@ public class HKYTest extends TestCase {
      * q0 = (xx + diag(-sum(xx,2))) / sum(piQ * sum(xx,2)) ;
      * expm(q0 * d)
      */
-    protected Instance test0 = new Instance() {
-        @Override
-		public Double[] getPi() {
-            return new Double[]{0.25, 0.25, 0.25, 0.25};
-        }
-
-        @Override
-		public Double getKappa() {
-            return 2.0;
-        }
-
-        @Override
-		public double getDistance() {
-            return 0.1;
-        }
-
-        @Override
-		public double[] getExpectedResult() {
-            return new double[]{
-                    0.906563342722, 0.023790645491, 0.045855366296, 0.023790645491,
-                    0.023790645491, 0.906563342722, 0.023790645491, 0.045855366296,
-                    0.045855366296, 0.023790645491, 0.906563342722, 0.023790645491,
-                    0.023790645491, 0.045855366296, 0.023790645491, 0.906563342722
-            };
-        }
-    };
-
     protected Instance test1 = new Instance() {
         @Override
 		public Double[] getPi() {
@@ -73,8 +46,8 @@ public class HKYTest extends TestCase {
         }
 
         @Override
-		public Double getKappa() {
-            return 2.0;
+        public Double [] getRates() {
+            return new Double[] {0.5, 1.0};
         }
 
         @Override
@@ -100,8 +73,8 @@ public class HKYTest extends TestCase {
         }
 
         @Override
-		public Double getKappa() {
-            return 5.0;
+        public Double [] getRates() {
+            return new Double[] {0.2, 1.0};
         }
 
         @Override
@@ -120,7 +93,7 @@ public class HKYTest extends TestCase {
         }
     };
 
-    Instance[] all = {test2, test1, test0};
+    Instance[] all = {test1, test2};
 
     public void testHKY() throws Exception {
         for (Instance test : all) {
@@ -128,10 +101,11 @@ public class HKYTest extends TestCase {
             RealParameter f = new RealParameter(test.getPi());
 
             Frequencies freqs = new Frequencies();
-            freqs.initByName("frequencies", f, "estimate", false);
+            freqs.initByName("frequencies", f); // "estimate", true
 
             HKY hky = new HKY();
-            hky.initByName("kappa", test.getKappa().toString(), "frequencies", freqs);
+            RealParameter rates = new RealParameter(test.getRates());
+            hky.initByName("rates", rates, "frequencies", freqs);
 
             double distance = test.getDistance();
 
