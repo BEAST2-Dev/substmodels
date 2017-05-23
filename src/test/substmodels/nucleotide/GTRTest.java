@@ -15,16 +15,18 @@ import substmodels.nucleotide.GTR;
 public class GTRTest extends TestCase {
 
     /*
-     * Results obtained by running the following scilab code,
+     * import numpy as np
+     * from scipy.linalg import expm
      *
-     * k = 5 ; piQ = diag([.2, .3, .25, .25]) ; d = 0.1 ;
-     * % Q matrix with zeroed diagonal
-     * XQ = [0 1 k 1; 1 0 1 k; k 1 0 1; 1 k 1 0];
+     * piQ = np.diag([.2, .3, .25, .25])
+     * d = 0.1
+     * # Q matrix with zeroed diagonal
+     * XQ = np.matrix([[0, 0.2, 10, .3], [0.2, 0, 0.4, 5], [10, 0.4, 0, 0.5], [0.3, 5, 0.5, 0]])
      *
-     * xx = XQ * piQ ;
+     * xx = XQ * piQ
      *
-     * % fill diagonal and normalize by total substitution rate
-     * q0 = (xx + diag(-sum(xx,2))) / sum(piQ * sum(xx,2)) ;
+     * # fill diagonal and normalize by total substitution rate
+     * q0 = (xx + np.diag(np.squeeze(np.asarray(-np.sum(xx, axis=1))))) / np.sum(piQ * np.sum(xx, axis=1))
      * expm(q0 * d)
      */
     protected UnequalBaseFrequencies test0 = new UnequalBaseFrequencies() {
@@ -175,11 +177,15 @@ public class GTRTest extends TestCase {
             GTR gtr = new GTR();
             RealParameter gtrRates = new RealParameter(test.getRates());
             gtr.initByName("rates", gtrRates, "frequencies", freqs);
+            gtr.printQ(System.out); // to obtain XQ for python script
+//            for (int i = 0; i < 6; ++i)
+//                System.out.println("Rate " + gtr.getSubstitution(i) + " : " + gtr.getRate(i));
 
             double distance = test.getDistance();
 
             double[] mat = new double[4 * 4];
             gtr.getTransitionProbabilities(null, distance, 0, 1, mat);
+
             final double[] result = test.getExpectedResult();
 
             for (int k = 0; k < mat.length; ++k) {

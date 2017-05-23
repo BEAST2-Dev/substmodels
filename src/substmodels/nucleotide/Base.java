@@ -1,8 +1,5 @@
 package substmodels.nucleotide;
 
-import java.io.PrintStream;
-import java.lang.reflect.InvocationTargetException;
-
 import beast.core.Description;
 import beast.core.Function;
 import beast.core.Input.Validate;
@@ -13,6 +10,9 @@ import beast.evolution.datatype.DataType;
 import beast.evolution.datatype.Nucleotide;
 import beast.evolution.substitutionmodel.Frequencies;
 import beast.evolution.substitutionmodel.GeneralSubstitutionModel;
+
+import java.io.PrintStream;
+import java.lang.reflect.InvocationTargetException;
 
 @Description("Reversible nucleotide substitution model parameterised by model number")
 public class Base extends GeneralSubstitutionModel implements Loggable {
@@ -146,5 +146,68 @@ public class Base extends GeneralSubstitutionModel implements Loggable {
 	@Override
 	public void close(PrintStream out) {
 		// nothing to do
+	}
+
+	//+++++++ help to setup Unit test ++++++++
+
+	public String getSubstitution(int i) {
+		switch (i) {
+			case 0:  return "AC";
+			case 1:  return "AG";
+			case 2:  return "AT";
+			case 3:  return "CG";
+			case 4:  return "CT";
+			case 5:  return "GT";
+			default:
+				throw new IllegalArgumentException("Invalid i = " + i);
+		}
+	}
+
+	public double getRate(int i) {
+		Function rates = this.ratesInput.get();
+		return rates.getArrayValue(modelMap[i]);
+	}
+
+	public double getRateAC() {
+		return getRate(0);
+	}
+
+	public double getRateAG() {
+		return getRate(1);
+	}
+
+	public double getRateAT() {
+		return getRate(2);
+	}
+
+	public double getRateCG() {
+		return getRate(3);
+	}
+
+	public double getRateCT() {
+		return getRate(4);
+	}
+
+	public double getRateGT() {
+		return getRate(5);
+	}
+
+	public void printQ(PrintStream out) {
+		String[] acgt = new String[]{"A","C","G","T"};
+		int[][] index = new int[][]{{-1,0,1,2},{0,-1,3,4},{1,3,-1,5},{2,4,5,-1}}; // hard code
+		for (int i=0; i < acgt.length; i++)
+			out.append("\t" + acgt[i]);
+		out.append("\n");
+		for (int r=0; r < index.length; r++) {
+			out.append(acgt[r]);
+			for (int c=0; c < index[r].length; c++) {
+				if (index[r][c] < 0)
+					out.append("\t" + 0);
+				else
+					out.append("\t" + getRate(index[r][c]));
+			}
+			out.append("\n");
+		}
+		out.append("\n");
 	}
 }

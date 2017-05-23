@@ -89,18 +89,27 @@ public class HKYTest extends TestCase {
         for (UnequalBaseFrequencies test : all) {
 
             RealParameter f = new RealParameter(test.getPi());
-
             Frequencies freqs = new Frequencies();
             freqs.initByName("frequencies", f); // "estimate", true
 
             HKY hky = new HKY();
             RealParameter rates = new RealParameter(test.getRates());
             hky.initByName("rates", rates, "frequencies", freqs);
+            hky.printQ(System.out); // to obtain XQ for python script
+//            for (int i = 0; i < 6; ++i)
+//                System.out.println("Rate " + hky.getSubstitution(i) + " : " + hky.getRate(i));
+
+            // AC=AT=CG=GT
+            assertEquals(true, hky.getRateAC()==hky.getRateAT() &&
+                    hky.getRateAC()==hky.getRateCG() && hky.getRateAC()== hky.getRateGT());
+            // AG=CT
+            assertEquals(true, hky.getRateAG()==hky.getRateCT() &&
+                    hky.getRateAC()!=hky.getRateCT() );
 
             double distance = test.getDistance();
-
             double[] mat = new double[4 * 4];
             hky.getTransitionProbabilities(null, distance, 0, 1, mat);
+
             final double[] result = test.getExpectedResult();
 
             for (int k = 0; k < mat.length; ++k) {

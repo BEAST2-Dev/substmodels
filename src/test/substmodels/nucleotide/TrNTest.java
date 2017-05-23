@@ -4,22 +4,19 @@ import beast.core.Description;
 import beast.core.parameter.RealParameter;
 import beast.evolution.substitutionmodel.Frequencies;
 import junit.framework.TestCase;
-import substmodels.nucleotide.F81;
+import substmodels.nucleotide.TrN;
 
-/**
- * Test F81 matrix exponentiation
- */
-@Description("Test F81 matrix exponentiation")
-public class F81Test extends TestCase {
+@Description("Test TrN matrix exponentiation")
+public class TrNTest extends TestCase {
 
     /*
      * import numpy as np
      * from scipy.linalg import expm
-     * k = 1
+     *
      * piQ = np.diag([0.4, 0.3, 0.2, 0.1])
      * d = 0.1
      * # Q matrix with zeroed diagonal
-     * XQ = np.matrix([[0, 1, k, 1], [1, 0, 1, k], [k, 1, 0, 1], [1, k, 1, 0]])
+     * XQ = np.matrix([[0, 1, 2, 1], [1, 0, 1, 3], [2, 1, 0, 1], [1, 3, 1, 0]])
      *
      * xx = XQ * piQ
      *
@@ -32,10 +29,10 @@ public class F81Test extends TestCase {
         public Double[] getPi() {
             return new Double[]{0.4, 0.3, 0.2, 0.1};
         }
-
+        
         @Override
         public Double [] getRates() {
-            return new Double[] {1.0};
+            return new Double[] {1.0, 2.0, 3.0};
         }
 
         @Override
@@ -46,10 +43,10 @@ public class F81Test extends TestCase {
         @Override
 		public double[] getExpectedResult() {
             return new double[]{
-                    0.92012673985 ,  0.039936630075,  0.02662442005 ,  0.013312210025,
-                    0.0532488401  ,  0.906814529825,  0.02662442005 ,  0.013312210025,
-                    0.0532488401  ,  0.039936630075,  0.8935023198  ,  0.013312210025,
-                    0.0532488401  ,  0.039936630075,  0.02662442005 ,  0.880190109775
+                    0.923919990609,  0.029102191778,  0.03727708702 ,  0.009700730593,
+                    0.038802922371,  0.914398587505,  0.019401461186,  0.027397028938,
+                    0.07455417404 ,  0.029102191778,  0.886642903588,  0.009700730593,
+                    0.038802922371,  0.082191086815,  0.019401461186,  0.859604529629
             };
         }
     };
@@ -57,28 +54,32 @@ public class F81Test extends TestCase {
 
     UnequalBaseFrequencies[] all = {test0};
 
-    public void testF81() throws Exception {
+    public void testTrNe() throws Exception {
         for (UnequalBaseFrequencies test : all) {
 
             RealParameter f = new RealParameter(test.getPi());
             Frequencies freqs = new Frequencies();
-            freqs.initByName("frequencies", f);
+            freqs.initByName("frequencies", f); // "estimate", true
 
-            F81 f81 = new F81();
+            TrN trN = new TrN();
             RealParameter rates = new RealParameter(test.getRates());
-            f81.initByName("rates", rates, "frequencies", freqs);
-            
-            // AC=AT=AG=CG=CT=GT
-            assertEquals(true, f81.getRateAC()==f81.getRateAT() &&
-                    f81.getRateAC()==f81.getRateCG() && f81.getRateAC()== f81.getRateGT() &&
-                    f81.getRateAC()==f81.getRateAG() && f81.getRateAC()==f81.getRateCT());
-            
+            trN.initByName("rates", rates, "frequencies", freqs);
+            trN.printQ(System.out); // to obtain XQ for python script
+//            for (int i = 0; i < 6; ++i)
+//                System.out.println("Rate " + trN.getSubstitution(i) + " : " + trN.getRate(i));
+
+            // AC=AT=CG=GT
+            assertEquals(true, trN.getRateAC()==trN.getRateAT() &&
+                    trN.getRateAC()==trN.getRateCG() && trN.getRateAC()== trN.getRateGT());
+            // AG!=CT
+            assertEquals(true, trN.getRateAC()!=trN.getRateAG() &&
+                    trN.getRateAC()!=trN.getRateCT() && trN.getRateAG()!=trN.getRateCT());
+
             double distance = test.getDistance();
-
             double[] mat = new double[4 * 4];
-            f81.getTransitionProbabilities(null, distance, 0, 1, mat);
-            final double[] result = test.getExpectedResult();
+            trN.getTransitionProbabilities(null, distance, 0, 1, mat);
 
+            final double[] result = test.getExpectedResult();
             for (int k = 0; k < mat.length; ++k) {
                 assertEquals(mat[k], result[k], 1e-10);
                 System.out.println(k + " : " + (mat[k] - result[k]));

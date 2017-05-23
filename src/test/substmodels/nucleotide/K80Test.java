@@ -11,22 +11,7 @@ import substmodels.nucleotide.K80;
 @Description("Test K80 matrix exponentiation")
 public class K80Test extends TestCase {
 
-    /*
-     * Results obtained by running the following scilab code,
-     *
-     * k = 5 ; piQ = diag([.2, .3, .25, .25]) ; d = 0.1 ;
-     * % Q matrix with zeroed diagonal
-     * XQ = [0 1 k 1; 1 0 1 k; k 1 0 1; 1 k 1 0];
-     *
-     * xx = XQ * piQ ;
-     *
-     * % fill diagonal and normalize by total substitution rate
-     * q0 = (xx + diag(-sum(xx,2))) / sum(piQ * sum(xx,2)) ;
-     * expm(q0 * d)
-     */
     protected EqualBaseFrequencies test0 = new EqualBaseFrequencies() {
-        // public Double[] getPi() { return new Double[]{0.25, 0.25, 0.25, 0.25}; }
-
         @Override
         public Double [] getRates() {
             return new Double[] {1.0, 2.0};
@@ -57,9 +42,18 @@ public class K80Test extends TestCase {
             K80 k80 = new K80();
             RealParameter rates = new RealParameter(test.getRates());
             k80.initByName("rates", rates);
+            k80.printQ(System.out); // to obtain XQ for python script
+//            for (int i = 0; i < 6; ++i)
+//                System.out.println("Rate " + k80.getSubstitution(i) + " : " + k80.getRate(i));
 
+            // AC=AT=CG=GT
+            assertEquals(true, k80.getRateAC()==k80.getRateAT() &&
+                    k80.getRateAC()==k80.getRateCG() && k80.getRateAC()== k80.getRateGT());
+            // AG=CT
+            assertEquals(true, k80.getRateAG()==k80.getRateCT() &&
+                    k80.getRateAC()!=k80.getRateCT() );
+            
             double distance = test.getDistance();
-
             double[] mat = new double[4 * 4];
             k80.getTransitionProbabilities(null, distance, 0, 1, mat);
             final double[] result = test.getExpectedResult();
