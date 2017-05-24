@@ -54,7 +54,7 @@ public class TPM1ufTest extends TestCase {
 
     UnequalBaseFrequencies[] all = {test0};
 
-    public void testTPM1ufe() throws Exception {
+    public void testTPM1uf() throws Exception {
         for (UnequalBaseFrequencies test : all) {
 
             RealParameter f = new RealParameter(test.getPi());
