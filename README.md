@@ -1,3 +1,5 @@
+[![DOI](https://zenodo.org/badge/91389926.svg)](https://zenodo.org/badge/latestdoi/91389926)
+
 SSM (standard substitution models) is a [BEAST 2](https://beast2.org) package containing 
 the following standard time-reversible substitution models:
 JC, F81, K80, HKY, TrNf, TrN, TPM1, TPM1f, TPM2, TPM2f, TPM3, TPM3f, TIM1, TIM1f, TIM2, TIM2f, TIM3 , TIM3f, TVMf, TVM, SYM, GTR.
@@ -12,6 +14,9 @@ Rates are estimated assuming a Dirichlet(1,1,1,1,1,1) prior on the 6 rates (AC, 
 For models that use fewer parameters, e.g. HKY, all six associated rates are logged.
 
 Models have a Dirichlet(1,1,1,1) prior on frequencies (in case they are estimated).
+
+## Citation
+Remco Bouckaert, & Dong Xie. (2017, September 25). Standard Nucleotide Substitution Models v1.0.1. http://doi.org/10.5281/zenodo.995740
 
 ## Installation
 
