@@ -1,4 +1,4 @@
-<addon name="SSM" version="1.0.0">
+<addon name="SSM" version="1.0.1">
             <depends on="beast2" atleast="2.4.0"/>
 
             <!-- Add other dependencies as necessary. -->

@@ -262,8 +262,8 @@
 
         <input addproperty="projName" defaultvalue="${defaultProjName}">Enter package name</input>
         <input addproperty="license" defaultvalue="gpl3" validargs="gpl3,lgpl3,lgpl2.1,apache2">Select open source software license</input>
-        <input addproperty="projVersion" defaultvalue="1.0.0">Enter package version</input>
-        <input addproperty="beastVersionReq" defaultvalue="2.1.0">Enter minimum required BEAST 2 version</input>
+        <input addproperty="projVersion" defaultvalue="1.0.1">Enter package version</input>
+        <input addproperty="beastVersionReq" defaultvalue="2.4.0">Enter minimum required BEAST 2 version</input>
 
         <echo>Assembling files and directory structure...</echo>
 
