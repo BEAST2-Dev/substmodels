@@ -1,6 +1,6 @@
 [![DOI](https://zenodo.org/badge/91389926.svg)](https://zenodo.org/badge/latestdoi/91389926)
 
-SSM (standard substitution models) is a [BEAST 2](https://beast2.org) package containing 
+SSM (standard substitution models) is a [BEAST 2](http://www.beast2.org) package containing 
 the following standard time-reversible substitution models:
 JC, F81, K80, HKY, TrNf, TrN, TPM1, TPM1f, TPM2, TPM2f, TPM3, TPM3f, TIM1, TIM1f, TIM2, TIM2f, TIM3 , TIM3f, TVMf, TVM, SYM, GTR.
 
