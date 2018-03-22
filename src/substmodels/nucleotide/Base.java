@@ -133,7 +133,7 @@ public class Base extends GeneralSubstitutionModel implements Loggable {
 	}
 
 	@Override
-	public void log(int sample, PrintStream out) {
+	public void log(long sample, PrintStream out) {
         Function rates = this.ratesInput.get();
 		out.append(rates.getArrayValue(modelMap[0]) + "\t");
 		out.append(rates.getArrayValue(modelMap[1]) + "\t");
