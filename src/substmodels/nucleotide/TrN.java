@@ -1,5 +1,5 @@
 package substmodels.nucleotide;
-import beast.core.Description;
+import beast.base.core.Description;
 
 @Description("Standard nucleotide substitution model TrN<br>Has rates 010020 and estimated frequencies")
 public class TrN extends Base {

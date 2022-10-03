@@ -1,5 +1,5 @@
 package substmodels.nucleotide;
-import beast.core.Description;
+import beast.base.core.Description;
 
 @Description("Standard nucleotide substitution model TIM1uf<br>Has rates 012230 and estimated frequencies")
 public class TIM1uf extends Base {

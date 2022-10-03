@@ -1,15 +1,15 @@
 package substmodels.nucleotide;
 
-import beast.core.Description;
-import beast.core.Function;
-import beast.core.Input.Validate;
-import beast.core.Loggable;
-import beast.core.Param;
-import beast.core.parameter.RealParameter;
-import beast.evolution.datatype.DataType;
-import beast.evolution.datatype.Nucleotide;
-import beast.evolution.substitutionmodel.Frequencies;
-import beast.evolution.substitutionmodel.GeneralSubstitutionModel;
+import beast.base.core.Description;
+import beast.base.core.Function;
+import beast.base.core.Input.Validate;
+import beast.base.core.Loggable;
+import beast.base.core.Param;
+import beast.base.inference.parameter.RealParameter;
+import beast.base.evolution.datatype.DataType;
+import beast.base.evolution.datatype.Nucleotide;
+import beast.base.evolution.substitutionmodel.Frequencies;
+import beast.base.evolution.substitutionmodel.GeneralSubstitutionModel;
 
 import java.io.PrintStream;
 import java.lang.reflect.InvocationTargetException;
@@ -96,7 +96,7 @@ public class Base extends GeneralSubstitutionModel implements Loggable {
 	
 	
 	@Override
-	protected void setupRelativeRates() {
+	public void setupRelativeRates() {
         Function rates = this.ratesInput.get();
         relativeRates[0] = rates.getArrayValue(modelMap[0]);
         relativeRates[1] = rates.getArrayValue(modelMap[1]);

@@ -1,5 +1,5 @@
 package substmodels.nucleotide;
-import beast.core.Description;
+import beast.base.core.Description;
 
 @Description("Standard nucleotide substitution model TIM3<br>Has rates 012032 and equal frequencies")
 public class TIM3 extends Base {

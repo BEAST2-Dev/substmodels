@@ -1,5 +1,5 @@
 package substmodels.nucleotide;
-import beast.core.Description;
+import beast.base.core.Description;
 
 @Description("Standard nucleotide substitution model F81<br>Has rates 000000 and estimated frequencies")
 public class F81 extends Base {

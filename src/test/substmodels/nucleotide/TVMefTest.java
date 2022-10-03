@@ -1,8 +1,8 @@
 package test.substmodels.nucleotide;
 
 
-import beast.core.Description;
-import beast.core.parameter.RealParameter;
+import beast.base.core.Description;
+import beast.base.inference.parameter.RealParameter;
 import junit.framework.TestCase;
 import substmodels.nucleotide.TVMef;
 

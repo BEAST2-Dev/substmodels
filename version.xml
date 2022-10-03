@@ -1,5 +1,34 @@
-<package name="SSM" version="1.1.0">
-            <depends on="beast2" atleast="2.4.0"/>
+<package name="SSM" version="1.2.0">
+        <depends on='BEAST.base' atleast='2.7.0'/>
+        <depends on='BEAST.app' atleast='2.7.0'/>
 
-            <!-- Add other dependencies as necessary. -->
+    <service type="beast.base.core.BEASTInterface">
+        <provider classname="substmodels.nucleotide.Base"/>
+        <provider classname="substmodels.nucleotide.F81"/>
+        <provider classname="substmodels.nucleotide.GTR"/>
+        <provider classname="substmodels.nucleotide.HKY"/>
+        <provider classname="substmodels.nucleotide.JC"/>
+        <provider classname="substmodels.nucleotide.K80"/>
+        <provider classname="substmodels.nucleotide.SYM"/>
+        <provider classname="substmodels.nucleotide.TIM1"/>
+        <provider classname="substmodels.nucleotide.TIM1uf"/>
+        <provider classname="substmodels.nucleotide.TIM2"/>
+        <provider classname="substmodels.nucleotide.TIM2uf"/>
+        <provider classname="substmodels.nucleotide.TIM3"/>
+        <provider classname="substmodels.nucleotide.TIM3uf"/>
+        <provider classname="substmodels.nucleotide.TPM1"/>
+        <provider classname="substmodels.nucleotide.TPM1uf"/>
+        <provider classname="substmodels.nucleotide.TPM2"/>
+        <provider classname="substmodels.nucleotide.TPM2uf"/>
+        <provider classname="substmodels.nucleotide.TPM3"/>
+        <provider classname="substmodels.nucleotide.TPM3uf"/>
+        <provider classname="substmodels.nucleotide.TrN"/>
+        <provider classname="substmodels.nucleotide.TrNef"/>
+        <provider classname="substmodels.nucleotide.TVM"/>
+        <provider classname="substmodels.nucleotide.TVMef"/>
+    </service>
+
+    <service type="beastfx.app.inputeditor.InputEditor">
+        <provider classname="substmodels.app.beauti.SSMInputEditor"/>
+    </service>
 </package>
