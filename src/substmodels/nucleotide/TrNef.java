@@ -1,7 +1,7 @@
 package substmodels.nucleotide;
 import beast.base.core.Description;
 
-@Description("Standard nucleotide substitution model TrNef<br>Has rates 010020 and equal frequencies")
+@Description("Standard nucleotide substitution model TrNef\nHas rates 010020 and equal frequencies")
 public class TrNef extends Base {
 	
 	public TrNef() {

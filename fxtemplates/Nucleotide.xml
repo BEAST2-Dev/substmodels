@@ -40,7 +40,7 @@
             </frequencies>
         </plugin>
 
-        <plugin id="F81FrequenciesExchanger.s:$(n)" spec="DeltaExchangeOperator" delta="0.01" weight="0.1" parameter="@F81freqParameter.s:$(n)"/>
+        <plugin id="F81FrequenciesExchanger.s:$(n)" spec="kernel.BactrianDeltaExchangeOperator" delta="0.01" weight="0.1" parameter="@F81freqParameter.s:$(n)"/>
 
 ]]>
 
@@ -65,7 +65,7 @@
             <parameter id="K80rates.s:$(n)" name="rates" value=" 1.0 1.0" lower="0.0" estimate="true"/>
         </substModel>
 
-        <operator id="K80RateDeltaExchanger.s:$(n)" spec="DeltaExchangeOperator" delta="0.1" weight="0.1" parameter="@K80rates.s:$(n)">
+        <operator id="K80RateDeltaExchanger.s:$(n)" spec="kernel.BactrianDeltaExchangeOperator" delta="0.1" weight="0.1" parameter="@K80rates.s:$(n)">
 			<weightvector value=" 4 2" estimate="false" spec="parameter.IntegerParameter"/>
         </operator>
 
@@ -95,10 +95,10 @@
             </frequencies>
         </substModel>
 
-        <operator id="HKYRateDeltaExchanger.s:$(n)" spec="DeltaExchangeOperator" delta="0.1" weight="0.1" parameter="@HKYrates.s:$(n)">
+        <operator id="HKYRateDeltaExchanger.s:$(n)" spec="kernel.BactrianDeltaExchangeOperator" delta="0.1" weight="0.1" parameter="@HKYrates.s:$(n)">
 			<weightvector value=" 4 2" estimate="false" spec="parameter.IntegerParameter"/>
         </operator>
-        <operator id="HKYFrequenciesExchanger.s:$(n)" spec="DeltaExchangeOperator" delta="0.01" weight="0.1" parameter="@HKYfreqParameter.s:$(n)"/>
+        <operator id="HKYFrequenciesExchanger.s:$(n)" spec="kernel.BactrianDeltaExchangeOperator" delta="0.01" weight="0.1" parameter="@HKYfreqParameter.s:$(n)"/>
 
 ]]>
 
@@ -129,7 +129,7 @@
             <parameter id="TrNefrates.s:$(n)" name="rates" value=" 1.0 1.0 1.0" lower="0.0" estimate="true"/>
         </substModel>
 
-        <operator id="TrNefRateDeltaExchanger.s:$(n)" spec="DeltaExchangeOperator" delta="0.1" weight="0.1" parameter="@TrNefrates.s:$(n)">
+        <operator id="TrNefRateDeltaExchanger.s:$(n)" spec="kernel.BactrianDeltaExchangeOperator" delta="0.1" weight="0.1" parameter="@TrNefrates.s:$(n)">
 			<weightvector value=" 4 1 1" estimate="false" spec="parameter.IntegerParameter"/>
         </operator>
 
@@ -159,10 +159,10 @@
             </frequencies>
         </substModel>
 
-        <operator id="TrNRateDeltaExchanger.s:$(n)" spec="DeltaExchangeOperator" delta="0.1" weight="0.1" parameter="@TrNrates.s:$(n)">
+        <operator id="TrNRateDeltaExchanger.s:$(n)" spec="kernel.BactrianDeltaExchangeOperator" delta="0.1" weight="0.1" parameter="@TrNrates.s:$(n)">
 			<weightvector value=" 4 1 1" estimate="false" spec="parameter.IntegerParameter"/>
         </operator>
-        <operator id="TrNFrequenciesExchanger.s:$(n)" spec="DeltaExchangeOperator" delta="0.01" weight="0.1" parameter="@TrNfreqParameter.s:$(n)"/>
+        <operator id="TrNFrequenciesExchanger.s:$(n)" spec="kernel.BactrianDeltaExchangeOperator" delta="0.01" weight="0.1" parameter="@TrNfreqParameter.s:$(n)"/>
 
 ]]>
 
@@ -193,7 +193,7 @@
             <parameter id="TPM1rates.s:$(n)" name="rates" value=" 1.0 1.0 1.0" lower="0.0" estimate="true"/>
         </substModel>
 
-        <operator id="TPM1RateDeltaExchanger.s:$(n)" spec="DeltaExchangeOperator" delta="0.1" weight="0.1" parameter="@TPM1rates.s:$(n)">
+        <operator id="TPM1RateDeltaExchanger.s:$(n)" spec="kernel.BactrianDeltaExchangeOperator" delta="0.1" weight="0.1" parameter="@TPM1rates.s:$(n)">
 			<weightvector value=" 2 2 2" estimate="false" spec="parameter.IntegerParameter"/>
         </operator>
 
@@ -223,10 +223,10 @@
             </frequencies>
         </substModel>
 
-        <operator id="TPM1ufRateDeltaExchanger.s:$(n)" spec="DeltaExchangeOperator" delta="0.1" weight="0.1" parameter="@TPM1ufrates.s:$(n)">
+        <operator id="TPM1ufRateDeltaExchanger.s:$(n)" spec="kernel.BactrianDeltaExchangeOperator" delta="0.1" weight="0.1" parameter="@TPM1ufrates.s:$(n)">
 			<weightvector value=" 2 2 2" estimate="false" spec="parameter.IntegerParameter"/>
         </operator>
-        <operator id="TPM1ufFrequenciesExchanger.s:$(n)" spec="DeltaExchangeOperator" delta="0.01" weight="0.1" parameter="@TPM1uffreqParameter.s:$(n)"/>
+        <operator id="TPM1ufFrequenciesExchanger.s:$(n)" spec="kernel.BactrianDeltaExchangeOperator" delta="0.01" weight="0.1" parameter="@TPM1uffreqParameter.s:$(n)"/>
 
 ]]>
 
@@ -257,7 +257,7 @@
             <parameter id="TPM2rates.s:$(n)" name="rates" value=" 1.0 1.0 1.0" lower="0.0" estimate="true"/>
         </substModel>
 
-        <operator id="TPM2RateDeltaExchanger.s:$(n)" spec="DeltaExchangeOperator" delta="0.1" weight="0.1" parameter="@TPM2rates.s:$(n)">
+        <operator id="TPM2RateDeltaExchanger.s:$(n)" spec="kernel.BactrianDeltaExchangeOperator" delta="0.1" weight="0.1" parameter="@TPM2rates.s:$(n)">
 			<weightvector value=" 2 2 2" estimate="false" spec="parameter.IntegerParameter"/>
         </operator>
 
@@ -287,10 +287,10 @@
             </frequencies>
         </substModel>
 
-        <operator id="TPM2ufRateDeltaExchanger.s:$(n)" spec="DeltaExchangeOperator" delta="0.1" weight="0.1" parameter="@TPM2ufrates.s:$(n)">
+        <operator id="TPM2ufRateDeltaExchanger.s:$(n)" spec="kernel.BactrianDeltaExchangeOperator" delta="0.1" weight="0.1" parameter="@TPM2ufrates.s:$(n)">
 			<weightvector value=" 2 2 2" estimate="false" spec="parameter.IntegerParameter"/>
         </operator>
-        <operator id="TPM2ufFrequenciesExchanger.s:$(n)" spec="DeltaExchangeOperator" delta="0.01" weight="0.1" parameter="@TPM2uffreqParameter.s:$(n)"/>
+        <operator id="TPM2ufFrequenciesExchanger.s:$(n)" spec="kernel.BactrianDeltaExchangeOperator" delta="0.01" weight="0.1" parameter="@TPM2uffreqParameter.s:$(n)"/>
 
 ]]>
 
@@ -321,7 +321,7 @@
             <parameter id="TPM3rates.s:$(n)" name="rates" value=" 1.0 1.0 1.0" lower="0.0" estimate="true"/>
         </substModel>
 
-        <operator id="TPM3RateDeltaExchanger.s:$(n)" spec="DeltaExchangeOperator" delta="0.1" weight="0.1" parameter="@TPM3rates.s:$(n)">
+        <operator id="TPM3RateDeltaExchanger.s:$(n)" spec="kernel.BactrianDeltaExchangeOperator" delta="0.1" weight="0.1" parameter="@TPM3rates.s:$(n)">
 			<weightvector value=" 2 2 2" estimate="false" spec="parameter.IntegerParameter"/>
         </operator>
 
@@ -351,10 +351,10 @@
             </frequencies>
         </substModel>
 
-        <operator id="TPM3ufRateDeltaExchanger.s:$(n)" spec="DeltaExchangeOperator" delta="0.1" weight="0.1" parameter="@TPM3ufrates.s:$(n)">
+        <operator id="TPM3ufRateDeltaExchanger.s:$(n)" spec="kernel.BactrianDeltaExchangeOperator" delta="0.1" weight="0.1" parameter="@TPM3ufrates.s:$(n)">
 			<weightvector value=" 2 2 2" estimate="false" spec="parameter.IntegerParameter"/>
         </operator>
-        <operator id="TPM3ufFrequenciesExchanger.s:$(n)" spec="DeltaExchangeOperator" delta="0.01" weight="0.1" parameter="@TPM3uffreqParameter.s:$(n)"/>
+        <operator id="TPM3ufFrequenciesExchanger.s:$(n)" spec="kernel.BactrianDeltaExchangeOperator" delta="0.01" weight="0.1" parameter="@TPM3uffreqParameter.s:$(n)"/>
 
 ]]>
 
@@ -385,7 +385,7 @@
             <parameter id="TIM1rates.s:$(n)" name="rates" value=" 1.0 1.0 1.0 1.0" lower="0.0" estimate="true"/>
         </substModel>
 
-        <operator id="TIM1RateDeltaExchanger.s:$(n)" spec="DeltaExchangeOperator" delta="0.1" weight="0.1" parameter="@TIM1rates.s:$(n)">
+        <operator id="TIM1RateDeltaExchanger.s:$(n)" spec="kernel.BactrianDeltaExchangeOperator" delta="0.1" weight="0.1" parameter="@TIM1rates.s:$(n)">
 			<weightvector value=" 2 1 2 1" estimate="false" spec="parameter.IntegerParameter"/>
         </operator>
 
@@ -415,10 +415,10 @@
             </frequencies>
         </substModel>
 
-        <operator id="TIM1ufRateDeltaExchanger.s:$(n)" spec="DeltaExchangeOperator" delta="0.1" weight="0.1" parameter="@TIM1ufrates.s:$(n)">
+        <operator id="TIM1ufRateDeltaExchanger.s:$(n)" spec="kernel.BactrianDeltaExchangeOperator" delta="0.1" weight="0.1" parameter="@TIM1ufrates.s:$(n)">
 			<weightvector value=" 2 1 2 1" estimate="false" spec="parameter.IntegerParameter"/>
         </operator>
-        <operator id="TIM1ufFrequenciesExchanger.s:$(n)" spec="DeltaExchangeOperator" delta="0.01" weight="0.1" parameter="@TIM1uffreqParameter.s:$(n)"/>
+        <operator id="TIM1ufFrequenciesExchanger.s:$(n)" spec="kernel.BactrianDeltaExchangeOperator" delta="0.01" weight="0.1" parameter="@TIM1uffreqParameter.s:$(n)"/>
 
 ]]>
 
@@ -449,7 +449,7 @@
             <parameter id="TIM2rates.s:$(n)" name="rates" value=" 1.0 1.0 1.0 1.0" lower="0.0" estimate="true"/>
         </substModel>
 
-        <operator id="TIM2RateDeltaExchanger.s:$(n)" spec="DeltaExchangeOperator" delta="0.1" weight="0.1" parameter="@TIM2rates.s:$(n)">
+        <operator id="TIM2RateDeltaExchanger.s:$(n)" spec="kernel.BactrianDeltaExchangeOperator" delta="0.1" weight="0.1" parameter="@TIM2rates.s:$(n)">
 			<weightvector value=" 2 1 2 1" estimate="false" spec="parameter.IntegerParameter"/>
         </operator>
 
@@ -479,10 +479,10 @@
             </frequencies>
         </substModel>
 
-        <operator id="TIM2ufRateDeltaExchanger.s:$(n)" spec="DeltaExchangeOperator" delta="0.1" weight="0.1" parameter="@TIM2ufrates.s:$(n)">
+        <operator id="TIM2ufRateDeltaExchanger.s:$(n)" spec="kernel.BactrianDeltaExchangeOperator" delta="0.1" weight="0.1" parameter="@TIM2ufrates.s:$(n)">
 			<weightvector value=" 2 1 2 1" estimate="false" spec="parameter.IntegerParameter"/>
         </operator>
-        <operator id="TIM2ufFrequenciesExchanger.s:$(n)" spec="DeltaExchangeOperator" delta="0.01" weight="0.1" parameter="@TIM2uffreqParameter.s:$(n)"/>
+        <operator id="TIM2ufFrequenciesExchanger.s:$(n)" spec="kernel.BactrianDeltaExchangeOperator" delta="0.01" weight="0.1" parameter="@TIM2uffreqParameter.s:$(n)"/>
 
 ]]>
 
@@ -513,7 +513,7 @@
             <parameter id="TIM3rates.s:$(n)" name="rates" value=" 1.0 1.0 1.0 1.0" lower="0.0" estimate="true"/>
         </substModel>
 
-        <operator id="TIM3RateDeltaExchanger.s:$(n)" spec="DeltaExchangeOperator" delta="0.1" weight="0.1" parameter="@TIM3rates.s:$(n)">
+        <operator id="TIM3RateDeltaExchanger.s:$(n)" spec="kernel.BactrianDeltaExchangeOperator" delta="0.1" weight="0.1" parameter="@TIM3rates.s:$(n)">
 			<weightvector value=" 2 1 2 1" estimate="false" spec="parameter.IntegerParameter"/>
         </operator>
 
@@ -543,10 +543,10 @@
             </frequencies>
         </substModel>
 
-        <operator id="TIM3ufRateDeltaExchanger.s:$(n)" spec="DeltaExchangeOperator" delta="0.1" weight="0.1" parameter="@TIM3ufrates.s:$(n)">
+        <operator id="TIM3ufRateDeltaExchanger.s:$(n)" spec="kernel.BactrianDeltaExchangeOperator" delta="0.1" weight="0.1" parameter="@TIM3ufrates.s:$(n)">
 			<weightvector value=" 2 1 2 1" estimate="false" spec="parameter.IntegerParameter"/>
         </operator>
-        <operator id="TIM3ufFrequenciesExchanger.s:$(n)" spec="DeltaExchangeOperator" delta="0.01" weight="0.1" parameter="@TIM3uffreqParameter.s:$(n)"/>
+        <operator id="TIM3ufFrequenciesExchanger.s:$(n)" spec="kernel.BactrianDeltaExchangeOperator" delta="0.01" weight="0.1" parameter="@TIM3uffreqParameter.s:$(n)"/>
 
 ]]>
 
@@ -577,7 +577,7 @@
             <parameter id="TVMefrates.s:$(n)" name="rates" value=" 1.0 1.0 1.0 1.0 1.0" lower="0.0" estimate="true"/>
         </substModel>
 
-        <operator id="TVMefRateDeltaExchanger.s:$(n)" spec="DeltaExchangeOperator" delta="0.1" weight="0.1" parameter="@TVMefrates.s:$(n)">
+        <operator id="TVMefRateDeltaExchanger.s:$(n)" spec="kernel.BactrianDeltaExchangeOperator" delta="0.1" weight="0.1" parameter="@TVMefrates.s:$(n)">
 			<weightvector value=" 1 2 1 1 1" estimate="false" spec="parameter.IntegerParameter"/>
         </operator>
 
@@ -607,10 +607,10 @@
             </frequencies>
         </substModel>
 
-        <operator id="TVMRateDeltaExchanger.s:$(n)" spec="DeltaExchangeOperator" delta="0.1" weight="0.1" parameter="@TVMrates.s:$(n)">
+        <operator id="TVMRateDeltaExchanger.s:$(n)" spec="kernel.BactrianDeltaExchangeOperator" delta="0.1" weight="0.1" parameter="@TVMrates.s:$(n)">
 			<weightvector value=" 1 2 1 1 1" estimate="false" spec="parameter.IntegerParameter"/>
         </operator>
-        <operator id="TVMFrequenciesExchanger.s:$(n)" spec="DeltaExchangeOperator" delta="0.01" weight="0.1" parameter="@TVMfreqParameter.s:$(n)"/>
+        <operator id="TVMFrequenciesExchanger.s:$(n)" spec="kernel.BactrianDeltaExchangeOperator" delta="0.01" weight="0.1" parameter="@TVMfreqParameter.s:$(n)"/>
 
 ]]>
 
@@ -641,7 +641,7 @@
             <parameter id="SYMrates.s:$(n)" name="rates" value=" 1.0 1.0 1.0 1.0 1.0 1.0" lower="0.0" estimate="true"/>
         </substModel>
 
-        <operator id="SYMRateDeltaExchanger.s:$(n)" spec="DeltaExchangeOperator" delta="0.1" weight="0.1" parameter="@SYMrates.s:$(n)">
+        <operator id="SYMRateDeltaExchanger.s:$(n)" spec="kernel.BactrianDeltaExchangeOperator" delta="0.1" weight="0.1" parameter="@SYMrates.s:$(n)">
 			<weightvector value=" 1 1 1 1 1 1" estimate="false" spec="parameter.IntegerParameter"/>
         </operator>
 
@@ -671,10 +671,10 @@
             </frequencies>
         </substModel>
 
-        <operator id="GTRRateDeltaExchanger.s:$(n)" spec="DeltaExchangeOperator" delta="0.1" weight="0.1" parameter="@GTRrates.s:$(n)">
+        <operator id="GTRRateDeltaExchanger.s:$(n)" spec="kernel.BactrianDeltaExchangeOperator" delta="0.1" weight="0.1" parameter="@GTRrates.s:$(n)">
 			<weightvector value=" 1 1 1 1 1 1" estimate="false" spec="parameter.IntegerParameter"/>
         </operator>
-        <operator id="GTRFrequenciesExchanger.s:$(n)" spec="DeltaExchangeOperator" delta="0.01" weight="0.1" parameter="@GTRfreqParameter.s:$(n)"/>
+        <operator id="GTRFrequenciesExchanger.s:$(n)" spec="kernel.BactrianDeltaExchangeOperator" delta="0.01" weight="0.1" parameter="@GTRfreqParameter.s:$(n)"/>
 
 ]]>
 

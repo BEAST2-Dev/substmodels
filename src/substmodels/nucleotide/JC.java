@@ -1,7 +1,7 @@
 package substmodels.nucleotide;
 import beast.base.core.Description;
 
-@Description("Standard nucleotide substitution model JC<br>Has rates 000000 and equal frequencies")
+@Description("Standard nucleotide substitution model JC\nHas rates 000000 and equal frequencies")
 public class JC extends Base {
 	
 	public JC() {

@@ -7,6 +7,7 @@
 
     <!-- Location to check for local copy of beast2 repository -->
     <property name="beastDir" location="../beast2"/>
+    <property name="BeastFXDir" location="../BeastFX"/>
 
     <!-- BEAST 2 currently uses Java 1.8 -->
     <property name="sourceVersion" value="1.8"/>
@@ -28,9 +29,21 @@
     <property name="build-lib" location="build-lib"/>
     <property name="build-test" location="build-test"/>
     <property name="build-beast" location="build-beast"/>
+    <property name="build-BeastFX" location="build-beast"/>
     <property name="test-reports" location="test-reports"/>
     <property name="dist" location="dist"/>
     <property name="pack" location="${dist}/package"/>
+
+    <path id="classpath">
+        <pathelement path="build"/>
+        <fileset dir="${beastDir}/lib" includes="antlr-runtime-4.10.1.jar"/>   
+        <fileset dir="${beastDir}/lib" includes="beagle.jar"/>
+        <fileset dir="${beastDir}/lib" includes="colt.jar"/>
+        <fileset dir="${BeastFXDir}/locallib" includes="colt.jar"/>
+        <pathelement path="${build-beast}"/>
+        <pathelement path="${build-BeastFX}"/>
+        <fileset dir="${beastDir}/lib/junit" includes="junit-platform-console-standalone-1.8.2.jar"/>
+    </path>
 
     <!-- Prepare for compilation -->
     <target name="init">
@@ -90,6 +103,7 @@
 
     <target name="build-local-beast" depends="find-beast" if="localBeastAvailable">
         <echo>Compiling against beast2 source found at ${beastDir}.</echo>
+        <echo>Classpath: ${classpath}.</echo>
 
         <mkdir dir="${build-beast}"/>
 
@@ -99,11 +113,22 @@
             <classpath>
                 <pathelement path="${classpath}"/>
                 <fileset dir="${beastDir}/lib" includes="*.jar"/>
+		        <fileset dir="${beastDir}/lib/junit" includes="junit-platform-console-standalone-1.8.2.jar"/>
             </classpath>
         </javac>
-        <jar jarfile="${build-lib}/beast2.jar" basedir="${build-beast}" />
+        <javac target="${targetVersion}" source="${sourceVersion}"
+            srcdir="${BeastFXDir}/src"
+            destdir="${build-BeastFX}" includeantruntime="false">
+            <classpath>
+                <pathelement path="${classpath}"/>
+                <fileset dir="${beastDir}/lib" includes="*.jar"/>
+                <fileset dir="${BeastFXDir}/locallib" includes="*.jar"/>
+		        <fileset dir="${beastDir}/lib/junit" includes="junit-platform-console-standalone-1.8.2.jar"/>
+            </classpath>
+        </javac>
+        <jar jarfile="${build-lib}/BeastFX.jar" basedir="${build-BeastFX}" />
         <copy todir="${build-lib}">
-            <fileset dir="${beastDir}/lib" includes="*.jar"/>
+            <fileset dir="${BeastFXDir}/locallib" includes="*.jar"/>
         </copy>
 
         <delete dir="${build-beast}" />
@@ -117,6 +142,9 @@
             <classpath>
                 <pathelement path="${classpath}"/>
                 <fileset dir="${build-lib}" includes="*.jar"/>
+                <fileset dir="${beastDir}/lib" includes="*.jar"/>
+                <fileset dir="${BeastFXDir}/locallib" includes="*.jar"/>
+		        <fileset dir="${beastDir}/lib/junit" includes="junit-platform-console-standalone-1.8.2.jar"/>
             </classpath>
         </javac>
     </target>
