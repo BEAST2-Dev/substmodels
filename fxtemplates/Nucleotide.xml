@@ -671,6 +671,16 @@
             </frequencies>
         </substModel>
 
+        <distribution id="Standard_GTR_rates_prior.s:$(n)" spec="beast.base.inference.distribution.Prior">
+            <x idref="GTRrates.s:$(n)"/>
+            <distr spec="distribution.Dirichlet" alpha="1.0 2.0 1.0 1.0 2.0 1.0"/>
+        </distribution>
+
+        <distribution id="Standard_GTR_frequencies_prior.s:$(n)" spec="beast.base.inference.distribution.Prior">
+            <x idref="GTRfreqParameter.s:$(n)"/>
+            <distr spec="distribution.Dirichlet" alpha="4.0 4.0 4.0 4.0"/>
+        </distribution>
+
         <operator id="GTRRateDeltaExchanger.s:$(n)" spec="kernel.BactrianDeltaExchangeOperator" delta="0.1" weight="0.1" parameter="@GTRrates.s:$(n)">
 			<weightvector value=" 1 1 1 1 1 1" estimate="false" spec="parameter.IntegerParameter"/>
         </operator>
@@ -688,6 +698,9 @@
                      if="inlikelihood(Standard_GTR.s:$(n))">
                 Exchange values of frequencies of partition s:$(n)
             </connect>
+
+            <connect srcID="Standard_GTR_rates_prior.s:$(n)" targetID="prior" inputName="distribution" if="inlikelihood(Standard_GTR.s:$(n))"/>
+            <connect srcID="Standard_GTR_frequencies_prior.s:$(n)" targetID="prior" inputName="distribution" if="inlikelihood(Standard_GTR.s:$(n))"/>
 
             <!--connect srcID="GTRrates.s:$(n)" targetID="tracelog" inputName="log" if="inlikelihood(Standard_GTR.s:$(n))"/-->
             <connect srcID="GTRfreqParameter.s:$(n)" targetID="tracelog" inputName="log" if="inlikelihood(Standard_GTR.s:$(n))"/>
