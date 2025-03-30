@@ -40,11 +40,18 @@
             </frequencies>
         </plugin>
 
+        <distribution id="Standard_F81_frequencies_prior.s:$(n)" spec="beast.base.inference.distribution.Prior">
+            <x idref="F81freqParameter.s:$(n)"/>
+            <distr spec="distribution.Dirichlet" alpha="1.0 1.0 1.0 1.0"/>
+        </distribution>
+
         <plugin id="F81FrequenciesExchanger.s:$(n)" spec="kernel.BactrianDeltaExchangeOperator" delta="0.01" weight="0.1" parameter="@F81freqParameter.s:$(n)"/>
 
 ]]>
 
             <connect srcID="F81freqParameter.s:$(n)" targetID="state" inputName="stateNode" if="inlikelihood(Standard_F81.s:$(n))"/>
+
+            <connect srcID="Standard_F81_frequencies_prior.s:$(n)" targetID="prior" inputName="distribution" if="inlikelihood(Standard_F81.s:$(n))"/>
 
             <connect srcID="F81FrequenciesExchanger.s:$(n)" targetID="mcmc" inputName="operator"
                      if="inlikelihood(Standard_F81.s:$(n))">
@@ -65,6 +72,11 @@
             <parameter id="K80rates.s:$(n)" name="rates" value=" 1.0 1.0" lower="0.0" estimate="true"/>
         </substModel>
 
+        <distribution id="Standard_K80_rates_prior.s:$(n)" spec="beast.base.inference.distribution.Prior">
+            <x idref="K80rates.s:$(n)"/>
+            <distr spec="distribution.Dirichlet" alpha="1.0 1.0"/>
+        </distribution>
+
         <operator id="K80RateDeltaExchanger.s:$(n)" spec="kernel.BactrianDeltaExchangeOperator" delta="0.1" weight="0.1" parameter="@K80rates.s:$(n)">
 			<weightvector value=" 4 2" estimate="false" spec="parameter.IntegerParameter"/>
         </operator>
@@ -77,7 +89,8 @@
                      if="inlikelihood(Standard_K80.s:$(n))">Delta exchange rates parameter for K80 model at partition s:$(n)
             </connect>
 
-            <!--connect srcID="K80rates.s:$(n)" targetID="tracelog" inputName="log" if="inlikelihood(Standard_K80.s:$(n))"/-->
+            <connect srcID="Standard_K80_rates_prior.s:$(n)" targetID="prior" inputName="distribution" if="inlikelihood(Standard_K80.s:$(n))"/>
+
             <connect srcID="Standard_K80.s:$(n)" targetID="tracelog" inputName="log" if="inlikelihood(Standard_K80.s:$(n))"/>
         </subtemplate>
 
@@ -94,6 +107,15 @@
                 <frequencies id="HKYfreqParameter.s:$(n)" spec="parameter.RealParameter" dimension="4" value="0.25" lower="0" upper="1"/>
             </frequencies>
         </substModel>
+
+        <distribution id="Standard_HKY_rates_prior.s:$(n)" spec="beast.base.inference.distribution.Prior">
+            <x idref="HKYrates.s:$(n)"/>
+            <distr spec="distribution.Dirichlet" alpha="1.0 1.0"/>
+        </distribution>
+        <distribution id="Standard_HKY_frequencies_prior.s:$(n)" spec="beast.base.inference.distribution.Prior">
+            <x idref="HKYfreqParameter.s:$(n)"/>
+            <distr spec="distribution.Dirichlet" alpha="1.0 1.0 1.0 1.0"/>
+        </distribution>
 
         <operator id="HKYRateDeltaExchanger.s:$(n)" spec="kernel.BactrianDeltaExchangeOperator" delta="0.1" weight="0.1" parameter="@HKYrates.s:$(n)">
 			<weightvector value=" 4 2" estimate="false" spec="parameter.IntegerParameter"/>
@@ -113,9 +135,13 @@
                 Exchange values of frequencies of partition s:$(n)
             </connect>
 
+            <connect srcID="Standard_HKY_frequencies_prior.s:$(n)" targetID="prior" inputName="distribution" if="inlikelihood(Standard_HKY.s:$(n))"/>
+
             <!--connect srcID="HKYrates.s:$(n)" targetID="tracelog" inputName="log" if="inlikelihood(Standard_HKY.s:$(n))"/-->
             <connect srcID="HKYfreqParameter.s:$(n)" targetID="tracelog" inputName="log" if="inlikelihood(Standard_HKY.s:$(n))"/>
-            <connect srcID="Standard_HKY.s:$(n)" targetID="tracelog" inputName="log" if="inlikelihood(Standard_HKY.s:$(n))"/>
+                        <connect srcID="Standard_HKY.s:$(n)" targetID="tracelog" inputName="log" if="inlikelihood(Standard_HKY.s:$(n))"/>
+<connect srcID="Standard_HKY_rates_prior.s:$(n)" targetID="prior" inputName="distribution" if="inlikelihood(Standard_HKY.s:$(n))"/>
+
         </subtemplate>
 
 <!-- TrNef = model: 010020 equal frequencies-->
@@ -129,6 +155,11 @@
             <parameter id="TrNefrates.s:$(n)" name="rates" value=" 1.0 1.0 1.0" lower="0.0" estimate="true"/>
         </substModel>
 
+        <distribution id="Standard_TrNef_rates_prior.s:$(n)" spec="beast.base.inference.distribution.Prior">
+            <x idref="TrNefrates.s:$(n)"/>
+            <distr spec="distribution.Dirichlet" alpha="1.0 1.0 1.0"/>
+        </distribution>
+
         <operator id="TrNefRateDeltaExchanger.s:$(n)" spec="kernel.BactrianDeltaExchangeOperator" delta="0.1" weight="0.1" parameter="@TrNefrates.s:$(n)">
 			<weightvector value=" 4 1 1" estimate="false" spec="parameter.IntegerParameter"/>
         </operator>
@@ -141,8 +172,11 @@
                      if="inlikelihood(Standard_TrNef.s:$(n))">Delta exchange rates parameter for TrNef model at partition s:$(n)
             </connect>
 
+            <connect srcID="Standard_TrNef_rates_prior.s:$(n)" targetID="prior" inputName="distribution" if="inlikelihood(Standard_TrNef.s:$(n))"/>
+
             <!--connect srcID="TrNefrates.s:$(n)" targetID="tracelog" inputName="log" if="inlikelihood(Standard_TrNef.s:$(n))"/-->
             <connect srcID="Standard_TrNef.s:$(n)" targetID="tracelog" inputName="log" if="inlikelihood(Standard_TrNef.s:$(n))"/>
+
         </subtemplate>
 
 <!-- TrN = model: 010020 unequal frequencies-->
@@ -158,6 +192,15 @@
                 <frequencies id="TrNfreqParameter.s:$(n)" spec="parameter.RealParameter" dimension="4" value="0.25" lower="0" upper="1"/>
             </frequencies>
         </substModel>
+
+        <distribution id="Standard_TrN_rates_prior.s:$(n)" spec="beast.base.inference.distribution.Prior">
+            <x idref="TrNrates.s:$(n)"/>
+            <distr spec="distribution.Dirichlet" alpha="1.0 1.0 1.0"/>
+        </distribution>
+        <distribution id="Standard_TrN_frequencies_prior.s:$(n)" spec="beast.base.inference.distribution.Prior">
+            <x idref="TrNfreqParameter.s:$(n)"/>
+            <distr spec="distribution.Dirichlet" alpha="1.0 1.0 1.0 1.0"/>
+        </distribution>
 
         <operator id="TrNRateDeltaExchanger.s:$(n)" spec="kernel.BactrianDeltaExchangeOperator" delta="0.1" weight="0.1" parameter="@TrNrates.s:$(n)">
 			<weightvector value=" 4 1 1" estimate="false" spec="parameter.IntegerParameter"/>
@@ -177,9 +220,13 @@
                 Exchange values of frequencies of partition s:$(n)
             </connect>
 
+            <connect srcID="Standard_TrN_rates_prior.s:$(n)" targetID="prior" inputName="distribution" if="inlikelihood(Standard_TrN.s:$(n))"/>
+            <connect srcID="Standard_TrN_frequencies_prior.s:$(n)" targetID="prior" inputName="distribution" if="inlikelihood(Standard_TrN.s:$(n))"/>
+
             <!--connect srcID="TrNrates.s:$(n)" targetID="tracelog" inputName="log" if="inlikelihood(Standard_TrN.s:$(n))"/-->
             <connect srcID="TrNfreqParameter.s:$(n)" targetID="tracelog" inputName="log" if="inlikelihood(Standard_TrN.s:$(n))"/>
             <connect srcID="Standard_TrN.s:$(n)" targetID="tracelog" inputName="log" if="inlikelihood(Standard_TrN.s:$(n))"/>
+
         </subtemplate>
 
 <!-- TPM1 = model: 012210 equal frequencies-->
@@ -193,6 +240,11 @@
             <parameter id="TPM1rates.s:$(n)" name="rates" value=" 1.0 1.0 1.0" lower="0.0" estimate="true"/>
         </substModel>
 
+        <distribution id="Standard_TPM1_rates_prior.s:$(n)" spec="beast.base.inference.distribution.Prior">
+            <x idref="TPM1rates.s:$(n)"/>
+            <distr spec="distribution.Dirichlet" alpha="1.0 1.0 1.0"/>
+        </distribution>
+
         <operator id="TPM1RateDeltaExchanger.s:$(n)" spec="kernel.BactrianDeltaExchangeOperator" delta="0.1" weight="0.1" parameter="@TPM1rates.s:$(n)">
 			<weightvector value=" 2 2 2" estimate="false" spec="parameter.IntegerParameter"/>
         </operator>
@@ -205,8 +257,11 @@
                      if="inlikelihood(Standard_TPM1.s:$(n))">Delta exchange rates parameter for TPM1 model at partition s:$(n)
             </connect>
 
+            <connect srcID="Standard_TPM1_rates_prior.s:$(n)" targetID="prior" inputName="distribution" if="inlikelihood(Standard_TPM1.s:$(n))"/>
+
             <!--connect srcID="TPM1rates.s:$(n)" targetID="tracelog" inputName="log" if="inlikelihood(Standard_TPM1.s:$(n))"/-->
             <connect srcID="Standard_TPM1.s:$(n)" targetID="tracelog" inputName="log" if="inlikelihood(Standard_TPM1.s:$(n))"/>
+
         </subtemplate>
 
 <!-- TPM1uf = model: 012210 unequal frequencies-->
@@ -222,6 +277,15 @@
                 <frequencies id="TPM1uffreqParameter.s:$(n)" spec="parameter.RealParameter" dimension="4" value="0.25" lower="0" upper="1"/>
             </frequencies>
         </substModel>
+
+        <distribution id="Standard_TPM1uf_rates_prior.s:$(n)" spec="beast.base.inference.distribution.Prior">
+            <x idref="TPM1ufrates.s:$(n)"/>
+            <distr spec="distribution.Dirichlet" alpha="1.0 1.0 1.0"/>
+        </distribution>
+        <distribution id="Standard_TPM1uf_frequencies_prior.s:$(n)" spec="beast.base.inference.distribution.Prior">
+            <x idref="TPM1uffreqParameter.s:$(n)"/>
+            <distr spec="distribution.Dirichlet" alpha="1.0 1.0 1.0 1.0"/>
+        </distribution>
 
         <operator id="TPM1ufRateDeltaExchanger.s:$(n)" spec="kernel.BactrianDeltaExchangeOperator" delta="0.1" weight="0.1" parameter="@TPM1ufrates.s:$(n)">
 			<weightvector value=" 2 2 2" estimate="false" spec="parameter.IntegerParameter"/>
@@ -241,9 +305,13 @@
                 Exchange values of frequencies of partition s:$(n)
             </connect>
 
+            <connect srcID="Standard_TPM1uf_rates_prior.s:$(n)" targetID="prior" inputName="distribution" if="inlikelihood(Standard_TPM1uf.s:$(n))"/>
+            <connect srcID="Standard_TPM1uf_frequencies_prior.s:$(n)" targetID="prior" inputName="distribution" if="inlikelihood(Standard_TPM1uf.s:$(n))"/>
+
             <!--connect srcID="TPM1ufrates.s:$(n)" targetID="tracelog" inputName="log" if="inlikelihood(Standard_TPM1uf.s:$(n))"/-->
             <connect srcID="TPM1uffreqParameter.s:$(n)" targetID="tracelog" inputName="log" if="inlikelihood(Standard_TPM1uf.s:$(n))"/>
             <connect srcID="Standard_TPM1uf.s:$(n)" targetID="tracelog" inputName="log" if="inlikelihood(Standard_TPM1uf.s:$(n))"/>
+
         </subtemplate>
 
 <!-- TPM2 = model: 010212 equal frequencies-->
@@ -257,6 +325,11 @@
             <parameter id="TPM2rates.s:$(n)" name="rates" value=" 1.0 1.0 1.0" lower="0.0" estimate="true"/>
         </substModel>
 
+        <distribution id="Standard_TPM2_rates_prior.s:$(n)" spec="beast.base.inference.distribution.Prior">
+            <x idref="TPM2rates.s:$(n)"/>
+            <distr spec="distribution.Dirichlet" alpha="1.0 1.0 1.0"/>
+        </distribution>
+
         <operator id="TPM2RateDeltaExchanger.s:$(n)" spec="kernel.BactrianDeltaExchangeOperator" delta="0.1" weight="0.1" parameter="@TPM2rates.s:$(n)">
 			<weightvector value=" 2 2 2" estimate="false" spec="parameter.IntegerParameter"/>
         </operator>
@@ -269,8 +342,11 @@
                      if="inlikelihood(Standard_TPM2.s:$(n))">Delta exchange rates parameter for TPM2 model at partition s:$(n)
             </connect>
 
+            <connect srcID="Standard_TPM2_rates_prior.s:$(n)" targetID="prior" inputName="distribution" if="inlikelihood(Standard_TPM2.s:$(n))"/>
+
             <!--connect srcID="TPM2rates.s:$(n)" targetID="tracelog" inputName="log" if="inlikelihood(Standard_TPM2.s:$(n))"/-->
             <connect srcID="Standard_TPM2.s:$(n)" targetID="tracelog" inputName="log" if="inlikelihood(Standard_TPM2.s:$(n))"/>
+
         </subtemplate>
 
 <!-- TPM2uf = model: 010212 unequal frequencies-->
@@ -286,6 +362,15 @@
                 <frequencies id="TPM2uffreqParameter.s:$(n)" spec="parameter.RealParameter" dimension="4" value="0.25" lower="0" upper="1"/>
             </frequencies>
         </substModel>
+
+        <distribution id="Standard_TPM2uf_rates_prior.s:$(n)" spec="beast.base.inference.distribution.Prior">
+            <x idref="TPM2ufrates.s:$(n)"/>
+            <distr spec="distribution.Dirichlet" alpha="1.0 1.0 1.0"/>
+        </distribution>
+        <distribution id="Standard_TPM2uf_frequencies_prior.s:$(n)" spec="beast.base.inference.distribution.Prior">
+            <x idref="TPM2uffreqParameter.s:$(n)"/>
+            <distr spec="distribution.Dirichlet" alpha="1.0 1.0 1.0 1.0"/>
+        </distribution>
 
         <operator id="TPM2ufRateDeltaExchanger.s:$(n)" spec="kernel.BactrianDeltaExchangeOperator" delta="0.1" weight="0.1" parameter="@TPM2ufrates.s:$(n)">
 			<weightvector value=" 2 2 2" estimate="false" spec="parameter.IntegerParameter"/>
@@ -305,9 +390,13 @@
                 Exchange values of frequencies of partition s:$(n)
             </connect>
 
+            <connect srcID="Standard_TPM2uf_rates_prior.s:$(n)" targetID="prior" inputName="distribution" if="inlikelihood(Standard_TPM2uf.s:$(n))"/>
+            <connect srcID="Standard_TPM2uf_frequencies_prior.s:$(n)" targetID="prior" inputName="distribution" if="inlikelihood(Standard_TPM2uf.s:$(n))"/>
+
             <!--connect srcID="TPM2ufrates.s:$(n)" targetID="tracelog" inputName="log" if="inlikelihood(Standard_TPM2uf.s:$(n))"/-->
             <connect srcID="TPM2uffreqParameter.s:$(n)" targetID="tracelog" inputName="log" if="inlikelihood(Standard_TPM2uf.s:$(n))"/>
             <connect srcID="Standard_TPM2uf.s:$(n)" targetID="tracelog" inputName="log" if="inlikelihood(Standard_TPM2uf.s:$(n))"/>
+
         </subtemplate>
 
 <!-- TPM3 = model: 012012 equal frequencies-->
@@ -321,6 +410,11 @@
             <parameter id="TPM3rates.s:$(n)" name="rates" value=" 1.0 1.0 1.0" lower="0.0" estimate="true"/>
         </substModel>
 
+        <distribution id="Standard_TPM3_rates_prior.s:$(n)" spec="beast.base.inference.distribution.Prior">
+            <x idref="TPM3rates.s:$(n)"/>
+            <distr spec="distribution.Dirichlet" alpha="1.0 1.0 1.0"/>
+        </distribution>
+
         <operator id="TPM3RateDeltaExchanger.s:$(n)" spec="kernel.BactrianDeltaExchangeOperator" delta="0.1" weight="0.1" parameter="@TPM3rates.s:$(n)">
 			<weightvector value=" 2 2 2" estimate="false" spec="parameter.IntegerParameter"/>
         </operator>
@@ -333,8 +427,11 @@
                      if="inlikelihood(Standard_TPM3.s:$(n))">Delta exchange rates parameter for TPM3 model at partition s:$(n)
             </connect>
 
+            <connect srcID="Standard_TPM3_rates_prior.s:$(n)" targetID="prior" inputName="distribution" if="inlikelihood(Standard_TPM3.s:$(n))"/>
+
             <!--connect srcID="TPM3rates.s:$(n)" targetID="tracelog" inputName="log" if="inlikelihood(Standard_TPM3.s:$(n))"/-->
             <connect srcID="Standard_TPM3.s:$(n)" targetID="tracelog" inputName="log" if="inlikelihood(Standard_TPM3.s:$(n))"/>
+
         </subtemplate>
 
 <!-- TPM3uf = model: 012012 unequal frequencies-->
@@ -350,6 +447,15 @@
                 <frequencies id="TPM3uffreqParameter.s:$(n)" spec="parameter.RealParameter" dimension="4" value="0.25" lower="0" upper="1"/>
             </frequencies>
         </substModel>
+
+        <distribution id="Standard_TPM3uf_rates_prior.s:$(n)" spec="beast.base.inference.distribution.Prior">
+            <x idref="TPM3ufrates.s:$(n)"/>
+            <distr spec="distribution.Dirichlet" alpha="1.0 1.0 1.0"/>
+        </distribution>
+        <distribution id="Standard_TPM3uf_frequencies_prior.s:$(n)" spec="beast.base.inference.distribution.Prior">
+            <x idref="TPM3uffreqParameter.s:$(n)"/>
+            <distr spec="distribution.Dirichlet" alpha="1.0 1.0 1.0 1.0"/>
+        </distribution>
 
         <operator id="TPM3ufRateDeltaExchanger.s:$(n)" spec="kernel.BactrianDeltaExchangeOperator" delta="0.1" weight="0.1" parameter="@TPM3ufrates.s:$(n)">
 			<weightvector value=" 2 2 2" estimate="false" spec="parameter.IntegerParameter"/>
@@ -369,9 +475,13 @@
                 Exchange values of frequencies of partition s:$(n)
             </connect>
 
+            <connect srcID="Standard_TPM3uf_rates_prior.s:$(n)" targetID="prior" inputName="distribution" if="inlikelihood(Standard_TPM3uf.s:$(n))"/>
+            <connect srcID="Standard_TPM3uf_frequencies_prior.s:$(n)" targetID="prior" inputName="distribution" if="inlikelihood(Standard_TPM3uf.s:$(n))"/>
+
             <!--connect srcID="TPM3ufrates.s:$(n)" targetID="tracelog" inputName="log" if="inlikelihood(Standard_TPM3uf.s:$(n))"/-->
             <connect srcID="TPM3uffreqParameter.s:$(n)" targetID="tracelog" inputName="log" if="inlikelihood(Standard_TPM3uf.s:$(n))"/>
             <connect srcID="Standard_TPM3uf.s:$(n)" targetID="tracelog" inputName="log" if="inlikelihood(Standard_TPM3uf.s:$(n))"/>
+
         </subtemplate>
 
 <!-- TIM1 = model: 012230 equal frequencies-->
@@ -385,6 +495,11 @@
             <parameter id="TIM1rates.s:$(n)" name="rates" value=" 1.0 1.0 1.0 1.0" lower="0.0" estimate="true"/>
         </substModel>
 
+        <distribution id="Standard_TIM1_rates_prior.s:$(n)" spec="beast.base.inference.distribution.Prior">
+            <x idref="TIM1rates.s:$(n)"/>
+            <distr spec="distribution.Dirichlet" alpha="1.0 1.0 1.0 1.0"/>
+        </distribution>
+
         <operator id="TIM1RateDeltaExchanger.s:$(n)" spec="kernel.BactrianDeltaExchangeOperator" delta="0.1" weight="0.1" parameter="@TIM1rates.s:$(n)">
 			<weightvector value=" 2 1 2 1" estimate="false" spec="parameter.IntegerParameter"/>
         </operator>
@@ -397,8 +512,11 @@
                      if="inlikelihood(Standard_TIM1.s:$(n))">Delta exchange rates parameter for TIM1 model at partition s:$(n)
             </connect>
 
+            <connect srcID="Standard_TIM1_rates_prior.s:$(n)" targetID="prior" inputName="distribution" if="inlikelihood(Standard_TIM1.s:$(n))"/>
+
             <!--connect srcID="TIM1rates.s:$(n)" targetID="tracelog" inputName="log" if="inlikelihood(Standard_TIM1.s:$(n))"/-->
             <connect srcID="Standard_TIM1.s:$(n)" targetID="tracelog" inputName="log" if="inlikelihood(Standard_TIM1.s:$(n))"/>
+
         </subtemplate>
 
 <!-- TIM1uf = model: 012230 unequal frequencies-->
@@ -414,6 +532,15 @@
                 <frequencies id="TIM1uffreqParameter.s:$(n)" spec="parameter.RealParameter" dimension="4" value="0.25" lower="0" upper="1"/>
             </frequencies>
         </substModel>
+
+        <distribution id="Standard_TIM1uf_rates_prior.s:$(n)" spec="beast.base.inference.distribution.Prior">
+            <x idref="TIM1ufrates.s:$(n)"/>
+            <distr spec="distribution.Dirichlet" alpha="1.0 1.0 1.0 1.0"/>
+        </distribution>
+        <distribution id="Standard_TIM1uf_frequencies_prior.s:$(n)" spec="beast.base.inference.distribution.Prior">
+            <x idref="TIM1uffreqParameter.s:$(n)"/>
+            <distr spec="distribution.Dirichlet" alpha="1.0 1.0 1.0 1.0"/>
+        </distribution>
 
         <operator id="TIM1ufRateDeltaExchanger.s:$(n)" spec="kernel.BactrianDeltaExchangeOperator" delta="0.1" weight="0.1" parameter="@TIM1ufrates.s:$(n)">
 			<weightvector value=" 2 1 2 1" estimate="false" spec="parameter.IntegerParameter"/>
@@ -433,9 +560,13 @@
                 Exchange values of frequencies of partition s:$(n)
             </connect>
 
+            <connect srcID="Standard_TIM1uf_rates_prior.s:$(n)" targetID="prior" inputName="distribution" if="inlikelihood(Standard_TIM1uf.s:$(n))"/>
+            <connect srcID="Standard_TIM1uf_frequencies_prior.s:$(n)" targetID="prior" inputName="distribution" if="inlikelihood(Standard_TIM1uf.s:$(n))"/>
+
             <!--connect srcID="TIM1ufrates.s:$(n)" targetID="tracelog" inputName="log" if="inlikelihood(Standard_TIM1uf.s:$(n))"/-->
             <connect srcID="TIM1uffreqParameter.s:$(n)" targetID="tracelog" inputName="log" if="inlikelihood(Standard_TIM1uf.s:$(n))"/>
             <connect srcID="Standard_TIM1uf.s:$(n)" targetID="tracelog" inputName="log" if="inlikelihood(Standard_TIM1uf.s:$(n))"/>
+
         </subtemplate>
 
 <!-- TIM2 = model: 010232 equal frequencies-->
@@ -449,6 +580,11 @@
             <parameter id="TIM2rates.s:$(n)" name="rates" value=" 1.0 1.0 1.0 1.0" lower="0.0" estimate="true"/>
         </substModel>
 
+        <distribution id="Standard_TIM2_rates_prior.s:$(n)" spec="beast.base.inference.distribution.Prior">
+            <x idref="TIM2rates.s:$(n)"/>
+            <distr spec="distribution.Dirichlet" alpha="1.0 1.0 1.0 1.0"/>
+        </distribution>
+
         <operator id="TIM2RateDeltaExchanger.s:$(n)" spec="kernel.BactrianDeltaExchangeOperator" delta="0.1" weight="0.1" parameter="@TIM2rates.s:$(n)">
 			<weightvector value=" 2 1 2 1" estimate="false" spec="parameter.IntegerParameter"/>
         </operator>
@@ -461,8 +597,11 @@
                      if="inlikelihood(Standard_TIM2.s:$(n))">Delta exchange rates parameter for TIM2 model at partition s:$(n)
             </connect>
 
+            <connect srcID="Standard_TIM2_rates_prior.s:$(n)" targetID="prior" inputName="distribution" if="inlikelihood(Standard_TIM2.s:$(n))"/>
+
             <!--connect srcID="TIM2rates.s:$(n)" targetID="tracelog" inputName="log" if="inlikelihood(Standard_TIM2.s:$(n))"/-->
             <connect srcID="Standard_TIM2.s:$(n)" targetID="tracelog" inputName="log" if="inlikelihood(Standard_TIM2.s:$(n))"/>
+
         </subtemplate>
 
 <!-- TIM2uf = model: 010232 unequal frequencies-->
@@ -478,6 +617,15 @@
                 <frequencies id="TIM2uffreqParameter.s:$(n)" spec="parameter.RealParameter" dimension="4" value="0.25" lower="0" upper="1"/>
             </frequencies>
         </substModel>
+
+        <distribution id="Standard_TIM2uf_rates_prior.s:$(n)" spec="beast.base.inference.distribution.Prior">
+            <x idref="TIM2ufrates.s:$(n)"/>
+            <distr spec="distribution.Dirichlet" alpha="1.0 1.0 1.0 1.0"/>
+        </distribution>
+        <distribution id="Standard_TIM2uf_frequencies_prior.s:$(n)" spec="beast.base.inference.distribution.Prior">
+            <x idref="TIM2uffreqParameter.s:$(n)"/>
+            <distr spec="distribution.Dirichlet" alpha="1.0 1.0 1.0 1.0"/>
+        </distribution>
 
         <operator id="TIM2ufRateDeltaExchanger.s:$(n)" spec="kernel.BactrianDeltaExchangeOperator" delta="0.1" weight="0.1" parameter="@TIM2ufrates.s:$(n)">
 			<weightvector value=" 2 1 2 1" estimate="false" spec="parameter.IntegerParameter"/>
@@ -497,9 +645,13 @@
                 Exchange values of frequencies of partition s:$(n)
             </connect>
 
+            <connect srcID="Standard_TIM2uf_rates_prior.s:$(n)" targetID="prior" inputName="distribution" if="inlikelihood(Standard_TIM2uf.s:$(n))"/>
+            <connect srcID="Standard_TIM2uf_frequencies_prior.s:$(n)" targetID="prior" inputName="distribution" if="inlikelihood(Standard_TIM2uf.s:$(n))"/>
+
             <!--connect srcID="TIM2ufrates.s:$(n)" targetID="tracelog" inputName="log" if="inlikelihood(Standard_TIM2uf.s:$(n))"/-->
             <connect srcID="TIM2uffreqParameter.s:$(n)" targetID="tracelog" inputName="log" if="inlikelihood(Standard_TIM2uf.s:$(n))"/>
             <connect srcID="Standard_TIM2uf.s:$(n)" targetID="tracelog" inputName="log" if="inlikelihood(Standard_TIM2uf.s:$(n))"/>
+
         </subtemplate>
 
 <!-- TIM3 = model: 012032 equal frequencies-->
@@ -513,6 +665,11 @@
             <parameter id="TIM3rates.s:$(n)" name="rates" value=" 1.0 1.0 1.0 1.0" lower="0.0" estimate="true"/>
         </substModel>
 
+        <distribution id="Standard_TIM3_rates_prior.s:$(n)" spec="beast.base.inference.distribution.Prior">
+            <x idref="TIM3rates.s:$(n)"/>
+            <distr spec="distribution.Dirichlet" alpha="1.0 1.0 1.0 1.0"/>
+        </distribution>
+
         <operator id="TIM3RateDeltaExchanger.s:$(n)" spec="kernel.BactrianDeltaExchangeOperator" delta="0.1" weight="0.1" parameter="@TIM3rates.s:$(n)">
 			<weightvector value=" 2 1 2 1" estimate="false" spec="parameter.IntegerParameter"/>
         </operator>
@@ -525,8 +682,11 @@
                      if="inlikelihood(Standard_TIM3.s:$(n))">Delta exchange rates parameter for TIM3 model at partition s:$(n)
             </connect>
 
+            <connect srcID="Standard_TIM3_rates_prior.s:$(n)" targetID="prior" inputName="distribution" if="inlikelihood(Standard_TIM3.s:$(n))"/>
+
             <!--connect srcID="TIM3rates.s:$(n)" targetID="tracelog" inputName="log" if="inlikelihood(Standard_TIM3.s:$(n))"/-->
             <connect srcID="Standard_TIM3.s:$(n)" targetID="tracelog" inputName="log" if="inlikelihood(Standard_TIM3.s:$(n))"/>
+
         </subtemplate>
 
 <!-- TIM3uf = model: 012032 unequal frequencies-->
@@ -542,6 +702,15 @@
                 <frequencies id="TIM3uffreqParameter.s:$(n)" spec="parameter.RealParameter" dimension="4" value="0.25" lower="0" upper="1"/>
             </frequencies>
         </substModel>
+
+        <distribution id="Standard_TIM3uf_rates_prior.s:$(n)" spec="beast.base.inference.distribution.Prior">
+            <x idref="TIM3ufrates.s:$(n)"/>
+            <distr spec="distribution.Dirichlet" alpha="1.0 1.0 1.0 1.0"/>
+        </distribution>
+        <distribution id="Standard_TIM3uf_frequencies_prior.s:$(n)" spec="beast.base.inference.distribution.Prior">
+            <x idref="TIM3uffreqParameter.s:$(n)"/>
+            <distr spec="distribution.Dirichlet" alpha="1.0 1.0 1.0 1.0"/>
+        </distribution>
 
         <operator id="TIM3ufRateDeltaExchanger.s:$(n)" spec="kernel.BactrianDeltaExchangeOperator" delta="0.1" weight="0.1" parameter="@TIM3ufrates.s:$(n)">
 			<weightvector value=" 2 1 2 1" estimate="false" spec="parameter.IntegerParameter"/>
@@ -561,9 +730,13 @@
                 Exchange values of frequencies of partition s:$(n)
             </connect>
 
+            <connect srcID="Standard_TIM3uf_rates_prior.s:$(n)" targetID="prior" inputName="distribution" if="inlikelihood(Standard_TIM3uf.s:$(n))"/>
+            <connect srcID="Standard_TIM3uf_frequencies_prior.s:$(n)" targetID="prior" inputName="distribution" if="inlikelihood(Standard_TIM3uf.s:$(n))"/>
+
             <!--connect srcID="TIM3ufrates.s:$(n)" targetID="tracelog" inputName="log" if="inlikelihood(Standard_TIM3uf.s:$(n))"/-->
             <connect srcID="TIM3uffreqParameter.s:$(n)" targetID="tracelog" inputName="log" if="inlikelihood(Standard_TIM3uf.s:$(n))"/>
             <connect srcID="Standard_TIM3uf.s:$(n)" targetID="tracelog" inputName="log" if="inlikelihood(Standard_TIM3uf.s:$(n))"/>
+
         </subtemplate>
 
 <!-- TVMef = model: 012314 equal frequencies-->
@@ -577,6 +750,11 @@
             <parameter id="TVMefrates.s:$(n)" name="rates" value=" 1.0 1.0 1.0 1.0 1.0" lower="0.0" estimate="true"/>
         </substModel>
 
+        <distribution id="Standard_TVMef_rates_prior.s:$(n)" spec="beast.base.inference.distribution.Prior">
+            <x idref="TVMefrates.s:$(n)"/>
+            <distr spec="distribution.Dirichlet" alpha="1.0 1.0 1.0 1.0 1.0"/>
+        </distribution>
+
         <operator id="TVMefRateDeltaExchanger.s:$(n)" spec="kernel.BactrianDeltaExchangeOperator" delta="0.1" weight="0.1" parameter="@TVMefrates.s:$(n)">
 			<weightvector value=" 1 2 1 1 1" estimate="false" spec="parameter.IntegerParameter"/>
         </operator>
@@ -589,8 +767,11 @@
                      if="inlikelihood(Standard_TVMef.s:$(n))">Delta exchange rates parameter for TVMef model at partition s:$(n)
             </connect>
 
+            <connect srcID="Standard_TVMef_rates_prior.s:$(n)" targetID="prior" inputName="distribution" if="inlikelihood(Standard_TVMef.s:$(n))"/>
+
             <!--connect srcID="TVMefrates.s:$(n)" targetID="tracelog" inputName="log" if="inlikelihood(Standard_TVMef.s:$(n))"/-->
             <connect srcID="Standard_TVMef.s:$(n)" targetID="tracelog" inputName="log" if="inlikelihood(Standard_TVMef.s:$(n))"/>
+
         </subtemplate>
 
 <!-- TVM = model: 012314 unequal frequencies-->
@@ -606,6 +787,15 @@
                 <frequencies id="TVMfreqParameter.s:$(n)" spec="parameter.RealParameter" dimension="4" value="0.25" lower="0" upper="1"/>
             </frequencies>
         </substModel>
+
+        <distribution id="Standard_TVM_rates_prior.s:$(n)" spec="beast.base.inference.distribution.Prior">
+            <x idref="TVMrates.s:$(n)"/>
+            <distr spec="distribution.Dirichlet" alpha="1.0 1.0 1.0 1.0 1.0"/>
+        </distribution>
+        <distribution id="Standard_TVM_frequencies_prior.s:$(n)" spec="beast.base.inference.distribution.Prior">
+            <x idref="TVMfreqParameter.s:$(n)"/>
+            <distr spec="distribution.Dirichlet" alpha="1.0 1.0 1.0 1.0"/>
+        </distribution>
 
         <operator id="TVMRateDeltaExchanger.s:$(n)" spec="kernel.BactrianDeltaExchangeOperator" delta="0.1" weight="0.1" parameter="@TVMrates.s:$(n)">
 			<weightvector value=" 1 2 1 1 1" estimate="false" spec="parameter.IntegerParameter"/>
@@ -625,6 +815,9 @@
                 Exchange values of frequencies of partition s:$(n)
             </connect>
 
+            <connect srcID="Standard_TVM_rates_prior.s:$(n)" targetID="prior" inputName="distribution" if="inlikelihood(Standard_TVM.s:$(n))"/>
+            <connect srcID="Standard_TVM_frequencies_prior.s:$(n)" targetID="prior" inputName="distribution" if="inlikelihood(Standard_TVM.s:$(n))"/>
+
             <!--connect srcID="TVMrates.s:$(n)" targetID="tracelog" inputName="log" if="inlikelihood(Standard_TVM.s:$(n))"/-->
             <connect srcID="TVMfreqParameter.s:$(n)" targetID="tracelog" inputName="log" if="inlikelihood(Standard_TVM.s:$(n))"/>
             <connect srcID="Standard_TVM.s:$(n)" targetID="tracelog" inputName="log" if="inlikelihood(Standard_TVM.s:$(n))"/>
@@ -641,6 +834,11 @@
             <parameter id="SYMrates.s:$(n)" name="rates" value=" 1.0 1.0 1.0 1.0 1.0 1.0" lower="0.0" estimate="true"/>
         </substModel>
 
+        <distribution id="Standard_SYM_rates_prior.s:$(n)" spec="beast.base.inference.distribution.Prior">
+            <x idref="SYMrates.s:$(n)"/>
+            <distr spec="distribution.Dirichlet" alpha="1.0 1.0 1.0 1.0 1.0 1.0"/>
+        </distribution>
+
         <operator id="SYMRateDeltaExchanger.s:$(n)" spec="kernel.BactrianDeltaExchangeOperator" delta="0.1" weight="0.1" parameter="@SYMrates.s:$(n)">
 			<weightvector value=" 1 1 1 1 1 1" estimate="false" spec="parameter.IntegerParameter"/>
         </operator>
@@ -649,9 +847,13 @@
 
             <connect srcID="SYMrates.s:$(n)" targetID="state" inputName="stateNode" if="inlikelihood(Standard_SYM.s:$(n))"/>
 
+            <connect srcID="Standard_SYM_rates_prior.s:$(n)" targetID="prior" inputName="distribution" if="inlikelihood(Standard_SYM.s:$(n))"/>
+
             <connect srcID="SYMRateDeltaExchanger.s:$(n)" targetID="mcmc" inputName="operator"
                      if="inlikelihood(Standard_SYM.s:$(n))">Delta exchange rates parameter for SYM model at partition s:$(n)
             </connect>
+
+            <connect srcID="Standard_SYM_rates_prior.s:$(n)" targetID="prior" inputName="distribution" if="inlikelihood(Standard_SYM.s:$(n))"/>
 
             <!--connect srcID="SYMrates.s:$(n)" targetID="tracelog" inputName="log" if="inlikelihood(Standard_SYM.s:$(n))"/-->
             <connect srcID="Standard_SYM.s:$(n)" targetID="tracelog" inputName="log" if="inlikelihood(Standard_SYM.s:$(n))"/>
@@ -673,12 +875,12 @@
 
         <distribution id="Standard_GTR_rates_prior.s:$(n)" spec="beast.base.inference.distribution.Prior">
             <x idref="GTRrates.s:$(n)"/>
-            <distr spec="distribution.Dirichlet" alpha="1.0 2.0 1.0 1.0 2.0 1.0"/>
+            <distr spec="distribution.Dirichlet" alpha="1.0 1.0 1.0 1.0 1.0 1.0"/>
         </distribution>
 
         <distribution id="Standard_GTR_frequencies_prior.s:$(n)" spec="beast.base.inference.distribution.Prior">
             <x idref="GTRfreqParameter.s:$(n)"/>
-            <distr spec="distribution.Dirichlet" alpha="4.0 4.0 4.0 4.0"/>
+            <distr spec="distribution.Dirichlet" alpha="1.0 1.0 1.0 1.0"/>
         </distribution>
 
         <operator id="GTRRateDeltaExchanger.s:$(n)" spec="kernel.BactrianDeltaExchangeOperator" delta="0.1" weight="0.1" parameter="@GTRrates.s:$(n)">
