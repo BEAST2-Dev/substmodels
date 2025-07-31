@@ -1,4 +1,4 @@
-<package name="SSM" version="1.2.0">
+<package name="SSM" version="1.2.2">
         <depends on='BEAST.base' atleast='2.7.0'/>
         <depends on='BEAST.app' atleast='2.7.0'/>
 

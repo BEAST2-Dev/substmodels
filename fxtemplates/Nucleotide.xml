@@ -74,11 +74,10 @@
 
         <distribution id="Standard_K80_rates_prior.s:$(n)" spec="beast.base.inference.distribution.Prior">
             <x idref="K80rates.s:$(n)"/>
-            <distr spec="distribution.Dirichlet" alpha="1.0 1.0"/>
+            <distr spec="distribution.Dirichlet" alpha="1.0 1.0" sum="2"/>
         </distribution>
 
         <operator id="K80RateDeltaExchanger.s:$(n)" spec="kernel.BactrianDeltaExchangeOperator" delta="0.1" weight="0.1" parameter="@K80rates.s:$(n)">
-			<weightvector value=" 4 2" estimate="false" spec="parameter.IntegerParameter"/>
         </operator>
 
 ]]>
@@ -110,7 +109,7 @@
 
         <distribution id="Standard_HKY_rates_prior.s:$(n)" spec="beast.base.inference.distribution.Prior">
             <x idref="HKYrates.s:$(n)"/>
-            <distr spec="distribution.Dirichlet" alpha="1.0 1.0"/>
+            <distr spec="distribution.Dirichlet" alpha="1.0 1.0" sum="2"/>
         </distribution>
         <distribution id="Standard_HKY_frequencies_prior.s:$(n)" spec="beast.base.inference.distribution.Prior">
             <x idref="HKYfreqParameter.s:$(n)"/>
@@ -118,7 +117,6 @@
         </distribution>
 
         <operator id="HKYRateDeltaExchanger.s:$(n)" spec="kernel.BactrianDeltaExchangeOperator" delta="0.1" weight="0.1" parameter="@HKYrates.s:$(n)">
-			<weightvector value=" 4 2" estimate="false" spec="parameter.IntegerParameter"/>
         </operator>
         <operator id="HKYFrequenciesExchanger.s:$(n)" spec="kernel.BactrianDeltaExchangeOperator" delta="0.01" weight="0.1" parameter="@HKYfreqParameter.s:$(n)"/>
 
@@ -157,11 +155,10 @@
 
         <distribution id="Standard_TrNef_rates_prior.s:$(n)" spec="beast.base.inference.distribution.Prior">
             <x idref="TrNefrates.s:$(n)"/>
-            <distr spec="distribution.Dirichlet" alpha="1.0 1.0 1.0"/>
+            <distr spec="distribution.Dirichlet" alpha="1.0 1.0 1.0" sum="3"/>
         </distribution>
 
         <operator id="TrNefRateDeltaExchanger.s:$(n)" spec="kernel.BactrianDeltaExchangeOperator" delta="0.1" weight="0.1" parameter="@TrNefrates.s:$(n)">
-			<weightvector value=" 4 1 1" estimate="false" spec="parameter.IntegerParameter"/>
         </operator>
 
 ]]>
@@ -195,7 +192,7 @@
 
         <distribution id="Standard_TrN_rates_prior.s:$(n)" spec="beast.base.inference.distribution.Prior">
             <x idref="TrNrates.s:$(n)"/>
-            <distr spec="distribution.Dirichlet" alpha="1.0 1.0 1.0"/>
+            <distr spec="distribution.Dirichlet" alpha="1.0 1.0 1.0" sum="3"/>
         </distribution>
         <distribution id="Standard_TrN_frequencies_prior.s:$(n)" spec="beast.base.inference.distribution.Prior">
             <x idref="TrNfreqParameter.s:$(n)"/>
@@ -203,7 +200,6 @@
         </distribution>
 
         <operator id="TrNRateDeltaExchanger.s:$(n)" spec="kernel.BactrianDeltaExchangeOperator" delta="0.1" weight="0.1" parameter="@TrNrates.s:$(n)">
-			<weightvector value=" 4 1 1" estimate="false" spec="parameter.IntegerParameter"/>
         </operator>
         <operator id="TrNFrequenciesExchanger.s:$(n)" spec="kernel.BactrianDeltaExchangeOperator" delta="0.01" weight="0.1" parameter="@TrNfreqParameter.s:$(n)"/>
 
@@ -242,11 +238,10 @@
 
         <distribution id="Standard_TPM1_rates_prior.s:$(n)" spec="beast.base.inference.distribution.Prior">
             <x idref="TPM1rates.s:$(n)"/>
-            <distr spec="distribution.Dirichlet" alpha="1.0 1.0 1.0"/>
+            <distr spec="distribution.Dirichlet" alpha="1.0 1.0 1.0" sum="3"/>
         </distribution>
 
         <operator id="TPM1RateDeltaExchanger.s:$(n)" spec="kernel.BactrianDeltaExchangeOperator" delta="0.1" weight="0.1" parameter="@TPM1rates.s:$(n)">
-			<weightvector value=" 2 2 2" estimate="false" spec="parameter.IntegerParameter"/>
         </operator>
 
 ]]>
@@ -280,7 +275,7 @@
 
         <distribution id="Standard_TPM1uf_rates_prior.s:$(n)" spec="beast.base.inference.distribution.Prior">
             <x idref="TPM1ufrates.s:$(n)"/>
-            <distr spec="distribution.Dirichlet" alpha="1.0 1.0 1.0"/>
+            <distr spec="distribution.Dirichlet" alpha="1.0 1.0 1.0" sum="3"/>
         </distribution>
         <distribution id="Standard_TPM1uf_frequencies_prior.s:$(n)" spec="beast.base.inference.distribution.Prior">
             <x idref="TPM1uffreqParameter.s:$(n)"/>
@@ -288,7 +283,6 @@
         </distribution>
 
         <operator id="TPM1ufRateDeltaExchanger.s:$(n)" spec="kernel.BactrianDeltaExchangeOperator" delta="0.1" weight="0.1" parameter="@TPM1ufrates.s:$(n)">
-			<weightvector value=" 2 2 2" estimate="false" spec="parameter.IntegerParameter"/>
         </operator>
         <operator id="TPM1ufFrequenciesExchanger.s:$(n)" spec="kernel.BactrianDeltaExchangeOperator" delta="0.01" weight="0.1" parameter="@TPM1uffreqParameter.s:$(n)"/>
 
@@ -327,11 +321,10 @@
 
         <distribution id="Standard_TPM2_rates_prior.s:$(n)" spec="beast.base.inference.distribution.Prior">
             <x idref="TPM2rates.s:$(n)"/>
-            <distr spec="distribution.Dirichlet" alpha="1.0 1.0 1.0"/>
+            <distr spec="distribution.Dirichlet" alpha="1.0 1.0 1.0" sum="3"/>
         </distribution>
 
         <operator id="TPM2RateDeltaExchanger.s:$(n)" spec="kernel.BactrianDeltaExchangeOperator" delta="0.1" weight="0.1" parameter="@TPM2rates.s:$(n)">
-			<weightvector value=" 2 2 2" estimate="false" spec="parameter.IntegerParameter"/>
         </operator>
 
 ]]>
@@ -365,7 +358,7 @@
 
         <distribution id="Standard_TPM2uf_rates_prior.s:$(n)" spec="beast.base.inference.distribution.Prior">
             <x idref="TPM2ufrates.s:$(n)"/>
-            <distr spec="distribution.Dirichlet" alpha="1.0 1.0 1.0"/>
+            <distr spec="distribution.Dirichlet" alpha="1.0 1.0 1.0" sum="3"/>
         </distribution>
         <distribution id="Standard_TPM2uf_frequencies_prior.s:$(n)" spec="beast.base.inference.distribution.Prior">
             <x idref="TPM2uffreqParameter.s:$(n)"/>
@@ -373,7 +366,6 @@
         </distribution>
 
         <operator id="TPM2ufRateDeltaExchanger.s:$(n)" spec="kernel.BactrianDeltaExchangeOperator" delta="0.1" weight="0.1" parameter="@TPM2ufrates.s:$(n)">
-			<weightvector value=" 2 2 2" estimate="false" spec="parameter.IntegerParameter"/>
         </operator>
         <operator id="TPM2ufFrequenciesExchanger.s:$(n)" spec="kernel.BactrianDeltaExchangeOperator" delta="0.01" weight="0.1" parameter="@TPM2uffreqParameter.s:$(n)"/>
 
@@ -412,11 +404,10 @@
 
         <distribution id="Standard_TPM3_rates_prior.s:$(n)" spec="beast.base.inference.distribution.Prior">
             <x idref="TPM3rates.s:$(n)"/>
-            <distr spec="distribution.Dirichlet" alpha="1.0 1.0 1.0"/>
+            <distr spec="distribution.Dirichlet" alpha="1.0 1.0 1.0" sum="3"/>
         </distribution>
 
         <operator id="TPM3RateDeltaExchanger.s:$(n)" spec="kernel.BactrianDeltaExchangeOperator" delta="0.1" weight="0.1" parameter="@TPM3rates.s:$(n)">
-			<weightvector value=" 2 2 2" estimate="false" spec="parameter.IntegerParameter"/>
         </operator>
 
 ]]>
@@ -450,7 +441,7 @@
 
         <distribution id="Standard_TPM3uf_rates_prior.s:$(n)" spec="beast.base.inference.distribution.Prior">
             <x idref="TPM3ufrates.s:$(n)"/>
-            <distr spec="distribution.Dirichlet" alpha="1.0 1.0 1.0"/>
+            <distr spec="distribution.Dirichlet" alpha="1.0 1.0 1.0" sum="3"/>
         </distribution>
         <distribution id="Standard_TPM3uf_frequencies_prior.s:$(n)" spec="beast.base.inference.distribution.Prior">
             <x idref="TPM3uffreqParameter.s:$(n)"/>
@@ -458,7 +449,6 @@
         </distribution>
 
         <operator id="TPM3ufRateDeltaExchanger.s:$(n)" spec="kernel.BactrianDeltaExchangeOperator" delta="0.1" weight="0.1" parameter="@TPM3ufrates.s:$(n)">
-			<weightvector value=" 2 2 2" estimate="false" spec="parameter.IntegerParameter"/>
         </operator>
         <operator id="TPM3ufFrequenciesExchanger.s:$(n)" spec="kernel.BactrianDeltaExchangeOperator" delta="0.01" weight="0.1" parameter="@TPM3uffreqParameter.s:$(n)"/>
 
@@ -497,11 +487,10 @@
 
         <distribution id="Standard_TIM1_rates_prior.s:$(n)" spec="beast.base.inference.distribution.Prior">
             <x idref="TIM1rates.s:$(n)"/>
-            <distr spec="distribution.Dirichlet" alpha="1.0 1.0 1.0 1.0"/>
+            <distr spec="distribution.Dirichlet" alpha="1.0 1.0 1.0 1.0" sum="4"/>
         </distribution>
 
         <operator id="TIM1RateDeltaExchanger.s:$(n)" spec="kernel.BactrianDeltaExchangeOperator" delta="0.1" weight="0.1" parameter="@TIM1rates.s:$(n)">
-			<weightvector value=" 2 1 2 1" estimate="false" spec="parameter.IntegerParameter"/>
         </operator>
 
 ]]>
@@ -535,7 +524,7 @@
 
         <distribution id="Standard_TIM1uf_rates_prior.s:$(n)" spec="beast.base.inference.distribution.Prior">
             <x idref="TIM1ufrates.s:$(n)"/>
-            <distr spec="distribution.Dirichlet" alpha="1.0 1.0 1.0 1.0"/>
+            <distr spec="distribution.Dirichlet" alpha="1.0 1.0 1.0 1.0" sum="4"/>
         </distribution>
         <distribution id="Standard_TIM1uf_frequencies_prior.s:$(n)" spec="beast.base.inference.distribution.Prior">
             <x idref="TIM1uffreqParameter.s:$(n)"/>
@@ -543,7 +532,6 @@
         </distribution>
 
         <operator id="TIM1ufRateDeltaExchanger.s:$(n)" spec="kernel.BactrianDeltaExchangeOperator" delta="0.1" weight="0.1" parameter="@TIM1ufrates.s:$(n)">
-			<weightvector value=" 2 1 2 1" estimate="false" spec="parameter.IntegerParameter"/>
         </operator>
         <operator id="TIM1ufFrequenciesExchanger.s:$(n)" spec="kernel.BactrianDeltaExchangeOperator" delta="0.01" weight="0.1" parameter="@TIM1uffreqParameter.s:$(n)"/>
 
@@ -582,11 +570,10 @@
 
         <distribution id="Standard_TIM2_rates_prior.s:$(n)" spec="beast.base.inference.distribution.Prior">
             <x idref="TIM2rates.s:$(n)"/>
-            <distr spec="distribution.Dirichlet" alpha="1.0 1.0 1.0 1.0"/>
+            <distr spec="distribution.Dirichlet" alpha="1.0 1.0 1.0 1.0" sum="4"/>
         </distribution>
 
         <operator id="TIM2RateDeltaExchanger.s:$(n)" spec="kernel.BactrianDeltaExchangeOperator" delta="0.1" weight="0.1" parameter="@TIM2rates.s:$(n)">
-			<weightvector value=" 2 1 2 1" estimate="false" spec="parameter.IntegerParameter"/>
         </operator>
 
 ]]>
@@ -620,7 +607,7 @@
 
         <distribution id="Standard_TIM2uf_rates_prior.s:$(n)" spec="beast.base.inference.distribution.Prior">
             <x idref="TIM2ufrates.s:$(n)"/>
-            <distr spec="distribution.Dirichlet" alpha="1.0 1.0 1.0 1.0"/>
+            <distr spec="distribution.Dirichlet" alpha="1.0 1.0 1.0 1.0" sum="4"/>
         </distribution>
         <distribution id="Standard_TIM2uf_frequencies_prior.s:$(n)" spec="beast.base.inference.distribution.Prior">
             <x idref="TIM2uffreqParameter.s:$(n)"/>
@@ -628,7 +615,6 @@
         </distribution>
 
         <operator id="TIM2ufRateDeltaExchanger.s:$(n)" spec="kernel.BactrianDeltaExchangeOperator" delta="0.1" weight="0.1" parameter="@TIM2ufrates.s:$(n)">
-			<weightvector value=" 2 1 2 1" estimate="false" spec="parameter.IntegerParameter"/>
         </operator>
         <operator id="TIM2ufFrequenciesExchanger.s:$(n)" spec="kernel.BactrianDeltaExchangeOperator" delta="0.01" weight="0.1" parameter="@TIM2uffreqParameter.s:$(n)"/>
 
@@ -667,11 +653,10 @@
 
         <distribution id="Standard_TIM3_rates_prior.s:$(n)" spec="beast.base.inference.distribution.Prior">
             <x idref="TIM3rates.s:$(n)"/>
-            <distr spec="distribution.Dirichlet" alpha="1.0 1.0 1.0 1.0"/>
+            <distr spec="distribution.Dirichlet" alpha="1.0 1.0 1.0 1.0" sum="4"/>
         </distribution>
 
         <operator id="TIM3RateDeltaExchanger.s:$(n)" spec="kernel.BactrianDeltaExchangeOperator" delta="0.1" weight="0.1" parameter="@TIM3rates.s:$(n)">
-			<weightvector value=" 2 1 2 1" estimate="false" spec="parameter.IntegerParameter"/>
         </operator>
 
 ]]>
@@ -705,7 +690,7 @@
 
         <distribution id="Standard_TIM3uf_rates_prior.s:$(n)" spec="beast.base.inference.distribution.Prior">
             <x idref="TIM3ufrates.s:$(n)"/>
-            <distr spec="distribution.Dirichlet" alpha="1.0 1.0 1.0 1.0"/>
+            <distr spec="distribution.Dirichlet" alpha="1.0 1.0 1.0 1.0" sum="4"/>
         </distribution>
         <distribution id="Standard_TIM3uf_frequencies_prior.s:$(n)" spec="beast.base.inference.distribution.Prior">
             <x idref="TIM3uffreqParameter.s:$(n)"/>
@@ -713,7 +698,6 @@
         </distribution>
 
         <operator id="TIM3ufRateDeltaExchanger.s:$(n)" spec="kernel.BactrianDeltaExchangeOperator" delta="0.1" weight="0.1" parameter="@TIM3ufrates.s:$(n)">
-			<weightvector value=" 2 1 2 1" estimate="false" spec="parameter.IntegerParameter"/>
         </operator>
         <operator id="TIM3ufFrequenciesExchanger.s:$(n)" spec="kernel.BactrianDeltaExchangeOperator" delta="0.01" weight="0.1" parameter="@TIM3uffreqParameter.s:$(n)"/>
 
@@ -752,11 +736,10 @@
 
         <distribution id="Standard_TVMef_rates_prior.s:$(n)" spec="beast.base.inference.distribution.Prior">
             <x idref="TVMefrates.s:$(n)"/>
-            <distr spec="distribution.Dirichlet" alpha="1.0 1.0 1.0 1.0 1.0"/>
+            <distr spec="distribution.Dirichlet" alpha="1.0 1.0 1.0 1.0 1.0" sum="5"/>
         </distribution>
 
         <operator id="TVMefRateDeltaExchanger.s:$(n)" spec="kernel.BactrianDeltaExchangeOperator" delta="0.1" weight="0.1" parameter="@TVMefrates.s:$(n)">
-			<weightvector value=" 1 2 1 1 1" estimate="false" spec="parameter.IntegerParameter"/>
         </operator>
 
 ]]>
@@ -790,7 +773,7 @@
 
         <distribution id="Standard_TVM_rates_prior.s:$(n)" spec="beast.base.inference.distribution.Prior">
             <x idref="TVMrates.s:$(n)"/>
-            <distr spec="distribution.Dirichlet" alpha="1.0 1.0 1.0 1.0 1.0"/>
+            <distr spec="distribution.Dirichlet" alpha="1.0 1.0 1.0 1.0 1.0" sum="5"/>
         </distribution>
         <distribution id="Standard_TVM_frequencies_prior.s:$(n)" spec="beast.base.inference.distribution.Prior">
             <x idref="TVMfreqParameter.s:$(n)"/>
@@ -798,7 +781,6 @@
         </distribution>
 
         <operator id="TVMRateDeltaExchanger.s:$(n)" spec="kernel.BactrianDeltaExchangeOperator" delta="0.1" weight="0.1" parameter="@TVMrates.s:$(n)">
-			<weightvector value=" 1 2 1 1 1" estimate="false" spec="parameter.IntegerParameter"/>
         </operator>
         <operator id="TVMFrequenciesExchanger.s:$(n)" spec="kernel.BactrianDeltaExchangeOperator" delta="0.01" weight="0.1" parameter="@TVMfreqParameter.s:$(n)"/>
 
@@ -836,11 +818,10 @@
 
         <distribution id="Standard_SYM_rates_prior.s:$(n)" spec="beast.base.inference.distribution.Prior">
             <x idref="SYMrates.s:$(n)"/>
-            <distr spec="distribution.Dirichlet" alpha="1.0 1.0 1.0 1.0 1.0 1.0"/>
+            <distr spec="distribution.Dirichlet" alpha="1.0 1.0 1.0 1.0 1.0 1.0" sum="6"/>
         </distribution>
 
         <operator id="SYMRateDeltaExchanger.s:$(n)" spec="kernel.BactrianDeltaExchangeOperator" delta="0.1" weight="0.1" parameter="@SYMrates.s:$(n)">
-			<weightvector value=" 1 1 1 1 1 1" estimate="false" spec="parameter.IntegerParameter"/>
         </operator>
 
 ]]>
@@ -875,7 +856,7 @@
 
         <distribution id="Standard_GTR_rates_prior.s:$(n)" spec="beast.base.inference.distribution.Prior">
             <x idref="GTRrates.s:$(n)"/>
-            <distr spec="distribution.Dirichlet" alpha="1.0 1.0 1.0 1.0 1.0 1.0"/>
+            <distr spec="distribution.Dirichlet" alpha="1.0 1.0 1.0 1.0 1.0 1.0" sum="6"/>
         </distribution>
 
         <distribution id="Standard_GTR_frequencies_prior.s:$(n)" spec="beast.base.inference.distribution.Prior">
@@ -884,7 +865,6 @@
         </distribution>
 
         <operator id="GTRRateDeltaExchanger.s:$(n)" spec="kernel.BactrianDeltaExchangeOperator" delta="0.1" weight="0.1" parameter="@GTRrates.s:$(n)">
-			<weightvector value=" 1 1 1 1 1 1" estimate="false" spec="parameter.IntegerParameter"/>
         </operator>
         <operator id="GTRFrequenciesExchanger.s:$(n)" spec="kernel.BactrianDeltaExchangeOperator" delta="0.01" weight="0.1" parameter="@GTRfreqParameter.s:$(n)"/>
 
