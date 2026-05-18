@@ -33,6 +33,13 @@
         <url>https://github.com/rbouckaert/substmodels</url>
     </scm>
 
+    <distributionManagement>
+        <repository>
+            <id>github</id>
+            <url>https://maven.pkg.github.com/BEAST2-Dev/substmodels</url>
+        </repository>
+    </distributionManagement>
+
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.release>25</maven.compiler.release>
