@@ -1,0 +1,27 @@
+<beast version="2.0" namespace="beast.base.inference:beast.base.spec.inference.parameter:beast.base.spec.inference.distribution:beast.base.inference.operator:my.beast.example">
+
+    <!-- A real-valued parameter to estimate (PositiveReal domain = must be > 0) -->
+    <parameter id="myParam" spec="RealScalarParam" value="1.0" domain="PositiveReal"/>
+
+    <run id="mcmc" spec="MCMC" chainLength="1000">
+        <state id="state">
+            <stateNode idref="myParam"/>
+        </state>
+
+        <distribution id="posterior" spec="CompoundDistribution">
+            <!-- Prior: MyDistribution applied directly to myParam (no Prior wrapper needed) -->
+            <distribution id="myPrior" spec="my.beast.example.MyDistribution" param="@myParam">
+                <mean id="priorMean" spec="RealScalarParam" value="1.0" domain="Real"/>
+            </distribution>
+        </distribution>
+
+        <operator id="myOp" spec="my.beast.example.MyScaleOperator"
+                  parameter="@myParam" scaleFactor="0.5" weight="1.0"/>
+
+        <logger id="screenlog" spec="Logger" logEvery="100">
+            <log idref="myParam"/>
+            <log idref="posterior"/>
+        </logger>
+    </run>
+
+</beast>
