@@ -1,6 +1,6 @@
 <package name="SSM" version="2.0.0">
     <depends on='BEAST.base' atleast='2.8.0'/>
-    <depends on='BEAST.fx' atleast='2.8.0'/>
+    <depends on='BEAST.app' atleast='2.8.0'/>
 
     <service type="beast.base.core.BEASTInterface">
         <provider classname="substmodels.nucleotide.Base"/>
