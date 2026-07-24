@@ -11,7 +11,7 @@
     <name>BEAST substmodels Package</name>
     <description>BEAST 3 substmodels package</description>
 
-    <url>https://github.com/rbouckaert/substmodels/</url>
+    <url>https://github.com/BEAST2-Dev/substmodels</url>
 
     <licenses>
         <license>
@@ -28,9 +28,9 @@
     </developers>
 
     <scm>
-        <connection>scm:git:git:github.com/rbouckaert/substmodels</connection>
-        <developerConnection>scm:git:ssh://github.com:rbouckaert/substmodels.git</developerConnection>
-        <url>https://github.com/rbouckaert/substmodels</url>
+        <connection>scm:git:git:github.com/BEAST2-Dev/substmodels</connection>
+        <developerConnection>scm:git:ssh://github.com:BEAST2-Dev/substmodels.git</developerConnection>
+        <url>https://github.com/BEAST2-Dev/substmodels</url>
     </scm>
 
     <distributionManagement>
