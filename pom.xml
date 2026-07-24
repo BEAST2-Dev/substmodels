@@ -28,7 +28,7 @@
     </developers>
 
     <scm>
-        <connection>scm:git:git:github.com/BEAST2-Dev/substmodels</connection>
+        <connection>scm:git:git://github.com/BEAST2-Dev/substmodels.git</connection>
         <developerConnection>scm:git:ssh://github.com:BEAST2-Dev/substmodels.git</developerConnection>
         <url>https://github.com/BEAST2-Dev/substmodels</url>
     </scm>
@@ -228,6 +228,8 @@
                         <extensions>true</extensions>
                         <configuration>
                             <publishingServerId>central</publishingServerId>
+                            <autoPublish>true</autoPublish>
+                            <waitUntil>published</waitUntil>
                         </configuration>
                     </plugin>
                 </plugins>
