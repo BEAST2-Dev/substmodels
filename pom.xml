@@ -165,7 +165,7 @@
                     <descriptors>
                         <descriptor>src/assembly/beast-package.xml</descriptor>
                     </descriptors>
-                    <finalName>${beast.pkg.name}.v${project.version}</finalName>
+                    <finalName>SSM.v${project.version}</finalName>
                     <appendAssemblyId>false</appendAssemblyId>
                 </configuration>
                 <executions>
